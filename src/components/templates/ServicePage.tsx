@@ -86,7 +86,9 @@ export function ServicePageTemplate({ title, intro, bgImageUrl, offers, technolo
                 <div className="absolute top-0 left-0 w-0 h-1.5 bg-gradient-to-r from-[#0C5A96] to-[#2F7BFF] group-hover:w-full transition-all duration-700 ease-out" />
                 
                 <div className="w-16 h-16 rounded-2xl bg-blue-50/80 text-[#0C5A96] flex items-center justify-center mb-8 group-hover:bg-gradient-to-br group-hover:from-[#0C5A96] group-hover:to-[#2F7BFF] group-hover:text-white group-hover:scale-110 group-hover:rotate-3 group-hover:shadow-lg transition-all duration-500">
-                  {React.cloneElement(offer.icon as React.ReactElement<any>, { className: 'w-8 h-8' })}
+                  <div className="w-8 h-8 [&>svg]:w-full [&>svg]:h-full">
+                    {offer.icon}
+                  </div>
                 </div>
                 
                 <h3 className="text-[22px] font-bold text-gray-900 mb-4 font-heading group-hover:text-[#0C5A96] transition-colors">
