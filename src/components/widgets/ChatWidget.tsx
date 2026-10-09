@@ -50,21 +50,33 @@ export function ChatWidget() {
 
     const userMessage: Message = { id: Date.now().toString(), role: 'user', content: input.trim() };
     
-    setState(prev => ({
-      ...prev,
-      messages: [...prev.messages, userMessage]
-    }));
+    // 1. Update state immediately so the user sees their message
+    const updatedState: ChatState = {
+      ...state,
+      messages: [...state.messages, userMessage]
+    };
+    setState(updatedState);
     setInput('');
 
-    // Get bot response
-    const { text, newState } = await getChatResponse(userMessage.content, state);
-    
-    setTimeout(() => {
-      setState({
-        ...newState,
-        messages: [...newState.messages, { id: Date.now().toString(), role: 'assistant', content: text }]
-      });
-    }, 500); // slight delay for realism
+    try {
+      // 2. Pass the updated state (which includes the user's message) to the bot logic
+      const { text, newState } = await getChatResponse(userMessage.content, updatedState);
+      
+      setTimeout(() => {
+        setState({
+          ...newState,
+          messages: [...newState.messages, { id: Date.now().toString(), role: 'assistant', content: text }]
+        });
+      }, 500); // slight delay for realism
+    } catch (error) {
+      // 3. If there is an error (e.g. API not connected), append an error message to the current state
+      setTimeout(() => {
+        setState(prev => ({
+          ...prev,
+          messages: [...prev.messages, { id: Date.now().toString(), role: 'assistant', content: "Sorry, I'm having trouble connecting to the server right now. Please try again later or visit our Contact Us page." }]
+        }));
+      }, 500);
+    }
   };
 
   return (
@@ -72,23 +84,28 @@ export function ChatWidget() {
       
       {/* Chat Window */}
       {isOpen && (
-        <div className="mb-4 bg-white rounded-lg shadow-soft border border-gray-200 w-full sm:w-[380px] h-[500px] max-h-[80vh] flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-300 origin-bottom-right">
+        <div className="mb-4 bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-gray-200/50 w-full sm:w-[380px] h-[550px] max-h-[85vh] flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-8 duration-300 origin-bottom-right">
           {/* Header */}
-          <div className="bg-[var(--primary)] text-white p-4 flex justify-between items-center">
-            <div className="flex items-center gap-2">
-              <Sparkles className="w-5 h-5" />
-              <h3 className="font-bold text-lg">AI Assistant</h3>
+          <div className="bg-gradient-to-r from-[#0C5A96] to-[#22D3EE] text-white p-5 flex justify-between items-center shadow-md z-10">
+            <div className="flex items-center gap-2.5">
+              <div className="p-1.5 bg-white/20 rounded-full">
+                <Sparkles className="w-4 h-4" />
+              </div>
+              <div>
+                <h3 className="font-bold text-[16px] leading-tight">MATIC Assistant</h3>
+                <p className="text-[11px] text-white/80 font-medium tracking-wide">ENTERPRISE AI</p>
+              </div>
             </div>
-            <button onClick={() => setIsOpen(false)} aria-label="Close chat" className="hover:text-gray-200">
+            <button onClick={() => setIsOpen(false)} aria-label="Close chat" className="hover:bg-white/20 p-1.5 rounded-full transition-colors">
               <X className="w-5 h-5" />
             </button>
           </div>
           
           {/* Messages */}
-          <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-3 bg-gray-50">
+          <div className="flex-1 overflow-y-auto p-5 flex flex-col gap-4 bg-gray-50/50">
             {state.messages.map((msg) => (
               <div key={msg.id} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                <div className={`max-w-[80%] rounded-2xl px-4 py-2 ${msg.role === 'user' ? 'bg-[var(--chat-blue)] text-white rounded-br-none' : 'bg-white text-[var(--text)] shadow-sm border border-gray-100 rounded-bl-none'}`}>
+                <div className={`max-w-[85%] rounded-2xl px-4 py-3 shadow-sm ${msg.role === 'user' ? 'bg-gradient-to-br from-[#0C5A96] to-[#2F7BFF] text-white rounded-br-sm' : 'bg-white text-gray-800 border border-gray-100 rounded-bl-sm'}`}>
                   <p className="text-[15px] whitespace-pre-wrap">{msg.content}</p>
                 </div>
               </div>
@@ -147,11 +164,11 @@ export function ChatWidget() {
       {/* Toggle Button */}
       <button 
         onClick={toggleChat}
-        className="h-14 px-5 rounded-full bg-[var(--chat-blue)] text-white shadow-soft flex items-center justify-center gap-2 hover:bg-blue-700 transition-transform hover:scale-105"
+        className="h-14 px-5 rounded-full bg-gradient-to-r from-[#0C5A96] to-[#2F7BFF] text-white shadow-[0_8px_30px_rgb(12,90,150,0.3)] flex items-center justify-center gap-2 hover:shadow-[0_8px_30px_rgb(12,90,150,0.5)] transition-all hover:scale-105"
         aria-label="Open chat"
         aria-expanded={isOpen}
       >
-        <Sparkles className="w-5 h-5" />
+        <Sparkles className="w-5 h-5 animate-pulse" />
         <span className="font-bold text-[15px]">Chat with AI</span>
       </button>
     </div>

@@ -32,13 +32,7 @@ export function Header() {
       type: 'dropdown',
       items: siteConfig.services
     },
-    { 
-      name: 'Our Company', 
-      type: 'dropdown',
-      items: [
-        { name: 'Our company', path: '/ourcompany' }
-      ]
-    },
+    { name: 'Our Company', path: '/ourcompany' },
     { name: 'Contact Us', path: '/contactus' }
   ];
 
@@ -62,14 +56,21 @@ export function Header() {
                       {link.name}
                       <ChevronDown className="w-4 h-4 transition-transform group-hover:rotate-180" />
                     </button>
-                    <div className="absolute top-[80px] left-0 w-64 bg-white shadow-soft rounded-b-md border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-200 py-2">
+                    <div className={`absolute top-[80px] left-1/2 -translate-x-1/2 bg-white shadow-xl rounded-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-300 p-4 ${link.name === 'Engagement Models' ? 'w-[600px] grid grid-cols-2 gap-4' : 'w-[200px] flex flex-col'}`}>
                       {link.items?.map(sub => (
                         <Link 
                           key={sub.name} 
                           href={sub.path}
-                          className={`block px-4 py-2.5 text-sm hover:bg-gray-50 hover:text-[var(--primary)] ${pathname === sub.path ? 'text-[var(--primary)] font-bold' : 'text-[var(--text-muted)]'}`}
+                          className={`group/item flex flex-col p-3 rounded-lg hover:bg-[#EAF3FB] transition-colors ${link.name !== 'Engagement Models' ? 'items-center' : ''}`}
                         >
-                          {sub.name}
+                          <div className={`font-bold text-[15px] group-hover/item:text-[var(--primary)] ${pathname === sub.path ? 'text-[var(--primary)]' : 'text-gray-900'}`}>
+                            {sub.name}
+                          </div>
+                          {(sub as any).desc && (
+                            <div className="text-xs text-gray-500 mt-1 line-clamp-2">
+                              {(sub as any).desc}
+                            </div>
+                          )}
                         </Link>
                       ))}
                     </div>
