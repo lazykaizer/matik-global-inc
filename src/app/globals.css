@@ -1,26 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Nunito+Sans:wght@300;400;600;700&display=swap');
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-primary: var(--primary);
+  --color-primary-dark: var(--primary-dark);
+  --font-heading: 'Montserrat', sans-serif;
+  --font-body: 'Nunito Sans', sans-serif;
+  --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --primary: #0C5A96;
+    --primary-dark: #0A4A7C;
+    --bg: #F0F0F0;
+    --surface: #FFFFFF;
+    --hero-overlay: rgba(10,10,10,0.55);
+    --text: #111111;
+    --text-muted: #444444;
+    --on-primary: #FFFFFF;
+    --widget-blue: #0B4FA8;
+    --chat-blue: #1F6FE5;
+    --logo-navy: #1F4E9C;
+    --logo-green: #3B7D23;
+  }
+
+  html.high-contrast {
+    --primary: #FFFF00;
+    --primary-dark: #FFD700;
+    --bg: #000000;
+    --surface: #111111;
+    --text: #FFFFFF;
+    --text-muted: #CCCCCC;
+    --on-primary: #000000;
+  }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--text);
+    background-color: var(--surface);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    color: var(--text);
+    font-weight: 600;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  .a11y-underline-links a {
+    text-decoration: underline !important;
+  }
+  .a11y-highlight-headings h1,
+  .a11y-highlight-headings h2,
+  .a11y-highlight-headings h3,
+  .a11y-highlight-headings h4,
+  .a11y-highlight-headings h5,
+  .a11y-highlight-headings h6 {
+    background-color: yellow;
+    color: black;
+  }
+}
+
+html.text-size-lg { font-size: 110%; }
+html.text-size-xl { font-size: 120%; }
+html.pause-animations * {
+  animation: none !important;
+  transition: none !important;
 }
