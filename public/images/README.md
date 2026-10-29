@@ -10,8 +10,6 @@ This project currently uses remote Unsplash URLs for rapid prototyping and high-
 - **Application Development Hero**: `https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop`
 - **AI and ML Hero**: `https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=2070&auto=format&fit=crop`
 - **ERP Hero**: `https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop`
-- **Cybersecurity Hero**: `https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop`
-- **Cloud Strategy Hero**: `https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop`
 - **Compliances Hero**: `https://images.unsplash.com/photo-1589829085413-56de8ae18c73?q=80&w=2070&auto=format&fit=crop`
 - **Accounting & Tax Hero**: `https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=2070&auto=format&fit=crop`
 

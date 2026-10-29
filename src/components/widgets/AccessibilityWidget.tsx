@@ -20,18 +20,18 @@ const defaultSettings: AccessibilitySettings = {
 
 export function AccessibilityWidget() {
   const [isOpen, setIsOpen] = useState(false);
-  const [settings, setSettings] = useState<AccessibilitySettings>(defaultSettings);
-  const panelRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const saved = localStorage.getItem('accessibility_settings');
-    if (saved) {
+  const [settings, setSettings] = useState<AccessibilitySettings>(() => {
+    if (typeof window !== 'undefined') {
       try {
-        const parsed = JSON.parse(saved);
-        setSettings(parsed);
-      } catch (e) {}
+        const saved = localStorage.getItem('accessibility_settings');
+        if (saved) return JSON.parse(saved);
+      } catch {
+        // Fallback to defaults
+      }
     }
-  }, []);
+    return defaultSettings;
+  });
+  const panelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     localStorage.setItem('accessibility_settings', JSON.stringify(settings));

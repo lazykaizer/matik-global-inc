@@ -1,0 +1,798 @@
+'use client';
+
+import React, { useState } from 'react';
+import Link from 'next/link';
+import { 
+  ArrowRight, 
+  Compass, 
+  Database, 
+  CheckCircle2, 
+  Brain, 
+  Cpu, 
+  ShieldCheck, 
+  Code2, 
+  Cloud, 
+  Scale, 
+  Calendar, 
+  Sparkles,
+  X
+} from 'lucide-react';
+import { GlassFold } from '@/components/ui/glass-fold';
+import { MetallicButton } from '@/components/ui/metallic-button';
+import HowItWorks from '@/components/ui/how-it-works';
+
+export function AIMLContent() {
+  const [isAssessmentOpen, setIsAssessmentOpen] = useState(false);
+
+  // Assessment Form State
+  const [assessmentStep, setAssessmentStep] = useState(1);
+  const [assessmentData, setAssessmentData] = useState({
+    industry: '',
+    aiMaturity: '',
+    primaryObjective: '',
+    timeline: '',
+    fullName: '',
+    workEmail: '',
+    companyName: ''
+  });
+  const [assessmentSubmitted, setAssessmentSubmitted] = useState(false);
+
+  return (
+    <div 
+      id="aiml-stitch-page" 
+      className="radial-bg min-h-screen relative antialiased selection:bg-diamond-blue selection:text-white overflow-hidden w-full"
+      style={{
+        backgroundColor: '#050B1A',
+        color: '#E1E8F8',
+        fontFamily: "'Inter', sans-serif"
+      }}
+    >
+      {/* Ambient Backdrop Glow Spots */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
+        <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[900px] h-[500px] bg-gradient-to-b from-diamond-blue/15 via-ice-cyan/5 to-transparent blur-[140px]"></div>
+        <div className="absolute top-[1300px] -left-48 w-[600px] h-[600px] bg-diamond-blue/10 blur-[160px]"></div>
+        <div className="absolute top-[2600px] -right-48 w-[650px] h-[650px] bg-ice-cyan/10 blur-[180px]"></div>
+      </div>
+
+      {/* =========================================================================
+          MAIN CONTAINER (Sits cleanly inside site layout)
+          ========================================================================= */}
+      <div className="w-full pt-4 sm:pt-6 max-w-[1440px] mx-auto px-6 lg:px-12 flex flex-col gap-14 lg:gap-18 pb-6 sm:pb-8">
+        
+        {/* HERO WRAPPER */}
+        <div className="w-full flex flex-col gap-3">
+
+          {/* 1. HERO SECTION */}
+          <section className="w-full grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+            <div className="lg:col-span-7 flex flex-col items-start gap-6">
+              
+
+              {/* H1 Headline */}
+              <h1 className="font-display text-4xl sm:text-5xl lg:text-[56px] lg:leading-[64px] font-bold text-surface-text tracking-tight">
+                AI that makes it past the{' '}
+                <span className="bg-gradient-to-r from-[#3D8BFF] via-[#7FD6FF] to-white bg-clip-text text-transparent drop-shadow-[0_0_35px_rgba(122,209,250,0.4)]">
+                  pilot.
+                </span>
+              </h1>
+
+              {/* Subtext verbatim */}
+              <p className="text-muted-text text-[17px] leading-relaxed max-w-2xl font-light">
+                We help life sciences and other regulated companies take AI from idea to production, with clean data, validated models and governance built in.
+              </p>
+
+              {/* Hero CTA Buttons */}
+              <div className="flex flex-wrap items-center gap-4 pt-2">
+                <button 
+                  onClick={() => setIsAssessmentOpen(true)}
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-display text-[15px] font-semibold text-white bg-gradient-to-r from-diamond-blue via-[#2563EB] to-[#1D4ED8] border border-ice-cyan/40 shadow-glow-blue hover:shadow-[0_0_35px_rgba(61,139,255,0.6)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer"
+                >
+                  <span>Book Your Free Assessment</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+                <a 
+                  className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl font-display text-[15px] font-medium text-surface-text frosted-glass hover:bg-glass-highlight hover:border-ice-cyan/40 hover:-translate-y-0.5 transition-all duration-200" 
+                  href="#what-we-do"
+                >
+                  See Our Services
+                </a>
+              </div>
+            </div>
+
+            {/* Right Hero Visual: Glowing neural network of connected diamond nodes with a faceted crystal core */}
+            <div className="lg:col-span-5 relative flex items-center justify-center pt-4 lg:pt-6">
+              <div className="relative w-full aspect-square max-w-[480px] flex items-center justify-center">
+                {/* Soft ambient radial blue glow */}
+                <div className="absolute inset-8 rounded-full bg-ice-cyan/15 blur-[70px] pointer-events-none"></div>
+                <div className="absolute inset-16 rounded-full border border-ice-cyan/20 animate-[spin_45s_linear_infinite] pointer-events-none"></div>
+                <div className="absolute inset-28 rounded-full border border-dashed border-diamond-blue/30 animate-[spin_30s_linear_infinite_reverse] pointer-events-none"></div>
+                
+                {/* Central Kinetic Neural SVG Core */}
+                <svg className="w-full h-full p-4 drop-shadow-[0_0_45px_rgba(122,209,250,0.35)]" fill="none" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <linearGradient gradientUnits="userSpaceOnUse" id="crystalFacetA" x1="140" x2="360" y1="80" y2="420">
+                      <stop offset="0%" stopColor="#7ad1fa" stopOpacity="0.9"></stop>
+                      <stop offset="50%" stopColor="#3D8BFF" stopOpacity="0.5"></stop>
+                      <stop offset="100%" stopColor="#050B1A" stopOpacity="0.95"></stop>
+                    </linearGradient>
+                    <linearGradient gradientUnits="userSpaceOnUse" id="crystalFacetB" x1="360" x2="140" y1="120" y2="380">
+                      <stop offset="0%" stopColor="#acc7ff" stopOpacity="0.85"></stop>
+                      <stop offset="100%" stopColor="#017ba0" stopOpacity="0.25"></stop>
+                    </linearGradient>
+                    <radialGradient cx="50%" cy="50%" id="centerDiamondGlow" r="50%">
+                      <stop offset="0%" stopColor="#7FD6FF" stopOpacity="0.6"></stop>
+                      <stop offset="50%" stopColor="#3D8BFF" stopOpacity="0.25"></stop>
+                      <stop offset="100%" stopColor="#050B1A" stopOpacity="0"></stop>
+                    </radialGradient>
+                    <filter height="140%" id="glowBloom" width="140%" x="-20%" y="-20%">
+                      <feGaussianBlur result="blur" stdDeviation="5"></feGaussianBlur>
+                      <feComposite in="SourceGraphic" in2="blur" operator="over"></feComposite>
+                    </filter>
+                  </defs>
+                  
+                  <circle cx="250" cy="250" fill="url(#centerDiamondGlow)" r="145"></circle>
+                  
+                  {/* Orbiting Telemetry Rings */}
+                  <ellipse cx="250" cy="250" rx="195" ry="80" stroke="#7ad1fa" strokeDasharray="5 7" strokeOpacity="0.35" strokeWidth="1.2" transform="rotate(-30 250 250)"></ellipse>
+                  <ellipse cx="250" cy="250" rx="195" ry="80" stroke="#468fff" strokeDasharray="4 6" strokeOpacity="0.3" strokeWidth="1.2" transform="rotate(40 250 250)"></ellipse>
+                  
+                  {/* Central Faceted Crystal Mesh */}
+                  <g filter="url(#glowBloom)" stroke="#acc7ff" strokeOpacity="0.75" strokeWidth="1.4">
+                    <polygon fill="url(#crystalFacetA)" fillOpacity="0.65" points="250,95 345,175 250,225 155,175"></polygon>
+                    <polygon fill="url(#crystalFacetB)" fillOpacity="0.45" points="250,95 155,175 190,265 250,225"></polygon>
+                    <polygon fill="url(#crystalFacetA)" fillOpacity="0.7" points="250,95 345,175 310,265 250,225"></polygon>
+                    <polygon fill="url(#crystalFacetB)" fillOpacity="0.55" points="155,175 250,225 250,395 190,265"></polygon>
+                    <polygon fill="url(#crystalFacetA)" fillOpacity="0.75" points="345,175 250,225 250,395 310,265"></polygon>
+                    <polygon fill="#7ad1fa" fillOpacity="0.4" points="250,225 310,265 250,335 190,265"></polygon>
+                    <polygon fill="#017ba0" fillOpacity="0.55" points="250,335 250,395 190,265"></polygon>
+                    <polygon fill="#468fff" fillOpacity="0.65" points="250,335 250,395 310,265"></polygon>
+                  </g>
+                  
+                  {/* Connected Neural Lattice Lines */}
+                  <g stroke="#7ad1fa" strokeOpacity="0.55" strokeWidth="1.2">
+                    <line x1="250" x2="395" y1="95" y2="115"></line>
+                    <line x1="345" x2="425" y1="175" y2="245"></line>
+                    <line x1="155" x2="75" y1="175" y2="215"></line>
+                    <line x1="250" x2="165" y1="395" y2="425"></line>
+                    <line x1="250" x2="345" y1="395" y2="425"></line>
+                    <line x1="250" x2="250" y1="225" y2="95"></line>
+                  </g>
+                  
+                  {/* Diamond Node Coordinates */}
+                  <g fill="#7ad1fa" filter="url(#glowBloom)">
+                    <polygon fill="#ffffff" points="250,85 257,95 250,105 243,95"></polygon>
+                    <polygon fill="#7FD6FF" points="345,168 351,175 345,182 339,175"></polygon>
+                    <polygon fill="#7FD6FF" points="155,168 161,175 155,182 149,175"></polygon>
+                    <polygon fill="#ffffff" points="250,215 259,225 250,235 241,225"></polygon>
+                    <polygon fill="#acc7ff" points="310,258 316,265 310,272 304,265"></polygon>
+                    <polygon fill="#acc7ff" points="190,258 196,265 190,272 184,265"></polygon>
+                    <polygon fill="#7FD6FF" points="250,327 257,335 250,343 243,335"></polygon>
+                    <polygon fill="#ffffff" points="250,387 257,395 250,403 243,395"></polygon>
+                    <polygon fill="#3D8BFF" points="395,109 400,115 395,121 390,115"></polygon>
+                    <polygon fill="#7FD6FF" points="425,239 430,245 425,251 420,245"></polygon>
+                    <polygon fill="#7FD6FF" points="75,209 80,215 75,221 70,215"></polygon>
+                    <polygon fill="#3D8BFF" points="165,419 170,425 165,431 160,425"></polygon>
+                    <polygon fill="#7FD6FF" points="345,419 350,425 345,431 340,425"></polygon>
+                  </g>
+                </svg>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        {/* =========================================================================
+            2. INTRO SECTION (Two-Column with Luminous Glowing Divider)
+            ========================================================================= */}
+        <section className="w-full pt-4">
+          <div className="frosted-glass rounded-3xl p-8 lg:p-14 shadow-frosted relative overflow-hidden border border-ice-cyan/20">
+            <div className="absolute -top-24 -left-24 w-80 h-80 rounded-full bg-diamond-blue/10 blur-[100px] pointer-events-none"></div>
+            
+            <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+              {/* Left Column: Large Statement */}
+              <div className="lg:col-span-5 flex flex-col">
+                <span className="font-mono text-xs tracking-widest text-ice-cyan uppercase block mb-3 font-semibold">STRATEGIC REALITY</span>
+                <h2 className="font-display text-3xl sm:text-4xl lg:text-[40px] lg:leading-[48px] font-bold text-surface-text">
+                  Most AI projects stall between the demo and production.
+                </h2>
+              </div>
+
+              {/* Glowing vertical divider */}
+              <div className="hidden lg:flex lg:col-span-1 justify-center">
+                <div className="w-[1px] h-40 bg-gradient-to-b from-transparent via-ice-cyan/50 to-transparent"></div>
+              </div>
+
+              {/* Right Column: Paragraph verbatim */}
+              <div className="lg:col-span-6">
+                <p className="text-surface-text/90 text-lg sm:text-[19px] leading-relaxed font-light">
+                  Our AI and ML team brings data scientists, ML engineers and cloud architects together to build AI that runs in production, on data you can trust and with models you can explain. Whether this is your first use case or you are scaling an existing program, we start from the business problem, not the tool.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* =========================================================================
+            3. WHAT WE DO (3x2 Glass Bento Grid)
+            ========================================================================= */}
+        <section className="w-full flex flex-col gap-8 scroll-mt-28" id="what-we-do">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <div className="flex flex-col gap-2">
+              <span className="font-mono text-xs tracking-widest text-ice-cyan uppercase font-semibold">CORE CAPABILITIES</span>
+              <h2 className="font-display text-3xl sm:text-4xl font-bold text-surface-text">What We Do</h2>
+            </div>
+            <span className="font-mono text-xs text-muted-text hidden md:block">ENTERPRISE DELIVERY SPECIFICATIONS</span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            {/* Card 1 */}
+            <div className="frosted-glass frosted-glass-hover rounded-2xl p-7 transition-all duration-300 flex flex-col justify-between group">
+              <div className="flex flex-col gap-4">
+                <div className="w-11 h-11 rounded-xl bg-diamond-blue/15 border border-ice-cyan/30 flex items-center justify-center text-ice-cyan group-hover:scale-105 transition-transform">
+                  <Compass className="w-5 h-5 text-ice-cyan" />
+                </div>
+                <h3 className="font-display text-[20px] font-semibold text-surface-text">AI Strategy and Readiness</h3>
+                <p className="text-muted-text text-[14px] leading-relaxed">
+                  Find where AI will pay off first. We assess your use cases, data and platform, then give you a prioritized roadmap.
+                </p>
+              </div>
+              <div className="pt-5 mt-4 border-t border-glass-border/40 font-mono text-[11px] text-ice-cyan/80">
+                Phase 01 · Diagnostic Roadmap
+              </div>
+            </div>
+
+            {/* Card 2 */}
+            <div className="frosted-glass frosted-glass-hover rounded-2xl p-7 transition-all duration-300 flex flex-col justify-between group">
+              <div className="flex flex-col gap-4">
+                <div className="w-11 h-11 rounded-xl bg-diamond-blue/15 border border-ice-cyan/30 flex items-center justify-center text-diamond-blue group-hover:scale-105 transition-transform">
+                  <Database className="w-5 h-5 text-diamond-blue" />
+                </div>
+                <h3 className="font-display text-[20px] font-semibold text-surface-text">Data Engineering</h3>
+                <p className="text-muted-text text-[14px] leading-relaxed">
+                  Build the governed, high-quality data pipelines every production AI system depends on.
+                </p>
+              </div>
+              <div className="pt-5 mt-4 border-t border-glass-border/40 font-mono text-[11px] text-diamond-blue/90">
+                Phase 02 · Enterprise Data Fabric
+              </div>
+            </div>
+
+            {/* Card 3 */}
+            <div className="frosted-glass frosted-glass-hover rounded-2xl p-7 transition-all duration-300 flex flex-col justify-between group">
+              <div className="flex flex-col gap-4">
+                <div className="w-11 h-11 rounded-xl bg-diamond-blue/15 border border-ice-cyan/30 flex items-center justify-center text-ice-cyan group-hover:scale-105 transition-transform">
+                  <CheckCircle2 className="w-5 h-5 text-ice-cyan" />
+                </div>
+                <h3 className="font-display text-[20px] font-semibold text-surface-text">Model Development and Validation</h3>
+                <p className="text-muted-text text-[14px] leading-relaxed">
+                  Our data scientists build, train and validate models for real business problems, documented so they can be reviewed.
+                </p>
+              </div>
+              <div className="pt-5 mt-4 border-t border-glass-border/40 font-mono text-[11px] text-ice-cyan/80">
+                Phase 03 · Mathematical Rigor
+              </div>
+            </div>
+
+            {/* Card 4 */}
+            <div className="frosted-glass frosted-glass-hover rounded-2xl p-7 transition-all duration-300 flex flex-col justify-between group">
+              <div className="flex flex-col gap-4">
+                <div className="w-11 h-11 rounded-xl bg-diamond-blue/15 border border-ice-cyan/30 flex items-center justify-center text-diamond-blue group-hover:scale-105 transition-transform">
+                  <Brain className="w-5 h-5 text-diamond-blue" />
+                </div>
+                <h3 className="font-display text-[20px] font-semibold text-surface-text">Generative AI and LLM Engineering</h3>
+                <p className="text-muted-text text-[14px] leading-relaxed">
+                  Custom LLM applications grounded in your own data, with guardrails for accuracy and privacy.
+                </p>
+              </div>
+              <div className="pt-5 mt-4 border-t border-glass-border/40 font-mono text-[11px] text-diamond-blue/90">
+                Phase 04 · Sovereign RAG
+              </div>
+            </div>
+
+            {/* Card 5 */}
+            <div className="frosted-glass frosted-glass-hover rounded-2xl p-7 transition-all duration-300 flex flex-col justify-between group">
+              <div className="flex flex-col gap-4">
+                <div className="w-11 h-11 rounded-xl bg-diamond-blue/15 border border-ice-cyan/30 flex items-center justify-center text-ice-cyan group-hover:scale-105 transition-transform">
+                  <Cpu className="w-5 h-5 text-ice-cyan" />
+                </div>
+                <h3 className="font-display text-[20px] font-semibold text-surface-text">MLOps and Production Engineering</h3>
+                <p className="text-muted-text text-[14px] leading-relaxed">
+                  Deploy, scale and retrain models reliably, so AI doesn't stall after the pilot.
+                </p>
+              </div>
+              <div className="pt-5 mt-4 border-t border-glass-border/40 font-mono text-[11px] text-ice-cyan/80">
+                Phase 05 · Automated CI/CD
+              </div>
+            </div>
+
+            {/* Card 6 */}
+            <div className="frosted-glass frosted-glass-hover rounded-2xl p-7 transition-all duration-300 flex flex-col justify-between group">
+              <div className="flex flex-col gap-4">
+                <div className="w-11 h-11 rounded-xl bg-diamond-blue/15 border border-ice-cyan/30 flex items-center justify-center text-diamond-blue group-hover:scale-105 transition-transform">
+                  <ShieldCheck className="w-5 h-5 text-diamond-blue" />
+                </div>
+                <h3 className="font-display text-[20px] font-semibold text-surface-text">AI Governance and Responsible AI</h3>
+                <p className="text-muted-text text-[14px] leading-relaxed">
+                  Monitoring, transparency and policy controls that keep your AI explainable, fair and audit-ready.
+                </p>
+              </div>
+              <div className="pt-5 mt-4 border-t border-glass-border/40 font-mono text-[11px] text-diamond-blue/90">
+                Phase 06 · Audit Readiness
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        {/* =========================================================================
+            4. CLOUD-AGNOSTIC BAND (Full Width Glass Band with Telemetry Accents)
+            ========================================================================= */}
+        <section className="w-full rounded-2xl border border-ice-cyan/30 bg-[#0B1630]/75 backdrop-blur-xl py-12 px-6 lg:px-12 relative overflow-hidden shadow-frosted">
+          <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-ice-cyan/40 to-transparent"></div>
+          <div className="absolute inset-x-0 bottom-0 h-[1px] bg-gradient-to-r from-transparent via-diamond-blue/30 to-transparent"></div>
+          <div className="absolute -top-12 left-1/4 w-80 h-24 bg-ice-cyan/10 blur-3xl pointer-events-none"></div>
+
+          <div className="max-w-4xl mx-auto flex flex-col items-center text-center">
+            <h2 className="font-display text-2xl sm:text-3xl lg:text-[32px] font-bold text-surface-text mb-6">
+              Cloud-agnostic by design
+            </h2>
+
+            {/* 4 Chips */}
+            <div className="flex flex-wrap items-center justify-center gap-3.5 mb-6">
+              <span className="px-5 py-2 rounded-xl bg-midnight/80 border border-glass-border font-display text-sm sm:text-base text-surface-text font-semibold hover:border-ice-cyan/50 transition-colors">
+                Microsoft Azure
+              </span>
+              <span className="px-5 py-2 rounded-xl bg-midnight/80 border border-glass-border font-display text-sm sm:text-base text-surface-text font-semibold hover:border-ice-cyan/50 transition-colors">
+                AWS
+              </span>
+              <span className="px-5 py-2 rounded-xl bg-midnight/80 border border-glass-border font-display text-sm sm:text-base text-surface-text font-semibold hover:border-ice-cyan/50 transition-colors">
+                Google Cloud
+              </span>
+              <span className="px-5 py-2 rounded-xl bg-midnight/80 border border-ice-cyan/40 font-mono text-xs sm:text-sm text-ice-cyan font-bold tracking-wider">
+                Multi-Cloud Certified Architects
+              </span>
+            </div>
+
+            {/* Verbatim line */}
+            <p className="text-muted-text text-base sm:text-lg leading-relaxed max-w-2xl font-light">
+              We work across all three major platforms and recommend the one, or the mix, that fits each use case.
+            </p>
+          </div>
+        </section>
+
+        {/* =========================================================================
+            5. TECHNOLOGIES (Supported Infrastructure & Frameworks)
+            ========================================================================= */}
+        <section className="w-full">
+          <div className="flex items-center justify-between mb-6">
+            <span className="font-mono text-xs text-muted-text uppercase tracking-widest flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-ice-cyan shadow-[0_0_6px_#7ad1fa]"></span>
+              SUPPORTED INFRASTRUCTURE &amp; FRAMEWORKS
+            </span>
+            <span className="font-mono text-xs text-ice-cyan hidden sm:inline">ZERO LOCK-IN</span>
+          </div>
+
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            {[
+              'TensorFlow',
+              'PyTorch',
+              'Scikit-learn',
+              'OpenAI',
+              'LangChain',
+              'Hugging Face',
+              'Databricks',
+              'Snowflake',
+              'MLflow',
+              'Apache Spark'
+            ].map((tech) => (
+              <span 
+                key={tech}
+                className="px-4 py-2 rounded-lg bg-[#0B1630]/60 border border-glass-border hover:border-ice-cyan/40 text-surface-text font-mono text-xs sm:text-sm tracking-wide transition-colors"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+        </section>
+
+        {/* =========================================================================
+            6. HOW WE WORK (Horizontal 4-Step Process with Progress Bars)
+            ========================================================================= */}
+        <section className="w-full flex flex-col gap-8">
+          <div className="flex flex-col gap-2">
+            <span className="font-mono text-xs tracking-widest text-ice-cyan uppercase font-semibold">OPERATIONAL METHODOLOGY</span>
+            <h2 className="font-display text-3xl sm:text-4xl font-bold text-surface-text">How We Work</h2>
+          </div>
+
+          <HowItWorks
+            layout="horizontal"
+            showBackgroundLines={false}
+            features={[
+              {
+                title: "Prioritize",
+                description: "We rank use cases by business value and feasibility.",
+                colorTheme: "cyan",
+              },
+              {
+                title: "Prepare",
+                description: "We clean, connect and govern the data the models need.",
+                colorTheme: "blue",
+              },
+              {
+                title: "Build and validate",
+                description: "We develop models and test them against your acceptance criteria.",
+                colorTheme: "purple",
+              },
+              {
+                title: "Deploy and monitor",
+                description: "We release to production and track performance, drift and risk.",
+                colorTheme: "cyan",
+              },
+            ]}
+          />
+        </section>
+
+        {/* =========================================================================
+            7. RELATED SERVICES (3 Glass Cards with "Learn more →")
+            ========================================================================= */}
+        <section className="w-full flex flex-col gap-8">
+          <div className="flex flex-col gap-2">
+            <span className="font-mono text-xs tracking-widest text-ice-cyan uppercase font-semibold">ECOSYSTEM EXTENSION</span>
+            <h2 className="font-display text-3xl sm:text-4xl font-bold text-surface-text">Related Services</h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            {/* Card 1 */}
+            <div className="frosted-glass frosted-glass-hover rounded-2xl p-7 transition-all duration-300 flex flex-col justify-between group">
+              <div className="flex flex-col gap-4">
+                <div className="w-10 h-10 rounded-xl bg-diamond-blue/15 border border-ice-cyan/30 flex items-center justify-center text-ice-cyan">
+                  <Code2 className="w-5 h-5 text-ice-cyan" />
+                </div>
+                <h3 className="font-display text-xl font-semibold text-surface-text">Application Development</h3>
+                <p className="text-muted-text text-sm leading-relaxed">
+                  Put AI inside your product with scalable microservices and real-time inference APIs.
+                </p>
+              </div>
+              <Link className="mt-8 font-display text-sm font-semibold text-ice-cyan flex items-center gap-1 group-hover:translate-x-1 transition-transform" href="/applications">
+                Learn more →
+              </Link>
+            </div>
+
+            {/* Card 2 */}
+            <div className="frosted-glass frosted-glass-hover rounded-2xl p-7 transition-all duration-300 flex flex-col justify-between group">
+              <div className="flex flex-col gap-4">
+                <div className="w-10 h-10 rounded-xl bg-diamond-blue/15 border border-ice-cyan/30 flex items-center justify-center text-diamond-blue">
+                  <Database className="w-5 h-5 text-diamond-blue" />
+                </div>
+                <h3 className="font-display text-xl font-semibold text-surface-text">ERP Systems</h3>
+                <p className="text-muted-text text-sm leading-relaxed">
+                  Connect machine learning pipelines directly to your core business operations.
+                </p>
+              </div>
+              <Link className="mt-8 font-display text-sm font-semibold text-diamond-blue flex items-center gap-1 group-hover:translate-x-1 transition-transform" href="/erp">
+                Learn more →
+              </Link>
+            </div>
+
+            {/* Card 3 */}
+            <div className="frosted-glass frosted-glass-hover rounded-2xl p-7 transition-all duration-300 flex flex-col justify-between group">
+              <div className="flex flex-col gap-4">
+                <div className="w-10 h-10 rounded-xl bg-diamond-blue/15 border border-ice-cyan/30 flex items-center justify-center text-ice-cyan">
+                  <Scale className="w-5 h-5 text-ice-cyan" />
+                </div>
+                <h3 className="font-display text-xl font-semibold text-surface-text">Compliance</h3>
+                <p className="text-muted-text text-sm leading-relaxed">
+                  Keep AI within international regulation, HIPAA, GxP, and SOC 2 frameworks.
+                </p>
+              </div>
+              <Link className="mt-8 font-display text-sm font-semibold text-ice-cyan flex items-center gap-1 group-hover:translate-x-1 transition-transform" href="/compliances">
+                Learn more →
+              </Link>
+            </div>
+
+          </div>
+        </section>
+
+        {/* =========================================================================
+            8. FINAL CTA (Large Glowing Gradient Card)
+            ========================================================================= */}
+        <section className="w-full scroll-mt-28" id="assessment">
+          <div className="relative rounded-3xl p-8 sm:p-10 lg:py-10 lg:px-14 overflow-hidden bg-gradient-to-r from-[#0B1630] via-[#101E40] to-[#0B1630] border-2 border-ice-cyan/50 shadow-glow-cyan flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-10">
+            
+            {/* Background Shader Animation */}
+            <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-40">
+              <GlassFold speed={0.8} scale={1} className="w-full h-full" color1="#1e3cc8" color2="#06081e" color3="#7FD6FF" />
+            </div>
+
+            {/* Glowing Light Streak Accents */}
+            <div className="absolute -top-32 -left-32 w-80 h-80 rounded-full bg-diamond-blue/25 blur-[90px] pointer-events-none"></div>
+            <div className="absolute -bottom-32 -right-32 w-80 h-80 rounded-full bg-ice-cyan/25 blur-[90px] pointer-events-none"></div>
+
+            <div className="flex flex-col gap-3 max-w-2xl text-center lg:text-left z-10">
+              <h2 className="font-display text-2xl sm:text-3xl lg:text-[34px] font-bold text-surface-text leading-tight">
+                Start with a free AI readiness assessment.
+              </h2>
+              <p className="text-muted-text text-sm sm:text-base leading-relaxed font-light">
+                We map your use cases, data and platform to a prioritized roadmap. No cost, no commitment.
+              </p>
+            </div>
+
+            <div className="shrink-0 z-10">
+              <MetallicButton label="Book Your Free Assessment" onClick={() => setIsAssessmentOpen(true)} />
+            </div>
+
+          </div>
+        </section>
+
+      </div>
+
+      {/* =========================================================================
+          INTERACTIVE 3-STEP AI READINESS ASSESSMENT MODAL
+          ========================================================================= */}
+      {isAssessmentOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center px-4 bg-midnight/85 backdrop-blur-xl">
+          <div className="relative w-full max-w-2xl rounded-3xl bg-[#0B1630] border border-ice-cyan/40 p-8 shadow-[0_0_60px_rgba(61,139,255,0.35)] overflow-hidden">
+            
+            {/* Close Button */}
+            <button 
+              onClick={() => setIsAssessmentOpen(false)}
+              className="absolute top-6 right-6 w-9 h-9 rounded-full bg-midnight/80 border border-glass-border flex items-center justify-center text-muted-text hover:text-white transition-colors cursor-pointer"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            {!assessmentSubmitted ? (
+              <div className="flex flex-col gap-6">
+                
+                {/* Header & Steps */}
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <Sparkles className="w-4 h-4 text-ice-cyan" />
+                    <span className="font-mono text-xs uppercase text-ice-cyan tracking-wider font-semibold">
+                      STEP {assessmentStep} OF 3
+                    </span>
+                  </div>
+                  <h3 className="font-display text-2xl font-bold text-surface-text">
+                    AI Readiness Assessment
+                  </h3>
+                  <p className="text-sm text-muted-text mt-1">
+                    Complete this 60-second diagnostic to receive an unbiased feasibility evaluation and production roadmap.
+                  </p>
+                </div>
+
+                {/* Progress bar */}
+                <div className="w-full h-1.5 bg-midnight rounded-full overflow-hidden">
+                  <div 
+                    className="h-full bg-gradient-to-r from-diamond-blue to-ice-cyan transition-all duration-300"
+                    style={{ width: assessmentStep === 1 ? '33%' : assessmentStep === 2 ? '66%' : '100%' }}
+                  ></div>
+                </div>
+
+                {/* STEP 1: Industry & AI Maturity */}
+                {assessmentStep === 1 && (
+                  <div className="flex flex-col gap-5 pt-2">
+                    <div>
+                      <label className="block text-xs font-mono text-muted-text uppercase mb-2">1. What is your industry?</label>
+                      <div className="grid grid-cols-2 gap-2.5">
+                        {[
+                          'Life Sciences & BioTech', 
+                          'Healthcare & Payers', 
+                          'Financial Services', 
+                          'Advanced Manufacturing', 
+                          'Retail & Consumer', 
+                          'Technology / SaaS'
+                        ].map((ind) => (
+                          <button
+                            key={ind}
+                            type="button"
+                            onClick={() => setAssessmentData({ ...assessmentData, industry: ind })}
+                            className={`p-3 rounded-xl border text-left text-xs font-medium transition-all cursor-pointer ${
+                              assessmentData.industry === ind 
+                                ? 'bg-diamond-blue/25 border-ice-cyan text-white shadow-glow-cyan/20' 
+                                : 'bg-[#050B1A]/70 border-glass-border text-muted-text hover:border-ice-cyan/40'
+                            }`}
+                          >
+                            {ind}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-mono text-muted-text uppercase mb-2">2. Current AI Adoption Level?</label>
+                      <div className="grid grid-cols-2 gap-2.5">
+                        {[
+                          'Exploring / Ideation', 
+                          'Active Proof of Concept', 
+                          'Initial Production App', 
+                          'Scaling Multi-Model Mesh'
+                        ].map((mat) => (
+                          <button
+                            key={mat}
+                            type="button"
+                            onClick={() => setAssessmentData({ ...assessmentData, aiMaturity: mat })}
+                            className={`p-3 rounded-xl border text-left text-xs font-medium transition-all cursor-pointer ${
+                              assessmentData.aiMaturity === mat 
+                                ? 'bg-diamond-blue/25 border-ice-cyan text-white shadow-glow-cyan/20' 
+                                : 'bg-[#050B1A]/70 border-glass-border text-muted-text hover:border-ice-cyan/40'
+                            }`}
+                          >
+                            {mat}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="flex justify-end pt-3">
+                      <button
+                        type="button"
+                        onClick={() => setAssessmentStep(2)}
+                        disabled={!assessmentData.industry || !assessmentData.aiMaturity}
+                        className="px-6 py-2.5 rounded-full font-display text-sm font-semibold text-white bg-gradient-to-r from-diamond-blue to-[#1D4ED8] disabled:opacity-40 disabled:cursor-not-allowed shadow-glow-blue cursor-pointer"
+                      >
+                        Next Step →
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {/* STEP 2: Objective & Timeline */}
+                {assessmentStep === 2 && (
+                  <div className="flex flex-col gap-5 pt-2">
+                    <div>
+                      <label className="block text-xs font-mono text-muted-text uppercase mb-2">3. Primary AI Objective?</label>
+                      <div className="grid grid-cols-2 gap-2.5">
+                        {[
+                          'Custom Generative AI / LLM', 
+                          'Predictive Forecasting & BI', 
+                          'MLOps & Production Pipeline', 
+                          'Data Engineering & Governance'
+                        ].map((obj) => (
+                          <button
+                            key={obj}
+                            type="button"
+                            onClick={() => setAssessmentData({ ...assessmentData, primaryObjective: obj })}
+                            className={`p-3 rounded-xl border text-left text-xs font-medium transition-all cursor-pointer ${
+                              assessmentData.primaryObjective === obj 
+                                ? 'bg-diamond-blue/25 border-ice-cyan text-white shadow-glow-cyan/20' 
+                                : 'bg-[#050B1A]/70 border-glass-border text-muted-text hover:border-ice-cyan/40'
+                            }`}
+                          >
+                            {obj}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-mono text-muted-text uppercase mb-2">4. Target Timeline for Production?</label>
+                      <div className="grid grid-cols-2 gap-2.5">
+                        {[
+                          'Immediate (< 30 days)', 
+                          'Next 1-3 Months', 
+                          '3-6 Months', 
+                          'Fiscal Budget Planning'
+                        ].map((tl) => (
+                          <button
+                            key={tl}
+                            type="button"
+                            onClick={() => setAssessmentData({ ...assessmentData, timeline: tl })}
+                            className={`p-3 rounded-xl border text-left text-xs font-medium transition-all cursor-pointer ${
+                              assessmentData.timeline === tl 
+                                ? 'bg-diamond-blue/25 border-ice-cyan text-white shadow-glow-cyan/20' 
+                                : 'bg-[#050B1A]/70 border-glass-border text-muted-text hover:border-ice-cyan/40'
+                            }`}
+                          >
+                            {tl}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="flex justify-between pt-3">
+                      <button
+                        type="button"
+                        onClick={() => setAssessmentStep(1)}
+                        className="px-5 py-2 rounded-full font-display text-sm text-muted-text hover:text-white"
+                      >
+                        ← Back
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setAssessmentStep(3)}
+                        disabled={!assessmentData.primaryObjective || !assessmentData.timeline}
+                        className="px-6 py-2.5 rounded-full font-display text-sm font-semibold text-white bg-gradient-to-r from-diamond-blue to-[#1D4ED8] disabled:opacity-40 disabled:cursor-not-allowed shadow-glow-blue cursor-pointer"
+                      >
+                        Next Step →
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {/* STEP 3: Dispatch & Contact Details */}
+                {assessmentStep === 3 && (
+                  <div className="flex flex-col gap-4 pt-2">
+                    <div>
+                      <label className="block text-xs font-mono text-muted-text uppercase mb-1.5">Full Name</label>
+                      <input 
+                        type="text" 
+                        value={assessmentData.fullName}
+                        onChange={(e) => setAssessmentData({ ...assessmentData, fullName: e.target.value })}
+                        placeholder="Dr. Jordan Bennett"
+                        className="w-full px-4 py-2.5 rounded-xl bg-[#050B1A] border border-glass-border text-white text-sm focus:border-ice-cyan outline-none"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-mono text-muted-text uppercase mb-1.5">Work Email (for evaluation delivery)</label>
+                      <input 
+                        type="email" 
+                        value={assessmentData.workEmail}
+                        onChange={(e) => setAssessmentData({ ...assessmentData, workEmail: e.target.value })}
+                        placeholder="jordan.bennett@enterprise.com"
+                        className="w-full px-4 py-2.5 rounded-xl bg-[#050B1A] border border-glass-border text-white text-sm focus:border-ice-cyan outline-none"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-mono text-muted-text uppercase mb-1.5">Company Name</label>
+                      <input 
+                        type="text" 
+                        value={assessmentData.companyName}
+                        onChange={(e) => setAssessmentData({ ...assessmentData, companyName: e.target.value })}
+                        placeholder="Apex Therapeutics Inc"
+                        className="w-full px-4 py-2.5 rounded-xl bg-[#050B1A] border border-glass-border text-white text-sm focus:border-ice-cyan outline-none"
+                      />
+                    </div>
+
+                    <div className="flex justify-between pt-4">
+                      <button
+                        type="button"
+                        onClick={() => setAssessmentStep(2)}
+                        className="px-5 py-2 rounded-full font-display text-sm text-muted-text hover:text-white"
+                      >
+                        ← Back
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setAssessmentSubmitted(true)}
+                        disabled={!assessmentData.fullName || !assessmentData.workEmail}
+                        className="px-7 py-3 rounded-full font-display text-sm font-semibold text-white bg-gradient-to-r from-diamond-blue to-[#1D4ED8] shadow-glow-blue hover:shadow-glow-cyan transition-all cursor-pointer"
+                      >
+                        Generate Assessment Report →
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div className="py-8 flex flex-col items-center text-center gap-4">
+                <div className="w-16 h-16 rounded-full bg-diamond-blue/20 border border-ice-cyan/40 flex items-center justify-center text-ice-cyan shadow-glow-cyan">
+                  <CheckCircle2 className="w-8 h-8 text-ice-cyan" />
+                </div>
+                <h4 className="font-display text-2xl font-bold text-surface-text">
+                  Assessment Dispatched!
+                </h4>
+                <p className="text-sm text-muted-text max-w-md">
+                  Thank you, <span className="text-ice-cyan font-semibold">{assessmentData.fullName}</span>. Based on your profile ({assessmentData.industry}), our Principal AI Architect is preparing a production readiness roadmap for <span className="text-white font-medium">{assessmentData.companyName || 'your organization'}</span>.
+                </p>
+                <button
+                  onClick={() => {
+                    setIsAssessmentOpen(false);
+                    setAssessmentSubmitted(false);
+                    setAssessmentStep(1);
+                  }}
+                  className="mt-4 px-6 py-2.5 rounded-full font-display text-xs font-semibold text-white bg-midnight border border-glass-border hover:border-ice-cyan cursor-pointer"
+                >
+                  Close Window
+                </button>
+              </div>
+            )}
+
+          </div>
+        </div>
+      )}
+
+    </div>
+  );
+}

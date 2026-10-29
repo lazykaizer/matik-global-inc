@@ -1,47 +1,113 @@
 import React from 'react';
-import { ServicePageTemplate } from '@/components/templates/ServicePage';
-import { Briefcase, ArrowRightLeft, Headset, HardDrive, LayoutDashboard, Cog } from 'lucide-react';
+import type { Metadata } from 'next';
+import { ERPContent } from '@/components/erp/ERPContent';
+import { siteConfig } from '@/config/site';
 
-export default function ERP() {
-  return (
-    <ServicePageTemplate 
-      title="ERP"
-      intro="Streamline operations and improve financial visibility across NetSuite, Infor JD Edwards, SAP, and MS Dynamics. We align your enterprise resource planning systems with your strategic growth objectives."
-      bgImageUrl="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop"
-      technologies={['NetSuite', 'SAP S/4HANA', 'Microsoft Dynamics 365', 'Infor JD Edwards', 'Oracle Cloud ERP', 'Workday', 'MuleSoft', 'Dell Boomi']}
-      relatedSlugs={['accountingtax', 'cloudstrategy', 'aiml']}
-      offers={[
+export const metadata: Metadata = {
+  title: 'ERP Solutions | Frosted Glassmorphism Architecture',
+  description: 'Consulting, implementation and managed services across Oracle NetSuite, SAP S/4HANA, Infor CloudSuite, IBM Maximo, JD Edwards EnterpriseOne and Microsoft Dynamics 365.',
+  keywords: [
+    'ERP Solutions',
+    'Oracle NetSuite Consulting',
+    'SAP S/4HANA Implementation',
+    'Infor CloudSuite',
+    'IBM Maximo',
+    'JD Edwards EnterpriseOne',
+    'Microsoft Dynamics 365',
+    'Zero Handoff ERP',
+    'Matic Global Solutions'
+  ],
+  openGraph: {
+    title: 'ERP Solutions | Matic Global Solutions Inc',
+    description: 'Choose the right ERP. Get it live without handoff gaps. Advisory, execution, and continuous support across tier-1 platforms.',
+    url: 'https://www.maticglobal.com/erp',
+    siteName: siteConfig.name,
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'ERP Solutions | Matic Global Solutions Inc',
+    description: 'Choose the right ERP. Get it live without handoff gaps.',
+  }
+};
+
+export default function ERPPage() {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    serviceType: 'Enterprise Resource Planning Consulting and Implementation',
+    provider: {
+      '@type': 'Organization',
+      name: siteConfig.name,
+      url: 'https://www.maticglobal.com'
+    },
+    areaServed: 'Global',
+    description: 'Strategic consulting, agile implementation, cloud migration, and managed services for Oracle NetSuite, SAP S/4HANA, Infor, IBM Maximo, JDE, and Microsoft Dynamics 365.',
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'ERP Lifecycle Offerings',
+      itemListElement: [
         {
-          icon: <Briefcase />,
-          title: "ERP Selection & Strategy",
-          description: "Unbiased consulting to evaluate and select the optimal ERP platform tailored to your industry and growth trajectory."
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Strategy and Platform Selection'
+          }
         },
         {
-          icon: <Cog />,
-          title: "System Implementation",
-          description: "End-to-end implementation focusing on risk mitigation, user adoption, and aligning the software to your business processes."
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Implementation and Configuration'
+          }
         },
         {
-          icon: <ArrowRightLeft />,
-          title: "Migration & Upgrades",
-          description: "Seamless data migration and version upgrades from legacy on-premise systems to modern cloud ERP environments."
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Upgrades and Cloud Migration'
+          }
         },
         {
-          icon: <HardDrive />,
-          title: "Integration Services",
-          description: "Connecting your ERP with CRM, HRIS, and proprietary systems using robust middleware solutions like MuleSoft or Boomi."
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Integration and Development'
+          }
         },
         {
-          icon: <LayoutDashboard />,
-          title: "Customization & Analytics",
-          description: "Developing custom modules and advanced BI dashboards to extract actionable intelligence from your ERP data."
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Managed Services'
+          }
         },
         {
-          icon: <Headset />,
-          title: "Managed Support",
-          description: "Post-go-live optimization, functional support, and continuous improvement to maximize your ERP investment."
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Analytics and Reporting'
+          }
+        },
+        {
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Training and Change Management'
+          }
         }
-      ]}
-    />
+      ]
+    }
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <ERPContent />
+    </>
   );
 }

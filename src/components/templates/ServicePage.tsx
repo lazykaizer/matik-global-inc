@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { siteConfig } from '@/config/site';
+import HowItWorks from '@/components/ui/how-it-works';
 
 export type ServicePageProps = {
   title: string;
@@ -25,14 +26,6 @@ export function ServicePageTemplate({ title, intro, bgImageUrl, offers, technolo
         <div className="absolute inset-0 bg-[var(--hero-overlay)]" />
         
         <div className="relative z-10 max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 w-full">
-          {/* Breadcrumbs */}
-          <div className="text-gray-300 text-sm mb-6 font-medium">
-            <Link href="/" className="hover:text-white transition-colors">Home</Link>
-            <span className="mx-2">/</span>
-            <span>Engagement Models</span>
-            <span className="mx-2">/</span>
-            <span className="text-white">{title}</span>
-          </div>
 
           <div className="max-w-3xl">
             <h1 className="text-[40px] md:text-[56px] font-bold text-white leading-[1.1] mb-6">{title}</h1>
@@ -74,27 +67,35 @@ export function ServicePageTemplate({ title, intro, bgImageUrl, offers, technolo
       </section>
 
       {/* How we engage */}
-      <section className="w-full bg-[var(--primary)] py-16 md:py-24">
+      <section className="w-full bg-[#070E1D] py-16 md:py-24 border-t border-blue-500/15">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-[32px] md:text-[40px] font-bold text-white mb-16 text-center font-heading">How We Engage</h2>
-          <div className="flex flex-col md:flex-row justify-between gap-8 relative">
-            <div className="hidden md:block absolute top-6 left-0 right-0 h-0.5 bg-[var(--primary-dark)] z-0"></div>
-            
-            {['Discover', 'Design', 'Deliver', 'Optimize'].map((step, idx) => (
-              <div key={step} className="flex flex-col items-center relative z-10 md:w-1/4">
-                <div className="w-12 h-12 rounded-full bg-white text-[var(--primary)] flex items-center justify-center font-bold text-xl mb-4 border-4 border-[var(--primary)] shadow-sm">
-                  {idx + 1}
-                </div>
-                <h3 className="text-white text-xl font-bold mb-2 font-heading">{step}</h3>
-                <p className="text-gray-200 text-center text-sm px-4">
-                  {idx === 0 && 'We start by understanding your unique requirements, regulatory landscape, and business objectives.'}
-                  {idx === 1 && 'Our experts architect a robust, compliant, and scalable solution tailored to your enterprise.'}
-                  {idx === 2 && 'Agile implementation ensures rapid time-to-market without compromising on quality or security.'}
-                  {idx === 3 && 'Continuous monitoring, support, and refinement to maximize ROI and operational efficiency.'}
-                </p>
-              </div>
-            ))}
-          </div>
+          <HowItWorks
+            layout="horizontal"
+            showBackgroundLines={false}
+            features={[
+              {
+                title: "Discover",
+                description: "We start by understanding your unique requirements, regulatory landscape, and business objectives.",
+                colorTheme: "cyan",
+              },
+              {
+                title: "Design",
+                description: "Our experts architect a robust, compliant, and scalable solution tailored to your enterprise.",
+                colorTheme: "blue",
+              },
+              {
+                title: "Deliver",
+                description: "Agile implementation ensures rapid time-to-market without compromising on quality or security.",
+                colorTheme: "purple",
+              },
+              {
+                title: "Optimize",
+                description: "Continuous monitoring, support, and refinement to maximize ROI and operational efficiency.",
+                colorTheme: "cyan",
+              },
+            ]}
+          />
         </div>
       </section>
 

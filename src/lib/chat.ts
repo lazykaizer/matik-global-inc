@@ -87,7 +87,7 @@ export async function getChatResponse(
 
   if (lowerInput.includes('service') || lowerInput.includes('do you do')) {
     return {
-      text: "We specialize in Application Development, AI and ML, ERP, Cybersecurity, Cloud Strategy, Compliances, and Accounting & Taxation. Which of these interests you?",
+      text: "We specialize in Application Development, AI and ML, ERP, Compliances, and Accounting & Taxation. Which of these interests you?",
       newState: state
     };
   }

@@ -1,47 +1,105 @@
 import React from 'react';
-import { ServicePageTemplate } from '@/components/templates/ServicePage';
-import { Code, Smartphone, Blocks, Wrench, ShieldCheck, Database } from 'lucide-react';
+import type { Metadata } from 'next';
+import { AppDevContent } from '@/components/appdev/AppDevContent';
+import { siteConfig } from '@/config/site';
 
-export default function Applications() {
-  return (
-    <ServicePageTemplate 
-      title="Application Development"
-      intro="We deliver scalable, secure, and high-performance custom web, mobile, and software solutions for your enterprise. Our application development services bridge the gap between complex regulatory requirements and modern digital experiences."
-      bgImageUrl="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop"
-      technologies={['React', 'Next.js', 'Node.js', 'Python', 'Java', 'Swift', 'Kotlin', 'GraphQL', 'Docker', 'Kubernetes']}
-      relatedSlugs={['aiml', 'cloudstrategy', 'cybersecurity']}
-      offers={[
+export const metadata: Metadata = {
+  title: 'Application Development | Enterprise Software & Cloud-Native Systems',
+  description: 'Software your team can ship, and your auditor can trust. Custom web apps, native mobile, scalable APIs, and legacy modernization engineered for regulated enterprises.',
+  keywords: [
+    'Application Development',
+    'Enterprise Web Applications',
+    'Mobile App Development',
+    'API Architecture',
+    'Legacy Modernization',
+    'DevSecOps',
+    'Regulated Software Development',
+    'Matic Global Solutions'
+  ],
+  openGraph: {
+    title: 'Application Development | Matic Global Solutions Inc',
+    description: 'Software your team can ship, and your auditor can trust. Custom web, mobile, and cloud-native software engineering.',
+    url: 'https://www.maticglobal.com/applications',
+    siteName: siteConfig.name,
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Application Development | Matic Global Solutions Inc',
+    description: 'Software your team can ship, and your auditor can trust. High-assurance software engineering.',
+  }
+};
+
+export default function ApplicationsPage() {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    serviceType: 'Enterprise Application Development & Engineering',
+    provider: {
+      '@type': 'Organization',
+      name: siteConfig.name,
+      url: 'https://www.maticglobal.com'
+    },
+    areaServed: 'Global',
+    description: 'Custom web, mobile, API, and legacy modernization solutions engineered for high performance, compliance, and cloud scale.',
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Application Development Capabilities',
+      itemListElement: [
         {
-          icon: <Code />,
-          title: "Custom Web Applications",
-          description: "End-to-end development of responsive, accessible, and high-performance web applications tailored to your specific operational needs."
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Custom Web Applications'
+          }
         },
         {
-          icon: <Smartphone />,
-          title: "Mobile App Development",
-          description: "Native and cross-platform mobile experiences that empower your workforce and engage your customers securely."
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Mobile App Development'
+          }
         },
         {
-          icon: <Blocks />,
-          title: "API Development & Integration",
-          description: "Robust, secure APIs that seamlessly connect your disparate systems, creating a unified digital ecosystem."
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'API Development & Integration'
+          }
         },
         {
-          icon: <Database />,
-          title: "Legacy Modernization",
-          description: "Transform monolithic, outdated systems into agile, cloud-native architectures without disrupting core business workflows."
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Legacy Modernization'
+          }
         },
         {
-          icon: <ShieldCheck />,
-          title: "Secure by Design",
-          description: "Integrating DevSecOps from day one to ensure compliance with stringent industry standards like HIPAA and GDPR."
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'Secure by Design DevSecOps'
+          }
         },
         {
-          icon: <Wrench />,
-          title: "QA & DevOps",
-          description: "Automated testing, continuous integration, and continuous deployment pipelines to accelerate delivery and ensure reliability."
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: 'QA & Continuous Delivery'
+          }
         }
-      ]}
-    />
+      ]
+    }
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <AppDevContent />
+    </>
   );
 }

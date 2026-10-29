@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-import { AccessibilityWidget } from "@/components/widgets/AccessibilityWidget";
-import { ChatWidget } from "@/components/widgets/ChatWidget";
 import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
@@ -57,7 +55,7 @@ export default function RootLayout({
 
   return (
     <html lang="en" className="scroll-smooth">
-      <body className="antialiased min-h-screen flex flex-col pt-20 relative">
+      <body className="antialiased min-h-screen flex flex-col pt-20 relative bg-[#050B1A] text-slate-100">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -67,8 +65,6 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
-        <AccessibilityWidget />
-        <ChatWidget />
       </body>
     </html>
   );

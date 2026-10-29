@@ -14,8 +14,6 @@ export const siteConfig = {
     { name: "Application Development", path: "/applications" },
     { name: "AI and ML", path: "/aiml" },
     { name: "ERP", path: "/erp" },
-    { name: "Cybersecurity", path: "/cybersecurity" },
-    { name: "Cloud Strategy and Infrastructure", path: "/cloudstrategy" },
     { name: "Compliances", path: "/compliances" },
     { name: "Accounting and Taxation", path: "/accountingtax" },
   ]

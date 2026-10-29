@@ -9,14 +9,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/applications',
     '/aiml',
     '/erp',
-    '/cybersecurity',
-    '/cloudstrategy',
     '/compliances',
     '/accountingtax',
     '/ourcompany',
     '/contactus',
     '/privacypolicy',
-    '/disclaimer',
   ];
 
   return routes.map((route) => ({

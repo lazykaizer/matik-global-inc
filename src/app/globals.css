@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Nunito+Sans:wght@300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Montserrat:wght@400;500;600;700&family=Nunito+Sans:wght@300;400;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -6,7 +7,23 @@
   --color-primary-dark: var(--primary-dark);
   --font-heading: 'Montserrat', sans-serif;
   --font-body: 'Nunito Sans', sans-serif;
+  --font-space: 'Space Grotesk', sans-serif;
+  --font-inter: 'Inter', sans-serif;
+  --font-mono-telemetry: 'JetBrains Mono', monospace;
   --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --color-diamond-blue: #3D8BFF;
+  --color-ice-cyan: #7FD6FF;
+  --color-midnight: #050B1A;
+  --color-glass-base: rgba(11, 22, 48, 0.65);
+  --color-glass-card: rgba(16, 30, 64, 0.55);
+  --color-glass-highlight: rgba(22, 40, 84, 0.7);
+  --color-accent-glow: rgba(61, 139, 255, 0.25);
+  --color-glass-border: rgba(125, 170, 255, 0.18);
+  --color-glass-border-hover: rgba(127, 214, 255, 0.42);
+  --color-surface-text: #E1E8F8;
+  --color-muted-text: #91A3C4;
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
 }
 
 @layer base {
@@ -37,8 +54,9 @@
 
   body {
     font-family: var(--font-body);
-    color: var(--text);
-    background-color: var(--surface);
+    color: #E1E8F8;
+    background-color: #050B1A;
+    overflow-x: hidden;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -69,3 +87,108 @@ html.pause-animations * {
   animation: none !important;
   transition: none !important;
 }
+
+/* Frosted Glassmorphism Design System */
+.radial-bg,
+.radial-erp-bg {
+  background-color: #050B1A;
+  background-image: 
+    radial-gradient(circle at 18% 12%, rgba(61, 139, 255, 0.14) 0%, transparent 45%),
+    radial-gradient(circle at 85% 35%, rgba(127, 214, 255, 0.11) 0%, transparent 40%),
+    radial-gradient(circle at 50% 68%, rgba(61, 139, 255, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 15% 90%, rgba(127, 214, 255, 0.1) 0%, transparent 42%);
+}
+
+.frosted-glass {
+  background: rgba(11, 22, 48, 0.58);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(125, 170, 255, 0.18);
+}
+
+.frosted-glass-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.frosted-glass-hover:hover {
+  background: rgba(16, 30, 64, 0.75);
+  border-color: rgba(127, 214, 255, 0.42);
+  box-shadow: 0 12px 40px -8px rgba(61, 139, 255, 0.22);
+}
+
+.shadow-frosted {
+  box-shadow: 0 8px 32px 0 rgba(0, 4, 18, 0.37);
+}
+
+.shadow-frosted-lg {
+  box-shadow: 0 16px 48px -8px rgba(0, 4, 20, 0.65);
+}
+
+.shadow-glow-blue {
+  box-shadow: 0 0 35px -5px rgba(61, 139, 255, 0.35);
+}
+
+.shadow-glow-cyan {
+  box-shadow: 0 0 30px -5px rgba(127, 214, 255, 0.35);
+}
+
+/* =========================================================================
+   WHAT WE DO: 5-CARD STATIC RESPONSIVE GRID (Matching Industries Section)
+   ========================================================================= */
+.services-static-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  width: 100%;
+  margin-inline: auto;
+  padding-block: 8px;
+  align-items: stretch;
+}
+
+.services-grid-item {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Tablet (768px to 1023px): 2 columns, 5th card centered on its own row */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .services-static-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  .services-card-5 {
+    grid-column: 1 / span 2;
+    max-width: 480px;
+    width: 100%;
+    justify-self: center;
+    margin-inline: auto;
+  }
+}
+
+/* Desktop (>=1024px): 6-column CSS grid (3 cards in Row 1, 2 cards centered in Row 2) */
+@media (min-width: 1024px) {
+  .services-static-grid {
+    grid-template-columns: repeat(6, 1fr);
+    gap: 24px;
+    max-width: 1280px;
+  }
+  .services-card-1 {
+    grid-column: 1 / span 2;
+  }
+  .services-card-2 {
+    grid-column: 3 / span 2;
+  }
+  .services-card-3 {
+    grid-column: 5 / span 2;
+  }
+  .services-card-4 {
+    grid-column: 2 / span 2;
+  }
+  .services-card-5 {
+    grid-column: 4 / span 2;
+    margin-inline: 0;
+    max-width: none;
+  }
+}
+
