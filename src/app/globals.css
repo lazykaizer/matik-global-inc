@@ -21,7 +21,17 @@
   --color-glass-border: rgba(125, 170, 255, 0.18);
   --color-glass-border-hover: rgba(127, 214, 255, 0.42);
   --color-surface-text: #E1E8F8;
-  --color-muted-text: #91A3C4;
+  --color-border: rgba(125, 170, 255, 0.25);
+  --color-popover: #09132b;
+  --color-popover-foreground: #E1E8F8;
+  --color-foreground: #E1E8F8;
+  --color-background: #050B1A;
+  --color-accent: rgba(22, 42, 88, 0.6);
+  --color-accent-foreground: #7FD6FF;
+  --color-muted: #101e40;
+  --color-muted-foreground: #91A3C4;
+  --color-input: rgba(125, 170, 255, 0.25);
+  --color-ring: #3D8BFF;
   --font-display: 'Space Grotesk', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 }

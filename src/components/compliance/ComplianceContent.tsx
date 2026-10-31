@@ -27,6 +27,7 @@ import {
 import { GlassFold } from '@/components/ui/glass-fold';
 import { MetallicButton } from '@/components/ui/metallic-button';
 import HowItWorks from '@/components/ui/how-it-works';
+import KeycapOrb from './KeycapOrb';
 
 export function ComplianceContent() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -108,7 +109,7 @@ export function ComplianceContent() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
             
             {/* Left Column: Copy & Actions */}
-            <div className="lg:col-span-7 flex flex-col gap-6 z-10">
+            <div className="lg:col-span-6 flex flex-col gap-6 z-10">
 
               <h1 className="font-display text-4xl sm:text-5xl lg:text-[60px] lg:leading-[68px] font-bold text-surface-text tracking-tight">
                 Be audit-ready{' '}
@@ -139,104 +140,18 @@ export function ComplianceContent() {
               </div>
             </div>
 
-            {/* Right Column: Faceted 3D Crystal Shield Vector Visual */}
-            <div className="lg:col-span-5 relative flex items-center justify-center">
-              <div className="relative w-full max-w-[480px] aspect-square rounded-3xl frosted-glass p-8 flex items-center justify-center shadow-[0_20px_50px_rgba(7,14,29,0.9),0_0_30px_rgba(70,143,255,0.22)] overflow-hidden border border-ice-cyan/25 group">
-                
-                {/* Ambient Radial Glowing Backplate */}
-                <div className="absolute inset-0 bg-radial from-ice-cyan/20 via-diamond-blue/10 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
-                <div className="absolute -top-12 -right-12 w-48 h-48 bg-ice-cyan/25 rounded-full blur-[60px] pointer-events-none"></div>
-                <div className="absolute -bottom-12 -left-12 w-48 h-48 bg-diamond-blue/25 rounded-full blur-[60px] pointer-events-none"></div>
-                
-                {/* Layered Faceted 3D Crystal Shield SVG */}
-                <svg className="w-full h-full relative z-10 drop-shadow-[0_10px_35px_rgba(122,209,250,0.45)]" fill="none" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
-                  {/* Outer Concentric Coordinate Rings */}
-                  <circle cx="200" cy="200" r="168" stroke="#7ad1fa" strokeDasharray="3 7" strokeOpacity="0.22" strokeWidth="1.2"></circle>
-                  <circle cx="200" cy="200" r="132" stroke="#468fff" strokeDasharray="6 6" strokeOpacity="0.25" strokeWidth="1"></circle>
-                  <circle cx="200" cy="200" r="92" stroke="#acc7ff" strokeOpacity="0.18" strokeWidth="0.8"></circle>
-                  
-                  {/* Outer Refraction Halo */}
-                  <path d="M200 36 L318 92 V202 C318 276 200 350 200 350 C200 350 82 276 82 202 V92 L200 36 Z" fill="#070e1d" fillOpacity="0.75" stroke="#7ad1fa" strokeOpacity="0.35" strokeWidth="1.5"></path>
-                  
-                  {/* Faceted Outer Crystal Wings */}
-                  <path d="M200 40 L310 95 L260 170 L200 130 Z" fill="url(#facet-grad-topright)" fillOpacity="0.9"></path>
-                  <path d="M200 40 L90 95 L140 170 L200 130 Z" fill="url(#facet-grad-topleft)" fillOpacity="0.85"></path>
-                  <path d="M310 95 V200 L250 255 L260 170 Z" fill="url(#facet-grad-midright)" fillOpacity="0.8"></path>
-                  <path d="M90 95 V200 L150 255 L140 170 Z" fill="url(#facet-grad-midleft)" fillOpacity="0.85"></path>
-                  <path d="M250 255 L200 340 L200 240 Z" fill="url(#facet-grad-botright)" fillOpacity="0.95"></path>
-                  <path d="M150 255 L200 340 L200 240 Z" fill="url(#facet-grad-botleft)" fillOpacity="0.8"></path>
-                  
-                  {/* Central Refraction Core */}
-                  <polygon fill="url(#core-grad-right)" fillOpacity="0.95" points="200,130 260,170 250,255 200,240"></polygon>
-                  <polygon fill="url(#core-grad-left)" fillOpacity="0.88" points="200,130 140,170 150,255 200,240"></polygon>
-                  
-                  {/* Specular Highlights */}
-                  <polygon fill="#ffffff" fillOpacity="0.14" points="200,130 230,150 200,185 170,150"></polygon>
-                  
-                  {/* Geometric Facet Wireframe Edges */}
-                  <line stroke="#bfe8ff" strokeOpacity="0.85" strokeWidth="2" x1="200" x2="200" y1="40" y2="340"></line>
-                  <line stroke="#7ad1fa" strokeOpacity="0.45" strokeWidth="1.5" x1="90" x2="310" y1="95" y2="95"></line>
-                  <line stroke="#7ad1fa" strokeOpacity="0.6" strokeWidth="1.5" x1="140" x2="260" y1="170" y2="170"></line>
-                  <line stroke="#7ad1fa" strokeOpacity="0.5" strokeWidth="1.5" x1="150" x2="250" y1="255" y2="255"></line>
-                  <line stroke="#acc7ff" strokeOpacity="0.4" strokeWidth="1" x1="200" x2="260" y1="130" y2="170"></line>
-                  <line stroke="#acc7ff" strokeOpacity="0.4" strokeWidth="1" x1="200" x2="140" y1="130" y2="170"></line>
-                  <line stroke="#acc7ff" strokeOpacity="0.4" strokeWidth="1" x1="200" x2="250" y1="240" y2="255"></line>
-                  <line stroke="#acc7ff" strokeOpacity="0.4" strokeWidth="1" x1="200" x2="150" y1="240" y2="255"></line>
-                  
-                  {/* Luminous Holographic Audit Pass Checkmark */}
-                  <g className="animate-pulse" opacity="0.95">
-                    <circle cx="200" cy="188" fill="#017ba0" fillOpacity="0.3" filter="url(#glow-filter)" r="32"></circle>
-                    <polyline fill="none" points="180,189 194,203 222,173" stroke="#bfe8ff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3.5"></polyline>
-                    <polyline fill="none" opacity="0.75" points="180,189 194,203 222,173" stroke="#7ad1fa" strokeLinecap="round" strokeLinejoin="round" strokeWidth="7"></polyline>
-                  </g>
-                  
-                  <defs>
-                    <filter height="200%" id="glow-filter" width="200%" x="-50%" y="-50%">
-                      <feGaussianBlur in="SourceGraphic" stdDeviation="6"></feGaussianBlur>
-                    </filter>
-                    <linearGradient gradientUnits="userSpaceOnUse" id="facet-grad-topright" x1="200" x2="310" y1="40" y2="170">
-                      <stop stopColor="#468fff" stopOpacity="0.8"></stop>
-                      <stop offset="1" stopColor="#0c1322" stopOpacity="0.95"></stop>
-                    </linearGradient>
-                    <linearGradient gradientUnits="userSpaceOnUse" id="facet-grad-topleft" x1="200" x2="90" y1="40" y2="170">
-                      <stop stopColor="#7ad1fa" stopOpacity="0.9"></stop>
-                      <stop offset="1" stopColor="#017ba0" stopOpacity="0.7"></stop>
-                    </linearGradient>
-                    <linearGradient gradientUnits="userSpaceOnUse" id="facet-grad-midright" x1="310" x2="250" y1="95" y2="255">
-                      <stop stopColor="#017ba0" stopOpacity="0.75"></stop>
-                      <stop offset="1" stopColor="#070e1d" stopOpacity="0.95"></stop>
-                    </linearGradient>
-                    <linearGradient gradientUnits="userSpaceOnUse" id="facet-grad-midleft" x1="90" x2="150" y1="95" y2="255">
-                      <stop stopColor="#468fff" stopOpacity="0.85"></stop>
-                      <stop offset="1" stopColor="#0c1322" stopOpacity="0.95"></stop>
-                    </linearGradient>
-                    <linearGradient gradientUnits="userSpaceOnUse" id="facet-grad-botright" x1="250" x2="200" y1="255" y2="340">
-                      <stop stopColor="#468fff" stopOpacity="0.9"></stop>
-                      <stop offset="1" stopColor="#070e1d" stopOpacity="0.9"></stop>
-                    </linearGradient>
-                    <linearGradient gradientUnits="userSpaceOnUse" id="facet-grad-botleft" x1="150" x2="200" y1="255" y2="340">
-                      <stop stopColor="#7ad1fa" stopOpacity="0.8"></stop>
-                      <stop offset="1" stopColor="#00285a" stopOpacity="0.9"></stop>
-                    </linearGradient>
-                    <linearGradient gradientUnits="userSpaceOnUse" id="core-grad-right" x1="200" x2="260" y1="130" y2="255">
-                      <stop stopColor="#7ad1fa"></stop>
-                      <stop offset="1" stopColor="#00285a"></stop>
-                    </linearGradient>
-                    <linearGradient gradientUnits="userSpaceOnUse" id="core-grad-left" x1="200" x2="140" y1="130" y2="255">
-                      <stop stopColor="#acc7ff"></stop>
-                      <stop offset="1" stopColor="#017ba0"></stop>
-                    </linearGradient>
-                  </defs>
-                </svg>
-
-                {/* Floating Micro Telemetry Chips */}
-                <div className="absolute top-5 right-5 px-3 py-1 rounded-full frosted-glass border border-ice-cyan/40 shadow-[0_0_12px_rgba(122,209,250,0.2)]">
-                  <span className="font-mono text-[11px] text-ice-cyan font-bold">CTRL-PASS: 100%</span>
-                </div>
-                <div className="absolute bottom-5 left-5 px-3 py-1 rounded-full frosted-glass border border-diamond-blue/30 shadow-[0_0_12px_rgba(70,143,255,0.15)]">
-                  <span className="font-mono text-[11px] text-muted-text font-medium">EVIDENCE: SYNCHRONIZED</span>
-                </div>
-              </div>
+            {/* Right Column: Seamless Interactive 3D Keycap Orb (Only Ball, Transparent BG) */}
+            <div className="lg:col-span-6 relative flex items-center justify-center w-full min-h-[480px] lg:min-h-[560px]">
+              <KeycapOrb
+                height="560px"
+                background="transparent"
+                glow="#3D8BFF"
+                scale={0.82}
+                speed={0.8}
+                reflection={false}
+                showBackground={false}
+                className="w-full"
+              />
             </div>
 
           </div>

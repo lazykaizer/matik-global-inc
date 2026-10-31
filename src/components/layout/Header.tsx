@@ -1,232 +1,334 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+
+import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { siteConfig } from '@/config/site';
+import { createPortal } from 'react-dom';
 import { Logo } from '@/components/ui/Logo';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { MenuToggleIcon } from '@/components/ui/menu-toggle-icon';
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from '@/components/ui/navigation-menu';
+import { cn } from '@/lib/utils';
+import {
+  CodeIcon,
+  Brain,
+  LayersIcon,
+  Shield,
+  FileText,
+  Users,
+  Handshake,
+  ArrowRight,
+  type LucideIcon,
+} from 'lucide-react';
+
+type LinkItem = {
+  title: string;
+  href: string;
+  icon: LucideIcon;
+  description?: string;
+  badge?: string;
+};
+
+const serviceLinks: LinkItem[] = [
+  {
+    title: 'AI & Machine Learning',
+    href: '/aiml',
+    description: 'Production AI, LLMs & validated models',
+    icon: Brain,
+    badge: 'Popular',
+  },
+  {
+    title: 'Application Development',
+    href: '/applications',
+    description: 'Scalable cloud, web & mobile engineering',
+    icon: CodeIcon,
+  },
+  {
+    title: 'Enterprise ERP',
+    href: '/erp',
+    description: 'SAP, Oracle, NetSuite & cloud ERP workflows',
+    icon: LayersIcon,
+  },
+  {
+    title: 'Regulatory Compliances',
+    href: '/compliances',
+    description: 'SOC 2, HIPAA, GDPR, ISO 27001 & GxP validation',
+    icon: Shield,
+  },
+  {
+    title: 'Accounting & Taxation',
+    href: '/accountingtax',
+    description: 'Corporate audit, tax compliance & bookkeeping',
+    icon: FileText,
+  },
+];
+
+const companyLinks: LinkItem[] = [
+  {
+    title: 'Our Company',
+    href: '/ourcompany',
+    description: 'Our mission, leadership & global presence',
+    icon: Users,
+  },
+  {
+    title: 'Contact Us',
+    href: '/contactus',
+    description: 'Book a consultation or talk with our team',
+    icon: Handshake,
+  },
+];
 
 export function Header() {
+  const [open, setOpen] = React.useState(false);
   const pathname = usePathname();
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const scrolled = useScroll(15);
 
-  const [desktopDropdown, setDesktopDropdown] = useState<string | null>(null);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  useEffect(() => {
-    setDesktopDropdown(null);
-    closeMobileMenu();
-    if (typeof document !== 'undefined') {
-      (document.activeElement as HTMLElement)?.blur();
-    }
+  React.useEffect(() => {
+    setOpen(false);
   }, [pathname]);
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      const target = event.target as HTMLElement;
-      if (!target.closest('.header-dropdown-container')) {
-        setDesktopDropdown(null);
-      }
-    };
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        setDesktopDropdown(null);
-        closeMobileMenu();
-      }
-    };
-    document.addEventListener('click', handleClickOutside);
-    window.addEventListener('keydown', handleKeyDown);
+  React.useEffect(() => {
+    if (open) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
     return () => {
-      document.removeEventListener('click', handleClickOutside);
-      window.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
     };
-  }, []);
-
-  const closeMobileMenu = () => {
-    setMobileMenuOpen(false);
-    setActiveDropdown(null);
-  };
-
-  const navLinks = [
-    { 
-      name: 'Services', 
-      type: 'dropdown',
-      items: siteConfig.services
-    },
-    { name: 'Our Company', path: '/ourcompany' },
-    { name: 'Contact Us', path: '/contactus' }
-  ];
+  }, [open]);
 
   return (
-    <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-      isScrolled 
-        ? 'bg-[#050B1A]/95 backdrop-blur-xl shadow-[0_4px_30px_rgba(0,0,0,0.7)] border-b border-blue-500/25' 
-        : 'bg-[#050B1A] border-b border-blue-500/20'
-    }`}>
-      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20">
-          <Link href="/" className="flex-shrink-0" onClick={closeMobileMenu}>
-            <Logo inverted={true} />
-          </Link>
+    <header
+      className={cn(
+        'fixed top-0 left-0 w-full z-50 transition-all duration-300',
+        scrolled
+          ? 'bg-[#050B1A]/95 supports-[backdrop-filter]:bg-[#050B1A]/85 border-b border-blue-500/25 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.6)]'
+          : 'bg-[#050B1A]/85 border-b border-blue-500/15 backdrop-blur-md'
+      )}
+    >
+      <nav className="mx-auto flex h-20 w-full max-w-[1440px] items-center justify-between px-4 sm:px-6 lg:px-8">
+        {/* Brand Logo (Left) */}
+        <Link href="/" className="flex-shrink-0" onClick={() => setOpen(false)}>
+          <Logo inverted={true} />
+        </Link>
 
-          {/* Desktop Nav on the Right + Mobile Menu Trigger */}
-          <div className="flex items-center h-full">
-            <nav className="hidden md:flex space-x-7 lg:space-x-9 h-full items-center">
-              {navLinks.map((link) => {
-                const isDropdownOpen = desktopDropdown === link.name;
-                return (
-                  <div 
-                    key={link.name} 
-                    className="relative group h-full flex items-center header-dropdown-container"
-                    onMouseEnter={() => {
-                      if (link.type === 'dropdown') setDesktopDropdown(link.name);
-                    }}
-                    onMouseLeave={() => {
-                      if (link.type === 'dropdown') setDesktopDropdown(null);
-                    }}
-                  >
-                    {link.type === 'dropdown' ? (
-                      <>
-                        <button 
-                          type="button"
-                          onClick={() => setDesktopDropdown(isDropdownOpen ? null : link.name)}
-                          aria-expanded={isDropdownOpen}
-                          className={`flex items-center gap-1 font-semibold text-[15px] transition-colors focus:outline-none a11y-focus px-2 py-2 cursor-pointer font-space ${
-                            link.items?.some(i => i.path === pathname) 
-                              ? 'text-cyan-400' 
-                              : 'text-slate-200 hover:text-cyan-300'
-                          }`}
-                        >
-                          {link.name}
-                          <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180 text-cyan-400' : ''}`} />
-                        </button>
-                        <div 
-                          className={`absolute top-[80px] left-0 w-64 rounded-b-xl border border-blue-500/25 bg-[#0B1630] shadow-2xl transition-all duration-200 py-2 ${
-                            isDropdownOpen ? 'opacity-100 visible pointer-events-auto' : 'opacity-0 invisible pointer-events-none'
-                          }`}
-                        >
-                          {link.items?.map(sub => (
-                            <Link 
-                              key={sub.name} 
-                              href={sub.path}
-                              onClick={() => {
-                                setDesktopDropdown(null);
-                                if (typeof document !== 'undefined') {
-                                  (document.activeElement as HTMLElement)?.blur();
-                                }
-                              }}
-                              className={`block px-4 py-2.5 text-sm transition-colors ${
-                                pathname === sub.path 
-                                  ? 'text-cyan-400 font-bold bg-blue-950/40' 
-                                  : 'text-slate-300 hover:bg-[#101E40] hover:text-white'
-                              }`}
-                            >
-                              {sub.name}
-                            </Link>
-                          ))}
-                        </div>
-                      </>
-                    ) : (
-                      <Link 
-                        href={link.path || '#'}
-                        className={`font-semibold text-[15px] transition-colors relative a11y-focus px-2 py-2 font-space ${
-                          pathname === link.path ? 'text-cyan-400' : 'text-slate-200 hover:text-cyan-300'
-                        }`}
+        {/* Desktop Nav on the Right (Services, Our Company, Contact Us) */}
+        <div className="hidden md:flex items-center">
+          <NavigationMenu>
+            <NavigationMenuList className="gap-1 lg:gap-2">
+              {/* 1. Services Dropdown */}
+              <NavigationMenuItem>
+                <NavigationMenuTrigger className="bg-transparent hover:bg-white/5 data-[state=open]:bg-white/10 text-slate-200 hover:text-cyan-300 data-[state=open]:text-cyan-300 font-semibold text-[15px] font-space tracking-wide h-10 px-3.5 rounded-lg transition-colors cursor-pointer">
+                  Services
+                </NavigationMenuTrigger>
+                <NavigationMenuContent className="p-2">
+                  <div className="w-[340px] sm:w-[420px] p-1.5">
+                    <div className="grid grid-cols-1 gap-1">
+                      {serviceLinks.map((item) => (
+                        <ListItem
+                          key={item.title}
+                          {...item}
+                          active={pathname === item.href}
+                        />
+                      ))}
+                    </div>
+                    <div className="mt-2.5 pt-2.5 border-t border-blue-500/15 px-2 flex items-center justify-between text-xs">
+                      <span className="text-muted-text font-light">Custom enterprise requirements?</span>
+                      <Link
+                        href="/contactus"
+                        className="text-cyan-300 hover:text-cyan-200 font-medium inline-flex items-center gap-1 transition-colors"
                       >
-                        {link.name}
-                        <span className={`absolute -bottom-1 left-0 w-full h-0.5 bg-cyan-400 transition-transform origin-left ${
-                          pathname === link.path ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
-                        }`}></span>
+                        <span>Talk to an Architect</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
                       </Link>
-                    )}
+                    </div>
                   </div>
-                );
-              })}
-            </nav>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
 
-            {/* Mobile Menu Button */}
-            <div className="md:hidden flex items-center ml-4">
-              <button 
-                onClick={() => setMobileMenuOpen(true)}
-                className="p-2 text-slate-200 hover:text-cyan-300 focus:outline-none"
-                aria-label="Open main menu"
-              >
-                <Menu className="w-6 h-6" />
-              </button>
+              {/* 2. Our Company Link */}
+              <NavigationMenuItem>
+                <Link
+                  href="/ourcompany"
+                  className={cn(
+                    'inline-flex h-10 items-center justify-center rounded-lg px-3.5 py-2 text-[15px] font-semibold font-space tracking-wide transition-colors hover:text-cyan-300 hover:bg-white/5',
+                    pathname === '/ourcompany' ? 'text-cyan-400 font-bold bg-white/5' : 'text-slate-200'
+                  )}
+                >
+                  Our Company
+                </Link>
+              </NavigationMenuItem>
+
+              {/* 3. Contact Us Link */}
+              <NavigationMenuItem>
+                <Link
+                  href="/contactus"
+                  className={cn(
+                    'inline-flex h-10 items-center justify-center rounded-lg px-3.5 py-2 text-[15px] font-semibold font-space tracking-wide transition-colors hover:text-cyan-300 hover:bg-white/5',
+                    pathname === '/contactus' ? 'text-cyan-400 font-bold bg-white/5' : 'text-slate-200'
+                  )}
+                >
+                  Contact Us
+                </Link>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
+        </div>
+
+        {/* Mobile Hamburger Toggle Button */}
+        <Button
+          size="icon"
+          variant="outline"
+          onClick={() => setOpen(!open)}
+          className="md:hidden border-blue-500/30 text-slate-200 hover:text-cyan-300 hover:bg-blue-500/10"
+          aria-expanded={open}
+          aria-controls="mobile-menu"
+          aria-label="Toggle menu"
+        >
+          <MenuToggleIcon open={open} className="size-5 text-slate-200" duration={300} />
+        </Button>
+      </nav>
+
+      {/* Mobile Menu Portal */}
+      <MobileMenu open={open} onClose={() => setOpen(false)}>
+        <div className="flex flex-col gap-6">
+          {/* Services Group */}
+          <div className="flex flex-col gap-2">
+            <span className="font-mono text-xs text-ice-cyan uppercase tracking-widest font-semibold px-2">
+              Services
+            </span>
+            <div className="flex flex-col gap-1">
+              {serviceLinks.map((link) => (
+                <ListItem
+                  key={link.title}
+                  {...link}
+                  active={pathname === link.href}
+                  onClick={() => setOpen(false)}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Company & Contact Group */}
+          <div className="flex flex-col gap-2 border-t border-blue-500/15 pt-4">
+            <span className="font-mono text-xs text-ice-cyan uppercase tracking-widest font-semibold px-2">
+              Company
+            </span>
+            <div className="flex flex-col gap-1">
+              {companyLinks.map((link) => (
+                <ListItem
+                  key={link.title}
+                  {...link}
+                  active={pathname === link.href}
+                  onClick={() => setOpen(false)}
+                />
+              ))}
             </div>
           </div>
         </div>
-      </div>
-
-      {/* Mobile Slide-in Menu (Midnight Diamond dark theme) */}
-      <div className={`fixed inset-0 z-[60] bg-[#050B1A] text-slate-100 transform transition-transform duration-300 ease-in-out ${
-        mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
-      }`}>
-        <div className="h-20 px-4 flex items-center justify-between border-b border-blue-500/20 bg-[#050B1A]">
-          <Logo inverted={true} />
-          <button 
-            onClick={closeMobileMenu}
-            className="p-2 text-slate-300 hover:text-cyan-300 transition-colors"
-            aria-label="Close menu"
-          >
-            <X className="w-6 h-6" />
-          </button>
-        </div>
-        <div className="overflow-y-auto h-[calc(100vh-80px)] px-4 py-6 flex flex-col gap-4 bg-[#050B1A]">
-          {navLinks.map((link) => (
-            <div key={link.name} className="border-b border-blue-500/15 pb-4">
-              {link.type === 'dropdown' ? (
-                <div>
-                  <button 
-                    onClick={() => setActiveDropdown(activeDropdown === link.name ? null : link.name)}
-                    className="flex items-center justify-between w-full text-lg font-bold text-slate-200 py-2 font-space"
-                  >
-                    {link.name}
-                    <ChevronDown className={`w-5 h-5 transition-transform ${activeDropdown === link.name ? 'rotate-180 text-cyan-400' : 'text-slate-400'}`} />
-                  </button>
-                  <div className={`flex flex-col pl-4 gap-2 mt-2 overflow-hidden transition-all duration-200 ${
-                    activeDropdown === link.name ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
-                  }`}>
-                    {link.items?.map(sub => (
-                      <Link 
-                        key={sub.name} 
-                        href={sub.path}
-                        onClick={closeMobileMenu}
-                        className={`block text-base py-1.5 transition-colors ${
-                          pathname === sub.path 
-                            ? 'text-cyan-400 font-bold' 
-                            : 'text-slate-300 hover:text-cyan-300'
-                        }`}
-                      >
-                        {sub.name}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              ) : (
-                <Link 
-                  href={link.path || '#'}
-                  onClick={closeMobileMenu}
-                  className={`block text-lg font-bold py-2 font-space transition-colors ${
-                    pathname === link.path ? 'text-cyan-400' : 'text-slate-200 hover:text-cyan-300'
-                  }`}
-                >
-                  {link.name}
-                </Link>
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
+      </MobileMenu>
     </header>
   );
+}
+
+function MobileMenu({
+  open,
+  children,
+  onClose,
+}: {
+  open: boolean;
+  children: React.ReactNode;
+  onClose: () => void;
+}) {
+  if (!open || typeof window === 'undefined') return null;
+
+  return createPortal(
+    <div
+      id="mobile-menu"
+      className="fixed inset-x-0 top-20 bottom-0 z-50 flex flex-col overflow-hidden bg-[#050B1A]/98 backdrop-blur-2xl border-t border-blue-500/20 md:hidden animate-in fade-in slide-in-from-top-4 duration-200"
+    >
+      <div className="h-full overflow-y-auto p-5 flex flex-col justify-start gap-6">
+        {children}
+      </div>
+    </div>,
+    document.body
+  );
+}
+
+function ListItem({
+  title,
+  description,
+  icon: Icon,
+  className,
+  href,
+  badge,
+  active,
+  onClick,
+  ...props
+}: React.ComponentProps<typeof NavigationMenuLink> &
+  LinkItem & { active?: boolean; onClick?: () => void }) {
+  return (
+    <NavigationMenuLink
+      className={cn(
+        'w-full flex flex-row items-center gap-x-3 rounded-xl p-2.5 transition-all duration-200 group/item cursor-pointer text-left',
+        active
+          ? 'bg-blue-500/15 text-cyan-300 border border-blue-500/30'
+          : 'hover:bg-[#101E40]/80 hover:text-cyan-300',
+        className
+      )}
+      onClick={onClick}
+      asChild
+      {...props}
+    >
+      <Link href={href} className="flex items-center gap-3 w-full">
+        <div className="flex aspect-square size-10 shrink-0 items-center justify-center rounded-lg bg-blue-950/70 border border-blue-500/25 text-cyan-400 group-hover/item:border-cyan-400/50 group-hover/item:scale-105 transition-all shadow-[0_0_12px_rgba(61,139,255,0.15)]">
+          <Icon className="size-5 text-cyan-400" />
+        </div>
+        <div className="flex flex-col items-start justify-center min-w-0 flex-1">
+          <div className="flex items-center gap-2 w-full">
+            <span className="font-medium text-sm text-surface-text group-hover/item:text-cyan-300 transition-colors truncate font-space">
+              {title}
+            </span>
+            {badge && (
+              <span className="px-1.5 py-0.5 text-[10px] font-mono rounded bg-blue-500/20 text-cyan-300 border border-blue-500/30">
+                {badge}
+              </span>
+            )}
+          </div>
+          {description && (
+            <span className="text-muted-text text-xs line-clamp-1 font-light group-hover/item:text-slate-300 transition-colors">
+              {description}
+            </span>
+          )}
+        </div>
+      </Link>
+    </NavigationMenuLink>
+  );
+}
+
+function useScroll(threshold: number) {
+  const [scrolled, setScrolled] = React.useState(false);
+
+  const onScroll = React.useCallback(() => {
+    setScrolled(window.scrollY > threshold);
+  }, [threshold]);
+
+  React.useEffect(() => {
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
+  }, [onScroll]);
+
+  React.useEffect(() => {
+    onScroll();
+  }, [onScroll]);
+
+  return scrolled;
 }

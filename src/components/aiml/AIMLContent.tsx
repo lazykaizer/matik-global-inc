@@ -17,9 +17,11 @@ import {
   Sparkles,
   X
 } from 'lucide-react';
+import InkOrbitHero from './InkOrbitHero';
 import { GlassFold } from '@/components/ui/glass-fold';
 import { MetallicButton } from '@/components/ui/metallic-button';
 import HowItWorks from '@/components/ui/how-it-works';
+import ToolDockDemo from '@/components/ui/techstack-demo';
 
 export function AIMLContent() {
   const [isAssessmentOpen, setIsAssessmentOpen] = useState(false);
@@ -62,121 +64,19 @@ export function AIMLContent() {
         {/* HERO WRAPPER */}
         <div className="w-full flex flex-col gap-3">
 
-          {/* 1. HERO SECTION */}
-          <section className="w-full grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-            <div className="lg:col-span-7 flex flex-col items-start gap-6">
-              
-
-              {/* H1 Headline */}
-              <h1 className="font-display text-4xl sm:text-5xl lg:text-[56px] lg:leading-[64px] font-bold text-surface-text tracking-tight">
-                AI that makes it past the{' '}
-                <span className="bg-gradient-to-r from-[#3D8BFF] via-[#7FD6FF] to-white bg-clip-text text-transparent drop-shadow-[0_0_35px_rgba(122,209,250,0.4)]">
-                  pilot.
-                </span>
-              </h1>
-
-              {/* Subtext verbatim */}
-              <p className="text-muted-text text-[17px] leading-relaxed max-w-2xl font-light">
-                We help life sciences and other regulated companies take AI from idea to production, with clean data, validated models and governance built in.
-              </p>
-
-              {/* Hero CTA Buttons */}
-              <div className="flex flex-wrap items-center gap-4 pt-2">
-                <button 
-                  onClick={() => setIsAssessmentOpen(true)}
-                  className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-display text-[15px] font-semibold text-white bg-gradient-to-r from-diamond-blue via-[#2563EB] to-[#1D4ED8] border border-ice-cyan/40 shadow-glow-blue hover:shadow-[0_0_35px_rgba(61,139,255,0.6)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer"
-                >
-                  <span>Book Your Free Assessment</span>
-                  <ArrowRight className="w-4 h-4" />
-                </button>
-                <a 
-                  className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl font-display text-[15px] font-medium text-surface-text frosted-glass hover:bg-glass-highlight hover:border-ice-cyan/40 hover:-translate-y-0.5 transition-all duration-200" 
-                  href="#what-we-do"
-                >
-                  See Our Services
-                </a>
-              </div>
-            </div>
-
-            {/* Right Hero Visual: Glowing neural network of connected diamond nodes with a faceted crystal core */}
-            <div className="lg:col-span-5 relative flex items-center justify-center pt-4 lg:pt-6">
-              <div className="relative w-full aspect-square max-w-[480px] flex items-center justify-center">
-                {/* Soft ambient radial blue glow */}
-                <div className="absolute inset-8 rounded-full bg-ice-cyan/15 blur-[70px] pointer-events-none"></div>
-                <div className="absolute inset-16 rounded-full border border-ice-cyan/20 animate-[spin_45s_linear_infinite] pointer-events-none"></div>
-                <div className="absolute inset-28 rounded-full border border-dashed border-diamond-blue/30 animate-[spin_30s_linear_infinite_reverse] pointer-events-none"></div>
-                
-                {/* Central Kinetic Neural SVG Core */}
-                <svg className="w-full h-full p-4 drop-shadow-[0_0_45px_rgba(122,209,250,0.35)]" fill="none" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
-                  <defs>
-                    <linearGradient gradientUnits="userSpaceOnUse" id="crystalFacetA" x1="140" x2="360" y1="80" y2="420">
-                      <stop offset="0%" stopColor="#7ad1fa" stopOpacity="0.9"></stop>
-                      <stop offset="50%" stopColor="#3D8BFF" stopOpacity="0.5"></stop>
-                      <stop offset="100%" stopColor="#050B1A" stopOpacity="0.95"></stop>
-                    </linearGradient>
-                    <linearGradient gradientUnits="userSpaceOnUse" id="crystalFacetB" x1="360" x2="140" y1="120" y2="380">
-                      <stop offset="0%" stopColor="#acc7ff" stopOpacity="0.85"></stop>
-                      <stop offset="100%" stopColor="#017ba0" stopOpacity="0.25"></stop>
-                    </linearGradient>
-                    <radialGradient cx="50%" cy="50%" id="centerDiamondGlow" r="50%">
-                      <stop offset="0%" stopColor="#7FD6FF" stopOpacity="0.6"></stop>
-                      <stop offset="50%" stopColor="#3D8BFF" stopOpacity="0.25"></stop>
-                      <stop offset="100%" stopColor="#050B1A" stopOpacity="0"></stop>
-                    </radialGradient>
-                    <filter height="140%" id="glowBloom" width="140%" x="-20%" y="-20%">
-                      <feGaussianBlur result="blur" stdDeviation="5"></feGaussianBlur>
-                      <feComposite in="SourceGraphic" in2="blur" operator="over"></feComposite>
-                    </filter>
-                  </defs>
-                  
-                  <circle cx="250" cy="250" fill="url(#centerDiamondGlow)" r="145"></circle>
-                  
-                  {/* Orbiting Telemetry Rings */}
-                  <ellipse cx="250" cy="250" rx="195" ry="80" stroke="#7ad1fa" strokeDasharray="5 7" strokeOpacity="0.35" strokeWidth="1.2" transform="rotate(-30 250 250)"></ellipse>
-                  <ellipse cx="250" cy="250" rx="195" ry="80" stroke="#468fff" strokeDasharray="4 6" strokeOpacity="0.3" strokeWidth="1.2" transform="rotate(40 250 250)"></ellipse>
-                  
-                  {/* Central Faceted Crystal Mesh */}
-                  <g filter="url(#glowBloom)" stroke="#acc7ff" strokeOpacity="0.75" strokeWidth="1.4">
-                    <polygon fill="url(#crystalFacetA)" fillOpacity="0.65" points="250,95 345,175 250,225 155,175"></polygon>
-                    <polygon fill="url(#crystalFacetB)" fillOpacity="0.45" points="250,95 155,175 190,265 250,225"></polygon>
-                    <polygon fill="url(#crystalFacetA)" fillOpacity="0.7" points="250,95 345,175 310,265 250,225"></polygon>
-                    <polygon fill="url(#crystalFacetB)" fillOpacity="0.55" points="155,175 250,225 250,395 190,265"></polygon>
-                    <polygon fill="url(#crystalFacetA)" fillOpacity="0.75" points="345,175 250,225 250,395 310,265"></polygon>
-                    <polygon fill="#7ad1fa" fillOpacity="0.4" points="250,225 310,265 250,335 190,265"></polygon>
-                    <polygon fill="#017ba0" fillOpacity="0.55" points="250,335 250,395 190,265"></polygon>
-                    <polygon fill="#468fff" fillOpacity="0.65" points="250,335 250,395 310,265"></polygon>
-                  </g>
-                  
-                  {/* Connected Neural Lattice Lines */}
-                  <g stroke="#7ad1fa" strokeOpacity="0.55" strokeWidth="1.2">
-                    <line x1="250" x2="395" y1="95" y2="115"></line>
-                    <line x1="345" x2="425" y1="175" y2="245"></line>
-                    <line x1="155" x2="75" y1="175" y2="215"></line>
-                    <line x1="250" x2="165" y1="395" y2="425"></line>
-                    <line x1="250" x2="345" y1="395" y2="425"></line>
-                    <line x1="250" x2="250" y1="225" y2="95"></line>
-                  </g>
-                  
-                  {/* Diamond Node Coordinates */}
-                  <g fill="#7ad1fa" filter="url(#glowBloom)">
-                    <polygon fill="#ffffff" points="250,85 257,95 250,105 243,95"></polygon>
-                    <polygon fill="#7FD6FF" points="345,168 351,175 345,182 339,175"></polygon>
-                    <polygon fill="#7FD6FF" points="155,168 161,175 155,182 149,175"></polygon>
-                    <polygon fill="#ffffff" points="250,215 259,225 250,235 241,225"></polygon>
-                    <polygon fill="#acc7ff" points="310,258 316,265 310,272 304,265"></polygon>
-                    <polygon fill="#acc7ff" points="190,258 196,265 190,272 184,265"></polygon>
-                    <polygon fill="#7FD6FF" points="250,327 257,335 250,343 243,335"></polygon>
-                    <polygon fill="#ffffff" points="250,387 257,395 250,403 243,395"></polygon>
-                    <polygon fill="#3D8BFF" points="395,109 400,115 395,121 390,115"></polygon>
-                    <polygon fill="#7FD6FF" points="425,239 430,245 425,251 420,245"></polygon>
-                    <polygon fill="#7FD6FF" points="75,209 80,215 75,221 70,215"></polygon>
-                    <polygon fill="#3D8BFF" points="165,419 170,425 165,431 160,425"></polygon>
-                    <polygon fill="#7FD6FF" points="345,419 350,425 345,431 340,425"></polygon>
-                  </g>
-                </svg>
-              </div>
-            </div>
-          </section>
+          {/* 1. HERO SECTION (Ink Orbit Generative 3D Sculpture + Animated Cycling Serif Headline) */}
+          <InkOrbitHero
+            theme="dark"
+            titleTop="AI that makes it past the"
+            titleAccent={['pilot.', 'prototype.', 'drawing board.', 'sandbox.']}
+            description="We help life sciences and other regulated companies take AI from idea to production, with clean data, validated models and governance built in."
+            primaryCta="Book Your Free Assessment"
+            onPrimary={() => setIsAssessmentOpen(true)}
+            secondaryCta="Watch AI Workflow"
+            proof={{ before: 'Trusted by', value: 'Life Sciences & Regulated', after: 'enterprises' }}
+            sculptureLabel="MATIC · AI 3D"
+            sculptureHint="Drag to rotate · Click to reforge"
+          />
         </div>
 
         {/* =========================================================================
@@ -360,18 +260,15 @@ export function AIMLContent() {
         </section>
 
         {/* =========================================================================
-            5. TECHNOLOGIES (Supported Infrastructure & Frameworks)
+            5. TECHNOLOGIES / TECH STACK (Interactive Tool Dock)
             ========================================================================= */}
-        <section className="w-full">
-          <div className="flex items-center justify-between mb-6">
-            <span className="font-mono text-xs text-muted-text uppercase tracking-widest flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-ice-cyan shadow-[0_0_6px_#7ad1fa]"></span>
-              SUPPORTED INFRASTRUCTURE &amp; FRAMEWORKS
-            </span>
-            <span className="font-mono text-xs text-ice-cyan hidden sm:inline">ZERO LOCK-IN</span>
-          </div>
-
-          <div className="flex flex-wrap items-center justify-center gap-3">
+        <section className="w-full frosted-glass rounded-3xl p-6 sm:p-10 border border-ice-cyan/20 overflow-hidden relative shadow-frosted">
+          <div className="absolute top-0 right-1/4 w-72 h-72 bg-diamond-blue/10 rounded-full blur-[100px] pointer-events-none"></div>
+          <ToolDockDemo 
+            title="Tech Stack & Infrastructure" 
+            subtitle="SUPPORTED INFRASTRUCTURE & FRAMEWORKS" 
+          />
+          <div className="flex flex-wrap items-center justify-center gap-2.5 pt-6 mt-4 border-t border-glass-border/30">
             {[
               'TensorFlow',
               'PyTorch',
@@ -386,7 +283,7 @@ export function AIMLContent() {
             ].map((tech) => (
               <span 
                 key={tech}
-                className="px-4 py-2 rounded-lg bg-[#0B1630]/60 border border-glass-border hover:border-ice-cyan/40 text-surface-text font-mono text-xs sm:text-sm tracking-wide transition-colors"
+                className="px-3.5 py-1.5 rounded-lg bg-[#0B1630]/70 border border-glass-border/60 hover:border-ice-cyan/40 text-surface-text/90 font-mono text-xs tracking-wide transition-colors"
               >
                 {tech}
               </span>
