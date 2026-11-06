@@ -10,7 +10,8 @@ import {
   Cookie, 
   Sparkles, 
   FileText,
-  AlertCircle
+  AlertCircle,
+  CheckCircle2
 } from 'lucide-react';
 import { 
   PRIVACY_POLICY_HERO, 
@@ -78,7 +79,7 @@ export function PrivacyPolicyContent() {
             <ul className="flex flex-col gap-3 pl-1 sm:pl-2">
               {block.items?.map((item, itemIdx) => (
                 <li key={itemIdx} className="flex items-start gap-3 text-[16px] sm:text-[17px] text-surface-text/90 leading-[1.75]">
-                  <span className="w-1.5 h-1.5 rounded-full bg-ice-cyan shrink-0 mt-2.5 shadow-[0_0_6px_#7ad1fa]"></span>
+                  <CheckCircle2 className="w-3.5 h-3.5 text-cyan-400 shrink-0 mt-1.5" />
                   <span>{renderWithPlaceholders(item)}</span>
                 </li>
               ))}
@@ -119,7 +120,7 @@ export function PrivacyPolicyContent() {
                 className="p-5 rounded-2xl frosted-glass border border-blue-500/20 bg-[#0B1630]/65 shadow-md flex flex-col gap-2 hover:border-ice-cyan/35 transition-colors"
               >
                 <h4 className="font-display text-sm sm:text-base font-bold text-surface-text flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-ice-cyan shrink-0"></span>
+                  <CheckCircle2 className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
                   {card.title}
                 </h4>
                 <div className="text-xs sm:text-[13px] text-muted-text leading-relaxed whitespace-pre-line">
@@ -273,9 +274,9 @@ export function PrivacyPolicyContent() {
             {PRIVACY_POLICY_HERO.chips.map((chip, idx) => (
               <span
                 key={idx}
-                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full frosted-glass border border-blue-500/30 text-xs font-mono text-muted-text"
+                className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full frosted-glass border border-blue-500/30 text-xs font-mono text-muted-text"
               >
-                <span className="w-1.5 h-1.5 rounded-full bg-ice-cyan"></span>
+                <ShieldCheck className="w-3.5 h-3.5 text-cyan-400" />
                 <span>{chip.label}:</span>
                 <span className="text-surface-text font-semibold">{renderWithPlaceholders(chip.value)}</span>
               </span>
@@ -311,9 +312,11 @@ export function PrivacyPolicyContent() {
             2. THE SHORT VERSION (5 Cards + Note)
             ========================================================================= */}
         <section aria-labelledby="short-version-heading" className="w-full flex flex-col gap-4">
-          <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-ice-cyan font-bold">
-            <Sparkles className="w-3.5 h-3.5" />
-            <h2 id="short-version-heading">The short version</h2>
+          <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-cyan-400/25 bg-[#0B1736]/70 backdrop-blur-md shadow-[0_0_20px_rgba(61,139,255,0.12)] w-fit mb-1">
+            <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+            <h2 id="short-version-heading" className="text-xs uppercase tracking-[0.16em] text-cyan-300 font-space font-semibold">
+              The short version
+            </h2>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5 sm:gap-4">
@@ -323,7 +326,7 @@ export function PrivacyPolicyContent() {
                 className="p-4 sm:p-5 rounded-2xl frosted-glass border border-blue-500/25 bg-[#0B1630]/75 shadow-md flex flex-col gap-2 hover:border-ice-cyan/40 transition-colors"
               >
                 <div className="flex items-center gap-2 font-display text-sm font-bold text-surface-text">
-                  <span className="w-1.5 h-1.5 rounded-full bg-ice-cyan shrink-0"></span>
+                  <CheckCircle2 className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
                   <span>{card.title}</span>
                 </div>
                 <p className="text-xs text-muted-text leading-relaxed">
@@ -334,7 +337,7 @@ export function PrivacyPolicyContent() {
           </div>
 
           <div className="p-3.5 rounded-xl frosted-glass border border-blue-500/15 bg-blue-500/05 flex items-center gap-2 text-xs text-muted-text/90 italic">
-            <span className="w-1.5 h-1.5 rounded-full bg-blue-400 shrink-0"></span>
+            <AlertCircle className="w-3.5 h-3.5 text-blue-400 shrink-0" />
             <span>{SHORT_VERSION_DATA.note}</span>
           </div>
         </section>

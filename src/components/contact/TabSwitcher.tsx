@@ -110,7 +110,7 @@ export function TabSwitcher({ activeTab, onTabChange }: TabSwitcherProps) {
         aria-label="Contact Enquiry Type"
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
-        className="w-full max-w-2xl p-1.5 sm:p-2 rounded-2xl frosted-glass border border-blue-500/25 shadow-[0_12px_36px_-8px_rgba(7,14,29,0.85)] flex items-center gap-2 select-none relative"
+        className="w-full max-w-2xl p-1.5 sm:p-2 rounded-2xl bg-[#071126]/85 backdrop-blur-2xl border border-blue-500/30 shadow-[0_16px_40px_-10px_rgba(3,8,20,0.9),0_0_25px_rgba(61,139,255,0.15)] flex items-center gap-2 sm:gap-2.5 select-none relative"
       >
         {/* =====================================================================
             TAB 1: BUSINESS ENQUIRY
@@ -126,28 +126,26 @@ export function TabSwitcher({ activeTab, onTabChange }: TabSwitcherProps) {
           onClick={() => onTabChange('business')}
           onKeyDown={handleKeyDown}
           whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
-          className={`relative min-h-[56px] px-3 sm:px-5 py-2.5 sm:py-3 rounded-xl flex items-center gap-2.5 sm:gap-3.5 text-left cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-ice-cyan transition-colors overflow-hidden ${
+          className={`group relative flex-1 min-h-[58px] px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl flex items-center gap-2.5 sm:gap-3.5 text-left cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-ice-cyan transition-all overflow-hidden ${
             isBusiness
               ? 'text-surface-text'
               : 'text-muted-text hover:text-surface-text hover:bg-[#101E40]/60 hover:shadow-[0_0_16px_rgba(61,139,255,0.2)] border border-transparent hover:border-blue-500/30'
           }`}
-          style={{
-            flex: isBusiness ? (shouldReduceMotion ? 1 : CONTACT_ANIMATION.activeFlex) : CONTACT_ANIMATION.inactiveFlex,
-            transition: shouldReduceMotion ? 'none' : `flex ${CONTACT_ANIMATION.tabMorphDurationMs}ms ${CONTACT_ANIMATION.cssEasing}`,
-            willChange: isMorphing && !shouldReduceMotion ? 'flex-grow' : 'auto',
-          }}
         >
           {/* Animated Glass Highlight Pill */}
           {isBusiness && (
             <motion.div
               layoutId={shouldReduceMotion ? undefined : 'activeTabPill'}
-              className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#162A58]/90 via-[#13244c]/90 to-[#101E40]/90 border border-ice-cyan/60 shadow-[0_0_24px_rgba(122,209,250,0.3),inset_0_1px_1px_rgba(255,255,255,0.25)] pointer-events-none z-0"
+              className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#14264e] via-[#1a3366] to-[#122244] border border-cyan-400/50 shadow-[0_0_28px_rgba(61,139,255,0.32),inset_0_1px_1px_rgba(255,255,255,0.25)] pointer-events-none z-0"
               transition={
                 shouldReduceMotion
                   ? { duration: CONTACT_ANIMATION.reducedMotionDurationSec }
                   : CONTACT_ANIMATION.pillSpring
               }
-            />
+            >
+              {/* Specular Edge Refraction */}
+              <div className="absolute top-0 inset-x-6 h-[1.5px] bg-gradient-to-r from-transparent via-cyan-300 to-transparent opacity-90" />
+            </motion.div>
           )}
 
           {/* Icon with scale pop on activation */}
@@ -160,48 +158,36 @@ export function TabSwitcher({ activeTab, onTabChange }: TabSwitcherProps) {
                 : { scale: 1 }
             }
             transition={{ duration: CONTACT_ANIMATION.iconPopDurationSec, ease: 'easeInOut' }}
-            className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 z-10 transition-colors ${
+            className={`w-10 h-10 sm:w-11 sm:h-11 rounded-xl flex items-center justify-center shrink-0 z-10 transition-all ${
               isBusiness
-                ? 'bg-blue-500/25 text-ice-cyan border border-ice-cyan/30'
-                : 'bg-blue-950/40 text-muted-text'
+                ? 'bg-gradient-to-br from-blue-500/30 to-cyan-500/20 text-ice-cyan border border-cyan-400/40 shadow-[0_0_14px_rgba(127,214,255,0.3)]'
+                : 'bg-[#0d1c3a]/70 text-muted-text border border-blue-500/20 group-hover:text-surface-text group-hover:border-blue-500/35 group-hover:bg-[#13254c]'
             }`}
           >
             <Briefcase className="w-5 h-5" />
           </motion.div>
 
           {/* Text Content */}
-          <div className="flex flex-col z-10 min-w-0 overflow-hidden">
+          <div className="flex flex-col z-10 min-w-0 flex-1 overflow-hidden">
             <span className={`font-display text-sm sm:text-base font-bold truncate transition-colors leading-snug ${
-              isBusiness ? 'text-surface-text' : 'text-surface-text/75'
+              isBusiness ? 'text-white' : 'text-surface-text/75 group-hover:text-white'
             }`}>
-              {/* Show compact single word when inactive */}
-              {isBusiness ? 'Business Enquiry' : 'Business'}
+              Business Enquiry
             </span>
 
-            {/* Sub-label with 100ms entrance delay when active */}
-            <AnimatePresence initial={false}>
-              {isBusiness && (
-                <motion.span
-                  key="sublabel-business"
-                  initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 3 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -2, transition: { duration: 0.1 } }}
-                  transition={{
-                    delay: shouldReduceMotion ? 0 : CONTACT_ANIMATION.sublabelDelaySec,
-                    duration: 0.22,
-                    ease: CONTACT_ANIMATION.easingCurve,
-                  }}
-                  className="text-[11px] sm:text-xs text-muted-text truncate block leading-tight mt-0.5"
-                >
-                  For companies exploring our services
-                </motion.span>
-              )}
-            </AnimatePresence>
+            <span className={`text-[11px] sm:text-xs truncate block leading-tight mt-0.5 transition-colors ${
+              isBusiness ? 'text-cyan-200/90 font-medium' : 'text-muted-text group-hover:text-surface-text/70'
+            }`}>
+              For companies exploring our services
+            </span>
           </div>
 
-          {/* Active indicator dot */}
+          {/* Active status pill */}
           {isBusiness && (
-            <span className="absolute bottom-1.5 right-3 w-1.5 h-1.5 rounded-full bg-ice-cyan animate-pulse z-10"></span>
+            <div className="hidden md:inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-cyan-400/15 border border-cyan-400/35 text-[10px] font-mono uppercase tracking-wider text-cyan-300 font-semibold shrink-0 z-10 shadow-[0_0_10px_rgba(127,214,255,0.2)]">
+              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+              <span>Active</span>
+            </div>
           )}
         </motion.button>
 
@@ -219,28 +205,26 @@ export function TabSwitcher({ activeTab, onTabChange }: TabSwitcherProps) {
           onClick={() => onTabChange('careers')}
           onKeyDown={handleKeyDown}
           whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
-          className={`relative min-h-[56px] px-3 sm:px-5 py-2.5 sm:py-3 rounded-xl flex items-center gap-2.5 sm:gap-3.5 text-left cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-ice-cyan transition-colors overflow-hidden ${
+          className={`group relative flex-1 min-h-[58px] px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl flex items-center gap-2.5 sm:gap-3.5 text-left cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-ice-cyan transition-all overflow-hidden ${
             isCareers
               ? 'text-surface-text'
               : 'text-muted-text hover:text-surface-text hover:bg-[#101E40]/60 hover:shadow-[0_0_16px_rgba(61,139,255,0.2)] border border-transparent hover:border-blue-500/30'
           }`}
-          style={{
-            flex: isCareers ? (shouldReduceMotion ? 1 : CONTACT_ANIMATION.activeFlex) : CONTACT_ANIMATION.inactiveFlex,
-            transition: shouldReduceMotion ? 'none' : `flex ${CONTACT_ANIMATION.tabMorphDurationMs}ms ${CONTACT_ANIMATION.cssEasing}`,
-            willChange: isMorphing && !shouldReduceMotion ? 'flex-grow' : 'auto',
-          }}
         >
           {/* Animated Glass Highlight Pill */}
           {isCareers && (
             <motion.div
               layoutId={shouldReduceMotion ? undefined : 'activeTabPill'}
-              className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#162A58]/90 via-[#13244c]/90 to-[#101E40]/90 border border-ice-cyan/60 shadow-[0_0_24px_rgba(122,209,250,0.3),inset_0_1px_1px_rgba(255,255,255,0.25)] pointer-events-none z-0"
+              className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#14264e] via-[#1a3366] to-[#122244] border border-cyan-400/50 shadow-[0_0_28px_rgba(61,139,255,0.32),inset_0_1px_1px_rgba(255,255,255,0.25)] pointer-events-none z-0"
               transition={
                 shouldReduceMotion
                   ? { duration: CONTACT_ANIMATION.reducedMotionDurationSec }
                   : CONTACT_ANIMATION.pillSpring
               }
-            />
+            >
+              {/* Specular Edge Refraction */}
+              <div className="absolute top-0 inset-x-6 h-[1.5px] bg-gradient-to-r from-transparent via-cyan-300 to-transparent opacity-90" />
+            </motion.div>
           )}
 
           {/* Icon with scale pop on activation */}
@@ -253,48 +237,36 @@ export function TabSwitcher({ activeTab, onTabChange }: TabSwitcherProps) {
                 : { scale: 1 }
             }
             transition={{ duration: CONTACT_ANIMATION.iconPopDurationSec, ease: 'easeInOut' }}
-            className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 z-10 transition-colors ${
+            className={`w-10 h-10 sm:w-11 sm:h-11 rounded-xl flex items-center justify-center shrink-0 z-10 transition-all ${
               isCareers
-                ? 'bg-blue-500/25 text-ice-cyan border border-ice-cyan/30'
-                : 'bg-blue-950/40 text-muted-text'
+                ? 'bg-gradient-to-br from-blue-500/30 to-cyan-500/20 text-ice-cyan border border-cyan-400/40 shadow-[0_0_14px_rgba(127,214,255,0.3)]'
+                : 'bg-[#0d1c3a]/70 text-muted-text border border-blue-500/20 group-hover:text-surface-text group-hover:border-blue-500/35 group-hover:bg-[#13254c]'
             }`}
           >
             <Users2 className="w-5 h-5" />
           </motion.div>
 
           {/* Text Content */}
-          <div className="flex flex-col z-10 min-w-0 overflow-hidden">
+          <div className="flex flex-col z-10 min-w-0 flex-1 overflow-hidden">
             <span className={`font-display text-sm sm:text-base font-bold truncate transition-colors leading-snug ${
-              isCareers ? 'text-surface-text' : 'text-surface-text/75'
+              isCareers ? 'text-white' : 'text-surface-text/75 group-hover:text-white'
             }`}>
-              {/* Show compact single word when inactive */}
-              {isCareers ? 'Work With Us' : 'Careers'}
+              Careers &amp; Talent
             </span>
 
-            {/* Sub-label with 100ms entrance delay when active */}
-            <AnimatePresence initial={false}>
-              {isCareers && (
-                <motion.span
-                  key="sublabel-careers"
-                  initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 3 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -2, transition: { duration: 0.1 } }}
-                  transition={{
-                    delay: shouldReduceMotion ? 0 : CONTACT_ANIMATION.sublabelDelaySec,
-                    duration: 0.22,
-                    ease: CONTACT_ANIMATION.easingCurve,
-                  }}
-                  className="text-[11px] sm:text-xs text-muted-text truncate block leading-tight mt-0.5"
-                >
-                  For job seekers and freelancers
-                </motion.span>
-              )}
-            </AnimatePresence>
+            <span className={`text-[11px] sm:text-xs truncate block leading-tight mt-0.5 transition-colors ${
+              isCareers ? 'text-cyan-200/90 font-medium' : 'text-muted-text group-hover:text-surface-text/70'
+            }`}>
+              For job seekers and freelancers
+            </span>
           </div>
 
-          {/* Active indicator dot */}
+          {/* Active status pill */}
           {isCareers && (
-            <span className="absolute bottom-1.5 right-3 w-1.5 h-1.5 rounded-full bg-ice-cyan animate-pulse z-10"></span>
+            <div className="hidden md:inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-cyan-400/15 border border-cyan-400/35 text-[10px] font-mono uppercase tracking-wider text-cyan-300 font-semibold shrink-0 z-10 shadow-[0_0_10px_rgba(127,214,255,0.2)]">
+              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+              <span>Active</span>
+            </div>
           )}
         </motion.button>
       </div>

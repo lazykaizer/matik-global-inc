@@ -3,7 +3,6 @@
 import React from 'react';
 import Link from 'next/link';
 import { 
-  Sparkles, 
   ArrowRight, 
   ShieldCheck, 
   Layers, 
@@ -28,6 +27,13 @@ import { MetallicButton } from '@/components/ui/metallic-button';
 import { GlassRefractionHero } from '@/components/ui/glass-refraction-hero';
 import { siteConfig } from '@/config/site';
 
+const CREDENTIALS = [
+  { label: 'SOC 2 TYPE II COMPLIANT', icon: CheckCircle2 },
+  { label: 'NIST RESILIENCE ARCHITECTURE', icon: ShieldCheck },
+  { label: 'GxP & 21 CFR PART 11 READY', icon: FileCheck },
+  { label: 'ENTERPRISE PARTNER NETWORK', icon: Award },
+];
+
 export function OurCompanyContent() {
   return (
     <div 
@@ -50,8 +56,8 @@ export function OurCompanyContent() {
       {/* =========================================================================
           SECTION 1: FULL-BLEED HERO (Fills entire screen edge-to-edge)
           ========================================================================= */}
-      <GlassRefractionHero className="w-full min-h-screen">
-        <div className="flex flex-col items-center text-center gap-6 max-w-4xl mx-auto px-6 py-24 sm:py-28 lg:py-32 z-10">
+      <GlassRefractionHero className="w-full min-h-[calc(100vh-80px)] lg:min-h-screen flex items-center justify-center py-16 lg:py-0">
+        <div className="flex flex-col items-center text-center gap-6 max-w-4xl mx-auto px-6 z-10">
           <h1 className="font-display text-4xl sm:text-5xl lg:text-[68px] lg:leading-[76px] font-bold text-surface-text tracking-tight max-w-4xl">
             Compete like a global enterprise.{' '}
             <span className="bg-gradient-to-r from-ice-cyan via-[#bfe8ff] to-diamond-blue bg-clip-text text-transparent drop-shadow-[0_0_28px_rgba(122,209,250,0.4)]">
@@ -68,7 +74,7 @@ export function OurCompanyContent() {
               href="#our-story"
               className="px-8 py-4 rounded-full font-display text-sm font-bold text-[#050B1A] bg-gradient-to-r from-diamond-blue via-ice-cyan to-[#bfe8ff] shadow-[0_0_24px_rgba(122,209,250,0.4)] hover:shadow-[0_0_36px_rgba(122,209,250,0.7)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer flex items-center gap-2"
             >
-              <Sparkles className="w-4 h-4 text-[#050B1A]" />
+              <Compass className="w-4 h-4 text-[#050B1A]" />
               <span>Explore Our Story</span>
             </a>
             <Link 
@@ -119,48 +125,28 @@ export function OurCompanyContent() {
             SECTION 3: MISSION AND VISION (Purpose Architecture)
             ========================================================================= */}
         <section className="w-full">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             
             {/* Mission Card */}
-            <div className="group relative p-8 lg:p-12 rounded-3xl frosted-glass border border-blue-500/20 shadow-xl flex flex-col justify-between overflow-hidden hover:border-ice-cyan/50 hover:shadow-[0_16px_40px_-8px_rgba(7,14,29,0.9),0_0_24px_rgba(122,209,250,0.2)] transition-all duration-300">
-              <div className="h-1.5 w-24 bg-gradient-to-r from-ice-cyan to-diamond-blue rounded-full mb-8"></div>
-              <div className="flex flex-col gap-4">
-                <div className="inline-flex items-center gap-2 font-mono text-[11px] text-ice-cyan uppercase tracking-widest">
-                  <span className="w-1.5 h-1.5 rounded-full bg-ice-cyan"></span>
-                  PURPOSE ARCHITECTURE
-                </div>
-                <div className="text-base sm:text-lg text-surface-text leading-relaxed">
-                  <strong className="font-display text-2xl font-bold text-ice-cyan block mb-3">
-                    Our Mission
-                  </strong>
-                  To give emerging life sciences, biotech, manufacturing, consumer products, financial services and SMB organizations enterprise-grade AI and ML, ERP, application development, compliance and accounting support.
-                </div>
-              </div>
-              <div className="pt-8 flex items-center justify-between text-muted-text font-mono text-xs border-t border-blue-500/15 mt-8">
-                <span>PILLAR &bull; 01</span>
-                <Compass className="w-5 h-5 text-ice-cyan" />
-              </div>
+            <div className="group relative p-6 sm:p-7 rounded-2xl frosted-glass border border-blue-500/20 shadow-lg flex flex-col justify-start overflow-hidden hover:border-ice-cyan/50 hover:shadow-[0_12px_30px_-8px_rgba(7,14,29,0.9),0_0_20px_rgba(122,209,250,0.15)] transition-all duration-300">
+              <div className="h-1 w-16 bg-gradient-to-r from-ice-cyan to-diamond-blue rounded-full mb-4"></div>
+              <h3 className="font-display text-xl sm:text-2xl font-bold text-ice-cyan mb-2.5">
+                Our Mission
+              </h3>
+              <p className="text-sm sm:text-base text-surface-text/90 leading-relaxed font-light">
+                To give emerging life sciences, biotech, manufacturing, consumer products, financial services and SMB organizations enterprise-grade AI and ML, ERP, application development, compliance and accounting support.
+              </p>
             </div>
 
             {/* Vision Card */}
-            <div className="group relative p-8 lg:p-12 rounded-3xl frosted-glass border border-blue-500/20 shadow-xl flex flex-col justify-between overflow-hidden hover:border-ice-cyan/50 hover:shadow-[0_16px_40px_-8px_rgba(7,14,29,0.9),0_0_24px_rgba(122,209,250,0.2)] transition-all duration-300">
-              <div className="h-1.5 w-24 bg-gradient-to-r from-diamond-blue to-[#bfe8ff] rounded-full mb-8"></div>
-              <div className="flex flex-col gap-4">
-                <div className="inline-flex items-center gap-2 font-mono text-[11px] text-ice-cyan uppercase tracking-widest">
-                  <span className="w-1.5 h-1.5 rounded-full bg-ice-cyan"></span>
-                  HORIZON MATRIX
-                </div>
-                <div className="text-base sm:text-lg text-surface-text leading-relaxed">
-                  <strong className="font-display text-2xl font-bold text-diamond-blue block mb-3">
-                    Our Vision
-                  </strong>
-                  To help emerging companies compete like global enterprises, without enterprise overhead.
-                </div>
-              </div>
-              <div className="pt-8 flex items-center justify-between text-muted-text font-mono text-xs border-t border-blue-500/15 mt-8">
-                <span>PILLAR &bull; 02</span>
-                <Eye className="w-5 h-5 text-diamond-blue" />
-              </div>
+            <div className="group relative p-6 sm:p-7 rounded-2xl frosted-glass border border-blue-500/20 shadow-lg flex flex-col justify-start overflow-hidden hover:border-ice-cyan/50 hover:shadow-[0_12px_30px_-8px_rgba(7,14,29,0.9),0_0_20px_rgba(122,209,250,0.15)] transition-all duration-300">
+              <div className="h-1 w-16 bg-gradient-to-r from-diamond-blue to-[#bfe8ff] rounded-full mb-4"></div>
+              <h3 className="font-display text-xl sm:text-2xl font-bold text-diamond-blue mb-2.5">
+                Our Vision
+              </h3>
+              <p className="text-sm sm:text-base text-surface-text/90 leading-relaxed font-light">
+                To help emerging companies compete like global enterprises, without enterprise overhead.
+              </p>
             </div>
 
           </div>
@@ -170,10 +156,12 @@ export function OurCompanyContent() {
             SECTION 4: WHAT MAKES US DIFFERENT (Kinetic Bento)
             ========================================================================= */}
         <section className="w-full">
-          <div className="flex flex-col items-start gap-3 mb-12">
-            <div className="inline-flex items-center gap-2 font-mono text-[11px] text-ice-cyan uppercase tracking-widest">
-              <span className="w-1.5 h-1.5 rounded-full bg-ice-cyan"></span>
-              CORE DIFFERENTIATORS
+          <div className="flex flex-col items-center text-center gap-3 mb-12">
+            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-cyan-400/25 bg-[#0B1736]/70 backdrop-blur-md shadow-[0_0_20px_rgba(61,139,255,0.12)]">
+              <Award className="w-3.5 h-3.5 text-cyan-400" />
+              <span className="text-xs uppercase tracking-[0.16em] text-cyan-300 font-space font-semibold">
+                Core Differentiators
+              </span>
             </div>
             <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-surface-text tracking-tight">
               What Makes Us Different
@@ -183,7 +171,7 @@ export function OurCompanyContent() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6">
             
             {/* Card 1 */}
-            <div className="lg:col-span-2 group p-8 rounded-2xl frosted-glass border border-blue-500/20 shadow-lg hover:border-ice-cyan/40 hover:bg-[#101E40] transition-all duration-300 flex flex-col justify-between">
+            <div className="lg:col-span-2 group p-8 rounded-2xl frosted-glass border border-blue-500/20 shadow-lg hover:border-ice-cyan/40 hover:bg-[#101E40] transition-all duration-300 flex flex-col justify-start">
               <div className="flex flex-col gap-4">
                 <div className="w-12 h-12 rounded-xl bg-blue-500/15 flex items-center justify-center text-ice-cyan border border-blue-500/30">
                   <ShieldCheck className="w-6 h-6 text-ice-cyan" />
@@ -195,13 +183,10 @@ export function OurCompanyContent() {
                   Our work is calibrated and engineered directly to the strict regulatory frameworks our clients operate under.
                 </p>
               </div>
-              <div className="pt-6 font-mono text-xs text-muted-text border-t border-blue-500/15 mt-6">
-                DIFF &bull; 01
-              </div>
             </div>
 
             {/* Card 2 */}
-            <div className="lg:col-span-2 group p-8 rounded-2xl frosted-glass border border-blue-500/20 shadow-lg hover:border-ice-cyan/40 hover:bg-[#101E40] transition-all duration-300 flex flex-col justify-between">
+            <div className="lg:col-span-2 group p-8 rounded-2xl frosted-glass border border-blue-500/20 shadow-lg hover:border-ice-cyan/40 hover:bg-[#101E40] transition-all duration-300 flex flex-col justify-start">
               <div className="flex flex-col gap-4">
                 <div className="w-12 h-12 rounded-xl bg-blue-500/15 flex items-center justify-center text-ice-cyan border border-blue-500/30">
                   <Zap className="w-6 h-6 text-ice-cyan" />
@@ -213,13 +198,10 @@ export function OurCompanyContent() {
                   Focused teams, streamlined governance, and short delivery cycles get you into production sooner.
                 </p>
               </div>
-              <div className="pt-6 font-mono text-xs text-muted-text border-t border-blue-500/15 mt-6">
-                DIFF &bull; 02
-              </div>
             </div>
 
             {/* Card 3 */}
-            <div className="lg:col-span-2 group p-8 rounded-2xl frosted-glass border border-blue-500/20 shadow-lg hover:border-ice-cyan/40 hover:bg-[#101E40] transition-all duration-300 flex flex-col justify-between">
+            <div className="lg:col-span-2 group p-8 rounded-2xl frosted-glass border border-blue-500/20 shadow-lg hover:border-ice-cyan/40 hover:bg-[#101E40] transition-all duration-300 flex flex-col justify-start">
               <div className="flex flex-col gap-4">
                 <div className="w-12 h-12 rounded-xl bg-blue-500/15 flex items-center justify-center text-ice-cyan border border-blue-500/30">
                   <Coins className="w-6 h-6 text-ice-cyan" />
@@ -231,13 +213,10 @@ export function OurCompanyContent() {
                   Senior institutional expertise at a transparent scale and economics that suit growing companies.
                 </p>
               </div>
-              <div className="pt-6 font-mono text-xs text-muted-text border-t border-blue-500/15 mt-6">
-                DIFF &bull; 03
-              </div>
             </div>
 
             {/* Card 4 */}
-            <div className="lg:col-span-3 group p-8 rounded-2xl frosted-glass border border-blue-500/20 shadow-lg hover:border-ice-cyan/40 hover:bg-[#101E40] transition-all duration-300 flex flex-col justify-between">
+            <div className="lg:col-span-3 group p-8 rounded-2xl frosted-glass border border-blue-500/20 shadow-lg hover:border-ice-cyan/40 hover:bg-[#101E40] transition-all duration-300 flex flex-col justify-start">
               <div className="flex flex-col gap-4">
                 <div className="w-12 h-12 rounded-xl bg-blue-500/15 flex items-center justify-center text-ice-cyan border border-blue-500/30">
                   <Cpu className="w-6 h-6 text-ice-cyan" />
@@ -249,36 +228,20 @@ export function OurCompanyContent() {
                   Autonomous intelligence and ML pipelines are built into the bedrock of how we design systems, not an afterthought.
                 </p>
               </div>
-              <div className="pt-6 font-mono text-xs text-muted-text border-t border-blue-500/15 mt-6">
-                DIFF &bull; 04
-              </div>
             </div>
 
-            {/* Card 5 (Featured Card) */}
-            <div className="lg:col-span-3 relative p-8 rounded-2xl bg-gradient-to-br from-[#101E40] via-[#0B1630] to-[#101E40] backdrop-blur-2xl border-2 border-ice-cyan/60 shadow-[0_16px_48px_-10px_rgba(7,14,29,0.9),0_0_28px_rgba(122,209,250,0.3)] flex flex-col justify-between overflow-hidden group">
-              <div className="absolute -top-16 -right-16 w-48 h-48 rounded-full bg-ice-cyan/20 blur-[70px] pointer-events-none"></div>
-              <div className="relative z-10 flex flex-col gap-4">
-                <div className="flex items-center justify-between">
-                  <div className="w-12 h-12 rounded-xl bg-diamond-blue/20 flex items-center justify-center text-ice-cyan border border-ice-cyan/40 shadow-[0_0_12px_rgba(122,209,250,0.4)]">
-                    <CheckCircle2 className="w-6 h-6 text-ice-cyan" />
-                  </div>
-                  <span className="px-3 py-1 rounded-full bg-ice-cyan/15 border border-ice-cyan/40 text-ice-cyan font-mono text-[11px] uppercase tracking-wider font-semibold">
-                    FEATURED
-                  </span>
+            {/* Card 5 */}
+            <div className="lg:col-span-3 group p-8 rounded-2xl frosted-glass border border-blue-500/20 shadow-lg hover:border-ice-cyan/40 hover:bg-[#101E40] transition-all duration-300 flex flex-col justify-start">
+              <div className="flex flex-col gap-4">
+                <div className="w-12 h-12 rounded-xl bg-blue-500/15 flex items-center justify-center text-ice-cyan border border-blue-500/30">
+                  <CheckCircle2 className="w-6 h-6 text-ice-cyan" />
                 </div>
                 <h3 className="font-display text-xl font-bold text-surface-text">
                   Boutique attention, enterprise capability
                 </h3>
-                <p className="text-surface-text text-sm leading-relaxed">
+                <p className="text-muted-text text-sm leading-relaxed">
                   You work directly with seasoned, principal-level leaders, backed by enterprise-grade institutional engineering.
                 </p>
-              </div>
-              <div className="relative z-10 pt-6 flex items-center justify-between font-mono text-xs text-ice-cyan border-t border-ice-cyan/20 mt-6">
-                <span>DIFF &bull; 05</span>
-                <span className="flex items-center gap-1.5 font-semibold">
-                  <span className="w-2 h-2 rounded-full bg-ice-cyan animate-pulse"></span>
-                  ACTIVE SYNERGY
-                </span>
               </div>
             </div>
 
@@ -293,10 +256,6 @@ export function OurCompanyContent() {
             <div className="absolute -left-20 -bottom-20 w-80 h-80 rounded-full bg-diamond-blue/15 blur-[100px] pointer-events-none"></div>
             
             <div className="md:w-5/12 relative z-10">
-              <div className="inline-flex items-center gap-2 font-mono text-[11px] text-ice-cyan uppercase tracking-widest mb-3">
-                <span className="w-1.5 h-1.5 rounded-full bg-ice-cyan"></span>
-                INTEGRATED EMBED
-              </div>
               <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-surface-text leading-tight">
                 We work as part of your team.
               </h2>
@@ -314,10 +273,12 @@ export function OurCompanyContent() {
             SECTION 6: WHAT YOU CAN EXPECT (Measured Outcomes)
             ========================================================================= */}
         <section className="w-full">
-          <div className="flex flex-col items-start gap-3 mb-10">
-            <div className="inline-flex items-center gap-2 font-mono text-[11px] text-ice-cyan uppercase tracking-widest">
-              <span className="w-1.5 h-1.5 rounded-full bg-ice-cyan"></span>
-              MEASURED OUTCOMES
+          <div className="flex flex-col items-center text-center gap-3 mb-10">
+            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-cyan-400/25 bg-[#0B1736]/70 backdrop-blur-md shadow-[0_0_20px_rgba(61,139,255,0.12)]">
+              <TrendingUp className="w-3.5 h-3.5 text-cyan-400" />
+              <span className="text-xs uppercase tracking-[0.16em] text-cyan-300 font-space font-semibold">
+                Measured Outcomes
+              </span>
             </div>
             <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-surface-text tracking-tight">
               What You Can Expect
@@ -386,9 +347,11 @@ export function OurCompanyContent() {
             ========================================================================= */}
         <section className="w-full">
           <div className="flex flex-col items-start gap-3 mb-10">
-            <div className="inline-flex items-center gap-2 font-mono text-[11px] text-ice-cyan uppercase tracking-widest">
-              <span className="w-1.5 h-1.5 rounded-full bg-ice-cyan"></span>
-              EXECUTIVE GOVERNANCE
+            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-cyan-400/25 bg-[#0B1736]/70 backdrop-blur-md shadow-[0_0_20px_rgba(61,139,255,0.12)]">
+              <ShieldCheck className="w-3.5 h-3.5 text-cyan-400" />
+              <span className="text-xs uppercase tracking-[0.16em] text-cyan-300 font-space font-semibold">
+                Executive Governance
+              </span>
             </div>
             <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-surface-text tracking-tight">
               Leadership
@@ -398,7 +361,7 @@ export function OurCompanyContent() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             
             {/* Leader 1 */}
-            <div className="p-8 rounded-2xl frosted-glass border border-blue-500/20 shadow-lg flex flex-col justify-between hover:border-ice-cyan/40 hover:bg-[#101E40] transition-all duration-300 group">
+            <div className="p-8 rounded-2xl frosted-glass border border-blue-500/20 shadow-lg flex flex-col justify-start hover:border-ice-cyan/40 hover:bg-[#101E40] transition-all duration-300 group">
               <div className="flex flex-col items-start gap-5">
                 <div className="w-16 h-16 rounded-2xl bg-blue-500/15 border border-ice-cyan/30 flex items-center justify-center text-ice-cyan group-hover:scale-105 transition-transform">
                   <Layers className="w-8 h-8" />
@@ -415,16 +378,10 @@ export function OurCompanyContent() {
                   Over two decades guiding Fortune 500 &amp; high-growth businesses through NetSuite, SAP, and complex financial architecture rollouts.
                 </p>
               </div>
-              <div className="pt-6 border-t border-blue-500/15 mt-6 flex items-center justify-between w-full">
-                <span className="font-mono text-[11px] text-muted-text">PRACTICE LEAD</span>
-                <span className="font-mono text-xs text-ice-cyan flex items-center gap-1 font-semibold">
-                  <Check className="w-3.5 h-3.5" /> VERIFIED
-                </span>
-              </div>
             </div>
 
             {/* Leader 2 */}
-            <div className="p-8 rounded-2xl frosted-glass border border-blue-500/20 shadow-lg flex flex-col justify-between hover:border-ice-cyan/40 hover:bg-[#101E40] transition-all duration-300 group">
+            <div className="p-8 rounded-2xl frosted-glass border border-blue-500/20 shadow-lg flex flex-col justify-start hover:border-ice-cyan/40 hover:bg-[#101E40] transition-all duration-300 group">
               <div className="flex flex-col items-start gap-5">
                 <div className="w-16 h-16 rounded-2xl bg-blue-500/15 border border-ice-cyan/30 flex items-center justify-center text-ice-cyan group-hover:scale-105 transition-transform">
                   <ShieldCheck className="w-8 h-8" />
@@ -441,16 +398,10 @@ export function OurCompanyContent() {
                   Specialists in GxP, HIPAA, SOC 2 Type II, and FDA 21 CFR Part 11 validation for life sciences and high-velocity healthcare startups.
                 </p>
               </div>
-              <div className="pt-6 border-t border-blue-500/15 mt-6 flex items-center justify-between w-full">
-                <span className="font-mono text-[11px] text-muted-text">PRACTICE LEAD</span>
-                <span className="font-mono text-xs text-ice-cyan flex items-center gap-1 font-semibold">
-                  <Check className="w-3.5 h-3.5" /> VERIFIED
-                </span>
-              </div>
             </div>
 
             {/* Leader 3 */}
-            <div className="p-8 rounded-2xl frosted-glass border border-blue-500/20 shadow-lg flex flex-col justify-between hover:border-ice-cyan/40 hover:bg-[#101E40] transition-all duration-300 group">
+            <div className="p-8 rounded-2xl frosted-glass border border-blue-500/20 shadow-lg flex flex-col justify-start hover:border-ice-cyan/40 hover:bg-[#101E40] transition-all duration-300 group">
               <div className="flex flex-col items-start gap-5">
                 <div className="w-16 h-16 rounded-2xl bg-blue-500/15 border border-ice-cyan/30 flex items-center justify-center text-ice-cyan group-hover:scale-105 transition-transform">
                   <Cpu className="w-8 h-8" />
@@ -467,12 +418,6 @@ export function OurCompanyContent() {
                   Pioneering sovereign LLM pipelines, autonomous operational agents, and modern cloud microservices for regulated product ecosystems.
                 </p>
               </div>
-              <div className="pt-6 border-t border-blue-500/15 mt-6 flex items-center justify-between w-full">
-                <span className="font-mono text-[11px] text-muted-text">PRACTICE LEAD</span>
-                <span className="font-mono text-xs text-ice-cyan flex items-center gap-1 font-semibold">
-                  <Check className="w-3.5 h-3.5" /> VERIFIED
-                </span>
-              </div>
             </div>
 
           </div>
@@ -482,10 +427,12 @@ export function OurCompanyContent() {
             SECTION 8: TARGET VERTICALS (Industries We Serve)
             ========================================================================= */}
         <section className="w-full">
-          <div className="flex flex-col items-start gap-3 mb-10">
-            <div className="inline-flex items-center gap-2 font-mono text-[11px] text-ice-cyan uppercase tracking-widest">
-              <span className="w-1.5 h-1.5 rounded-full bg-ice-cyan"></span>
-              TARGET VERTICALS
+          <div className="flex flex-col items-center text-center gap-3 mb-10">
+            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-cyan-400/25 bg-[#0B1736]/70 backdrop-blur-md shadow-[0_0_20px_rgba(61,139,255,0.12)]">
+              <Building2 className="w-3.5 h-3.5 text-cyan-400" />
+              <span className="text-xs uppercase tracking-[0.16em] text-cyan-300 font-space font-semibold">
+                Target Verticals
+              </span>
             </div>
             <h2 className="font-display text-2xl sm:text-3xl font-bold text-surface-text tracking-tight">
               Industries We Serve
@@ -548,33 +495,44 @@ export function OurCompanyContent() {
         </section>
 
         {/* =========================================================================
-            SECTION 9: CREDENTIALS & GOVERNANCE PILLARS
+            SECTION 9: CREDENTIALS & GOVERNANCE PILLARS (INFINITE MARQUEE TICKER)
             ========================================================================= */}
-        <section className="w-full py-6 border-y border-blue-500/15">
-          <div className="flex flex-wrap items-center justify-center gap-4 lg:gap-8">
-            <div className="px-6 py-3 rounded-full frosted-glass border border-blue-500/20 flex items-center gap-2.5 shadow-sm">
-              <CheckCircle2 className="w-4 h-4 text-ice-cyan" />
-              <span className="font-mono text-xs text-surface-text tracking-wider uppercase font-semibold">
-                SOC 2 TYPE II COMPLIANT
-              </span>
+        <section className="w-full py-6 border-y border-blue-500/15 overflow-hidden relative group [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)] [-webkit-mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
+          <div className="flex w-max">
+            {/* Track 1 */}
+            <div className="flex shrink-0 items-center gap-6 pr-6 animate-ticker">
+              {CREDENTIALS.concat(CREDENTIALS).map((item, idx) => {
+                const IconComponent = item.icon;
+                return (
+                  <div
+                    key={`cred-a-${idx}`}
+                    className="px-6 py-3 rounded-full frosted-glass border border-blue-500/20 flex items-center gap-2.5 shadow-sm whitespace-nowrap hover:border-ice-cyan/40 hover:bg-[#101E40] transition-colors"
+                  >
+                    <IconComponent className="w-4 h-4 text-ice-cyan shrink-0" />
+                    <span className="font-mono text-xs text-surface-text tracking-wider uppercase font-semibold">
+                      {item.label}
+                    </span>
+                  </div>
+                );
+              })}
             </div>
-            <div className="px-6 py-3 rounded-full frosted-glass border border-blue-500/20 flex items-center gap-2.5 shadow-sm">
-              <ShieldCheck className="w-4 h-4 text-ice-cyan" />
-              <span className="font-mono text-xs text-surface-text tracking-wider uppercase font-semibold">
-                NIST RESILIENCE ARCHITECTURE
-              </span>
-            </div>
-            <div className="px-6 py-3 rounded-full frosted-glass border border-blue-500/20 flex items-center gap-2.5 shadow-sm">
-              <FileCheck className="w-4 h-4 text-ice-cyan" />
-              <span className="font-mono text-xs text-surface-text tracking-wider uppercase font-semibold">
-                GxP &amp; 21 CFR PART 11 READY
-              </span>
-            </div>
-            <div className="px-6 py-3 rounded-full frosted-glass border border-blue-500/20 flex items-center gap-2.5 shadow-sm">
-              <Award className="w-4 h-4 text-ice-cyan" />
-              <span className="font-mono text-xs text-surface-text tracking-wider uppercase font-semibold">
-                ENTERPRISE PARTNER NETWORK
-              </span>
+
+            {/* Track 2 (Seamless loop duplicate) */}
+            <div className="flex shrink-0 items-center gap-6 pr-6 animate-ticker" aria-hidden="true">
+              {CREDENTIALS.concat(CREDENTIALS).map((item, idx) => {
+                const IconComponent = item.icon;
+                return (
+                  <div
+                    key={`cred-b-${idx}`}
+                    className="px-6 py-3 rounded-full frosted-glass border border-blue-500/20 flex items-center gap-2.5 shadow-sm whitespace-nowrap hover:border-ice-cyan/40 hover:bg-[#101E40] transition-colors"
+                  >
+                    <IconComponent className="w-4 h-4 text-ice-cyan shrink-0" />
+                    <span className="font-mono text-xs text-surface-text tracking-wider uppercase font-semibold">
+                      {item.label}
+                    </span>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </section>

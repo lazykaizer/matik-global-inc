@@ -1,6 +1,7 @@
 "use client";
 
 import { useId } from "react";
+import { Cpu } from "lucide-react";
 import { ToolDock, ToolDockTile, type ToolDockItem } from "@/components/ui/techstack";
 
 /**
@@ -88,9 +89,12 @@ export default function ToolDockDemo({
   return (
     <section className={`flex min-h-[300px] w-full flex-col items-center justify-center px-4 py-8 text-center ${className}`}>
       {subtitle && (
-        <span className="font-mono text-xs tracking-widest text-ice-cyan uppercase font-semibold mb-2">
-          {subtitle}
-        </span>
+        <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-cyan-400/25 bg-[#0B1736]/70 backdrop-blur-md shadow-[0_0_20px_rgba(61,139,255,0.12)] w-fit mb-3">
+          <Cpu className="w-3.5 h-3.5 text-cyan-400" />
+          <span className="text-xs uppercase tracking-[0.16em] text-cyan-300 font-space font-semibold">
+            {subtitle}
+          </span>
+        </div>
       )}
       <h2 className="font-display text-2xl sm:text-3xl font-bold text-surface-text">
         {title}

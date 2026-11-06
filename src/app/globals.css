@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Montserrat:wght@400;500;600;700&family=Nunito+Sans:wght@300;400;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Montserrat:wght@400;500;600;700&family=Nunito+Sans:wght@300;400;600;700&family=Sora:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
 @import "tailwindcss";
 
@@ -8,6 +8,7 @@
   --font-heading: 'Montserrat', sans-serif;
   --font-body: 'Nunito Sans', sans-serif;
   --font-space: 'Space Grotesk', sans-serif;
+  --font-sora: 'Sora', sans-serif;
   --font-inter: 'Inter', sans-serif;
   --font-mono-telemetry: 'JetBrains Mono', monospace;
   --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.08);
@@ -89,6 +90,20 @@
     background-color: yellow;
     color: black;
   }
+}
+
+@keyframes ticker {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-ticker {
+  animation: ticker 32s linear infinite;
+  will-change: transform;
 }
 
 html.text-size-lg { font-size: 110%; }
@@ -202,3 +217,238 @@ html.pause-animations * {
   }
 }
 
+/* =========================================================================
+   ERP PLATFORMS WE IMPLEMENT (ENHANCED DESIGN)
+   ========================================================================= */
+.erp-sec {
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(900px 420px at 50% -80px, rgba(61, 139, 255, 0.22), transparent 70%),
+              radial-gradient(700px 400px at 100% 100%, rgba(127, 214, 255, 0.10), transparent 70%),
+              #050B1A;
+  font-family: var(--font-inter), sans-serif;
+  color: #C5D2EA;
+}
+
+.erp-sec::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(125, 170, 255, 0.06) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(125, 170, 255, 0.06) 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask-image: radial-gradient(ellipse at 50% 20%, #000 20%, transparent 75%);
+  mask-image: radial-gradient(ellipse at 50% 20%, #000 20%, transparent 75%);
+  pointer-events: none;
+}
+
+.erp-wrap {
+  position: relative;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 32px 40px 80px;
+}
+
+.erp-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.erp-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 22px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background: linear-gradient(165deg, rgba(22, 38, 80, 0.85), rgba(9, 18, 42, 0.95));
+  border: 1px solid rgba(125, 170, 255, 0.18);
+  transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+.erp-card::before {
+  content: "";
+  position: absolute;
+  left: 24px;
+  right: 24px;
+  top: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(127, 214, 255, 0.7), transparent);
+}
+
+.erp-card::after {
+  content: "";
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  right: -90px;
+  top: -90px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(61, 139, 255, 0.30), transparent 70%);
+  opacity: 0.35;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+
+.erp-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(61, 139, 255, 0.65);
+  box-shadow: 0 28px 60px -24px rgba(61, 139, 255, 0.45);
+}
+
+.erp-card:hover::after {
+  opacity: 1;
+}
+
+.erp-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.erp-ghost {
+  position: absolute !important;
+  right: 24px;
+  bottom: -18px;
+  z-index: 0 !important;
+  font-family: var(--font-sora), sans-serif;
+  font-weight: 700;
+  font-size: 120px;
+  line-height: 1;
+  color: rgba(125, 170, 255, 0.07);
+  pointer-events: none;
+  user-select: none;
+}
+
+.erp-tile {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-sora), sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  color: #7FD6FF;
+  background: linear-gradient(145deg, rgba(61, 139, 255, 0.28), rgba(61, 139, 255, 0.06));
+  border: 1px solid rgba(127, 214, 255, 0.35);
+}
+
+.erp-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.erp-chips li {
+  font-size: 12px;
+  font-weight: 500;
+  padding: 5px 11px;
+  border-radius: 999px;
+  color: #C5D2EA;
+  background: rgba(125, 170, 255, 0.10);
+  border: 1px solid rgba(125, 170, 255, 0.22);
+}
+
+.erp-chips li.hot {
+  color: #7FD6FF;
+  background: rgba(127, 214, 255, 0.12);
+  border-color: rgba(127, 214, 255, 0.45);
+}
+
+.erp-explore {
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  align-self: flex-start;
+  font-weight: 600;
+  font-size: 14px;
+  color: #7FD6FF;
+  text-decoration: none;
+  padding: 10px 0;
+  cursor: pointer;
+}
+
+.erp-explore .dot {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(61, 139, 255, 0.16);
+  border: 1px solid rgba(127, 214, 255, 0.4);
+  color: #7FD6FF;
+  transition: background 0.3s ease, transform 0.3s ease, color 0.3s ease;
+}
+
+.erp-card:hover .erp-explore .dot {
+  background: #3D8BFF;
+  color: #ffffff;
+  transform: translateX(4px);
+}
+
+.erp-explore:focus-visible,
+.erp-cta:focus-visible {
+  outline: 2px solid #7FD6FF;
+  outline-offset: 4px;
+  border-radius: 10px;
+}
+
+.erp-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  font-size: 15px;
+  color: #ffffff;
+  text-decoration: none;
+  padding: 14px 26px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #3D8BFF, #2E6FE0);
+  box-shadow: 0 12px 30px -10px rgba(61, 139, 255, 0.7);
+  white-space: nowrap;
+  transition: filter 0.2s ease, transform 0.2s ease;
+}
+
+.erp-cta:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+.erp-band {
+  margin-top: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  padding: 28px 36px;
+  border-radius: 22px;
+  background: rgba(16, 30, 64, 0.6);
+  border: 1px solid rgba(125, 170, 255, 0.18);
+}
+
+@media (max-width: 980px) {
+  .erp-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .erp-grid {
+    grid-template-columns: 1fr;
+  }
+  .erp-wrap {
+    padding: 24px 20px 56px;
+  }
+  .erp-band {
+    padding: 24px;
+  }
+}

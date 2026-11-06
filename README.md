@@ -2,7 +2,7 @@
 
 A production-ready, fully responsive multi-page corporate website for an AI-first IT and consulting firm. Built with Next.js (App Router), TypeScript, and Tailwind CSS.
 
-## Getting Started
+## Getting Starteid
 
 ### 1. Installation
 Clone the repository, navigate to the folder, and run:

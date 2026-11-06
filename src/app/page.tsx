@@ -23,54 +23,92 @@ import { GlassFold } from '@/components/ui/glass-fold';
 import { MetallicButton } from '@/components/ui/metallic-button';
 import HowItWorks from '@/components/ui/how-it-works';
 import { WhatWeDoCards } from '@/components/home/WhatWeDoCards';
-import FinalCtaBanner from '@/components/ui/final-cta-banner';
+import { RevealImageList } from '@/components/ui/reveal-image-list';
+import { HeroParallax } from '@/components/home/HeroParallax';
+import { WhyMaticSection } from '@/components/ui/why-matic-section';
+import { ERPPlatformsSection } from '@/components/home/ERPPlatformsSection';
 
 export default function Home() {
   return (
     <div className="w-full bg-[#050B1A] text-slate-100 min-h-screen selection:bg-cyan-500/30 selection:text-cyan-200">
       
       {/* =========================================================================
-          1. HERO SECTION
+          1. HERO SECTION WITH SMOOTH PARALLAX SCROLLING
           ========================================================================= */}
-      <section className="relative w-full pt-20 pb-28 md:pt-32 md:pb-40 overflow-hidden flex items-center min-h-[75vh]">
-        {/* Background photo - clearly visible */}
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: "url('/images/hero_enterprise.jpg')" }}
-        />
-        {/* Softened gradient overlay: high image opacity and visibility, with dark gradient on left for text legibility */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#050B1A]/75 via-[#050B1A]/30 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#050B1A]/60 via-transparent to-transparent" />
+      <HeroParallax />
 
-        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-          <div className="max-w-2xl sm:max-w-3xl">
+      {/* =========================================================================
+          2. INDUSTRIES WE PROTECT & SCALE
+          ========================================================================= */}
+      <section className="w-full pt-20 md:pt-28 pb-16 md:pb-28 relative overflow-visible">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 overflow-visible">
+          
+          {/* Header - Clean Centered Enterprise Header with Shine Lines */}
+          <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-18">
+            {/* Top Shine Line (~3cm / 110px) */}
+            <div className="w-28 sm:w-32 h-[1.5px] bg-gradient-to-r from-transparent via-cyan-400/80 to-transparent mx-auto mb-5 sm:mb-6 shadow-[0_0_12px_rgba(34,211,238,0.6)]" />
 
-            {/* Headline */}
-            <h1 className="text-4xl sm:text-5xl lg:text-[62px] font-bold text-white leading-[1.08] tracking-tight font-space mb-6 drop-shadow-[0_4px_16px_rgba(0,0,0,0.85)]">
-              Big-company systems.{' '}
-              <span className="block mt-1 bg-gradient-to-r from-blue-400 via-sky-300 to-cyan-200 bg-clip-text text-transparent drop-shadow-[0_0_25px_rgba(127,214,255,0.3)]">
-                Growth-stage speed.
-              </span>
-            </h1>
-
-            {/* Subtext */}
-            <p className="text-base sm:text-lg lg:text-[18px] text-slate-100 leading-relaxed max-w-2xl font-inter mb-9 drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]">
-              Matic Global Solutions brings AI, ERP, application development, compliance and finance support to life sciences and other regulated companies, so you can grow without building a full IT and compliance department first.
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-space text-white tracking-tight">
+              Industries We <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#7FD6FF] to-[#3D8BFF]">Protect &amp; Scale</span>
+            </h2>
+            <p className="text-[#A9B8D6] text-base sm:text-lg font-inter mt-3.5 max-w-2xl mx-auto">
+              Specialized digital and operational frameworks calibrated for heavily regulated sectors.
             </p>
 
-            {/* Action Buttons */}
-            <div className="flex flex-wrap items-center gap-4">
-              <Link
-                href="/contactus"
-                className="w-full sm:w-auto inline-flex items-center justify-center px-7 py-3.5 rounded text-sm font-bold tracking-wide bg-gradient-to-r from-[#3D8BFF] to-[#7FD6FF] text-[#050B1A] font-space hover:shadow-[0_0_24px_rgba(127,214,255,0.45)] hover:-translate-y-0.5 transition-all shadow-lg"
+            {/* Bottom Shine Line (~3cm / 110px) */}
+            <div className="w-28 sm:w-32 h-[1.5px] bg-gradient-to-r from-transparent via-cyan-400/80 to-transparent mx-auto mt-6 shadow-[0_0_12px_rgba(34,211,238,0.6)]" />
+          </div>
+
+          {/* Animated Reveal Image List */}
+          <RevealImageList />
+        </div>
+      </section>
+
+      {/* =========================================================================
+          4. INTRO / THE STRATEGIC DILEMMA (Clean Premium Enterprise Section)
+          ========================================================================= */}
+      <section className="w-full min-h-[85vh] lg:min-h-screen flex items-center justify-center py-20 lg:py-0 border-y border-blue-500/15 bg-gradient-to-b from-[#070E1D] via-[#091329] to-[#070E1D] relative overflow-hidden">
+        {/* Soft Ambient Radial Accents (Clean lighting, NO diagonal animation) */}
+        <div className="absolute top-1/2 -left-24 -translate-y-1/2 w-96 h-96 rounded-full bg-blue-600/15 blur-[120px] pointer-events-none" />
+        <div className="absolute top-1/2 right-0 -translate-y-1/2 w-80 h-80 rounded-full bg-cyan-500/10 blur-[100px] pointer-events-none" />
+
+        {/* Subtle grid pattern for enterprise depth */}
+        <div 
+          className="absolute inset-0 opacity-[0.03] pointer-events-none"
+          style={{
+            backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px)`,
+            backgroundSize: '48px 48px'
+          }}
+        />
+
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+          <div className="max-w-3xl flex flex-col gap-5 sm:gap-6">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-space text-white leading-[1.12] tracking-tight m-0">
+              Small teams.<br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#7FD6FF] via-[#BFE8FF] to-[#3D8BFF] drop-shadow-[0_0_24px_rgba(127,214,255,0.45)]">
+                Enterprise-sized regulation.
+              </span>
+            </h2>
+
+            <p className="text-base sm:text-lg md:text-xl text-[#A9B8D6] font-inter leading-relaxed max-w-2xl font-light m-0">
+              Growth-stage companies answer to the same regulators and investors as large enterprises, but without the IT, compliance and finance departments behind them. Matic Global Solutions fills that gap with AI-first technology, compliance know-how and financial expertise, delivered by one team.
+            </p>
+
+            <div className="flex flex-wrap items-center gap-3 sm:gap-4 pt-1">
+              <div className="inline-flex items-center gap-2.5 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full bg-[#0B1A3A]/90 border border-cyan-400/50 text-cyan-200 text-xs sm:text-sm font-space font-semibold shadow-[0_0_16px_rgba(34,211,238,0.2)] backdrop-blur-md">
+                <CheckCircle2 className="w-4 h-4 text-cyan-400 flex-shrink-0" />
+                <span>Integrated Tech Stack</span>
+              </div>
+              <div className="inline-flex items-center gap-2.5 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full bg-[#0B1A3A]/90 border border-cyan-400/50 text-cyan-200 text-xs sm:text-sm font-space font-semibold shadow-[0_0_16px_rgba(34,211,238,0.2)] backdrop-blur-md">
+                <CheckCircle2 className="w-4 h-4 text-cyan-400 flex-shrink-0" />
+                <span>Zero Functional Silos</span>
+              </div>
+              <a 
+                href="#services" 
+                className="inline-flex items-center gap-2 px-6 sm:px-7 py-2.5 sm:py-3 rounded-full bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white text-xs sm:text-sm font-space font-bold shadow-[0_0_24px_rgba(59,130,246,0.6)] hover:shadow-[0_0_32px_rgba(34,211,238,0.8)] transition-all hover:-translate-y-0.5"
               >
-                Contact Us
-              </Link>
-              <a
-                href="#services"
-                className="w-full sm:w-auto inline-flex items-center justify-center px-7 py-3.5 rounded text-sm font-medium tracking-wide bg-[#101E40]/80 border border-[rgba(125,170,255,0.35)] text-white font-space hover:border-[#7FD6FF] hover:bg-[#101E40] transition-all backdrop-blur-md shadow-lg"
-              >
-                Explore Services
+                <span>Explore Solutions</span>
+                <span aria-hidden="true">→</span>
               </a>
             </div>
           </div>
@@ -78,190 +116,9 @@ export default function Home() {
       </section>
 
       {/* =========================================================================
-          2. INDUSTRIES WE PROTECT & SCALE
-          ========================================================================= */}
-      <section className="w-full pt-20 md:pt-28 pb-10 md:pb-14 relative">
-        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
-          
-          {/* Header */}
-          <div className="mb-14">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-space text-white">
-              Industries We Protect &amp; Scale
-            </h2>
-            <p className="text-[#A9B8D6] text-base sm:text-lg font-inter mt-3 max-w-2xl">
-              Specialized digital and operational frameworks calibrated for heavily regulated sectors.
-            </p>
-          </div>
-
-          {/* 5 Glass Tiles Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            
-            {/* 1. Life Sciences & Biotech (Flagship Domain - Larger Footprint) */}
-            <div className="md:col-span-2 lg:col-span-2 p-8 rounded-xl bg-gradient-to-br from-[#101E40] to-[#0B1630] border-2 border-cyan-400/40 relative overflow-hidden group hover:shadow-[0_0_30px_rgba(127,214,255,0.2)] transition-all">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
-              <div className="flex items-center justify-between mb-6">
-                <div className="w-12 h-12 rounded-lg bg-blue-500/20 border border-cyan-400/30 flex items-center justify-center text-cyan-300">
-                  <Activity className="w-6 h-6" />
-                </div>
-                <span className="px-3 py-1 rounded-full text-xs font-semibold bg-cyan-400/15 border border-cyan-400/40 text-cyan-300 font-space uppercase tracking-wider">
-                  Flagship Domain
-                </span>
-              </div>
-              <h3 className="text-2xl sm:text-3xl font-bold text-white font-space mb-3 group-hover:text-cyan-300 transition-colors">
-                Life Sciences &amp; Biotech
-              </h3>
-              <p className="text-[#A9B8D6] text-base sm:text-lg font-inter leading-relaxed max-w-2xl mb-6">
-                Compliant systems and clean data from early stage to commercial launch.
-              </p>
-              <div className="flex flex-wrap gap-2 pt-4 border-t border-blue-500/15">
-                <span className="text-xs font-medium font-space px-3 py-1 rounded bg-[#050B1A]/80 border border-blue-500/20 text-slate-300">
-                  GxP &amp; 21 CFR Part 11
-                </span>
-                <span className="text-xs font-medium font-space px-3 py-1 rounded bg-[#050B1A]/80 border border-blue-500/20 text-slate-300">
-                  FDA Validation Ready
-                </span>
-                <span className="text-xs font-medium font-space px-3 py-1 rounded bg-[#050B1A]/80 border border-blue-500/20 text-slate-300">
-                  Clinical Data Pipelines
-                </span>
-              </div>
-            </div>
-
-            {/* 2. Manufacturing */}
-            <div className="p-8 rounded-xl bg-[#101E40]/70 border border-blue-500/20 backdrop-blur-md group hover:border-cyan-400/40 hover:bg-[#101E40] transition-all flex flex-col justify-between">
-              <div>
-                <div className="w-12 h-12 rounded-lg bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-cyan-300 mb-6">
-                  <Factory className="w-6 h-6" />
-                </div>
-                <h3 className="text-xl sm:text-2xl font-bold text-white font-space mb-3 group-hover:text-cyan-300 transition-colors">
-                  Manufacturing
-                </h3>
-                <p className="text-[#A9B8D6] text-sm sm:text-base font-inter leading-relaxed mb-6">
-                  Connected operations, from the shop floor to the finance team.
-                </p>
-              </div>
-              <div className="flex flex-wrap gap-2 pt-4 border-t border-blue-500/15">
-                <span className="text-xs font-medium font-space px-2.5 py-1 rounded bg-[#050B1A]/80 border border-blue-500/20 text-slate-300">
-                  Shop-Floor Telemetry
-                </span>
-                <span className="text-xs font-medium font-space px-2.5 py-1 rounded bg-[#050B1A]/80 border border-blue-500/20 text-slate-300">
-                  Supply Chain ERP
-                </span>
-              </div>
-            </div>
-
-            {/* 3. Consumer Products */}
-            <div className="p-8 rounded-xl bg-[#101E40]/70 border border-blue-500/20 backdrop-blur-md group hover:border-cyan-400/40 hover:bg-[#101E40] transition-all flex flex-col justify-between">
-              <div>
-                <div className="w-12 h-12 rounded-lg bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-cyan-300 mb-6">
-                  <ShoppingBag className="w-6 h-6" />
-                </div>
-                <h3 className="text-xl sm:text-2xl font-bold text-white font-space mb-3 group-hover:text-cyan-300 transition-colors">
-                  Consumer Products
-                </h3>
-                <p className="text-[#A9B8D6] text-sm sm:text-base font-inter leading-relaxed mb-6">
-                  Forecasting, ERP and analytics for fast-moving brands.
-                </p>
-              </div>
-              <div className="flex flex-wrap gap-2 pt-4 border-t border-blue-500/15">
-                <span className="text-xs font-medium font-space px-2.5 py-1 rounded bg-[#050B1A]/80 border border-blue-500/20 text-slate-300">
-                  Demand Forecasting
-                </span>
-                <span className="text-xs font-medium font-space px-2.5 py-1 rounded bg-[#050B1A]/80 border border-blue-500/20 text-slate-300">
-                  Omnichannel Margins
-                </span>
-              </div>
-            </div>
-
-            {/* 4. Financial Services */}
-            <div className="p-8 rounded-xl bg-[#101E40]/70 border border-blue-500/20 backdrop-blur-md group hover:border-cyan-400/40 hover:bg-[#101E40] transition-all flex flex-col justify-between">
-              <div>
-                <div className="w-12 h-12 rounded-lg bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-cyan-300 mb-6">
-                  <Building2 className="w-6 h-6" />
-                </div>
-                <h3 className="text-xl sm:text-2xl font-bold text-white font-space mb-3 group-hover:text-cyan-300 transition-colors">
-                  Financial Services
-                </h3>
-                <p className="text-[#A9B8D6] text-sm sm:text-base font-inter leading-relaxed mb-6">
-                  Compliant platforms, reporting and controls for regulated firms.
-                </p>
-              </div>
-              <div className="flex flex-wrap gap-2 pt-4 border-t border-blue-500/15">
-                <span className="text-xs font-medium font-space px-2.5 py-1 rounded bg-[#050B1A]/80 border border-blue-500/20 text-slate-300">
-                  SEC / FINRA Controls
-                </span>
-                <span className="text-xs font-medium font-space px-2.5 py-1 rounded bg-[#050B1A]/80 border border-blue-500/20 text-slate-300">
-                  Immutable Audit Trails
-                </span>
-              </div>
-            </div>
-
-            {/* 5. Growth-Stage SMBs */}
-            <div className="p-8 rounded-xl bg-[#101E40]/70 border border-blue-500/20 backdrop-blur-md group hover:border-cyan-400/40 hover:bg-[#101E40] transition-all flex flex-col justify-between">
-              <div>
-                <div className="w-12 h-12 rounded-lg bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-cyan-300 mb-6">
-                  <TrendingUp className="w-6 h-6" />
-                </div>
-                <h3 className="text-xl sm:text-2xl font-bold text-white font-space mb-3 group-hover:text-cyan-300 transition-colors">
-                  Growth-Stage SMBs
-                </h3>
-                <p className="text-[#A9B8D6] text-sm sm:text-base font-inter leading-relaxed mb-6">
-                  The systems of a larger company, sized for yours.
-                </p>
-              </div>
-              <div className="flex flex-wrap gap-2 pt-4 border-t border-blue-500/15">
-                <span className="text-xs font-medium font-space px-2.5 py-1 rounded bg-[#050B1A]/80 border border-blue-500/20 text-slate-300">
-                  Fractional Scale
-                </span>
-                <span className="text-xs font-medium font-space px-2.5 py-1 rounded bg-[#050B1A]/80 border border-blue-500/20 text-slate-300">
-                  Zero Overhead Bloat
-                </span>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* =========================================================================
-          4. INTRO / THE STRATEGIC DILEMMA (Full-Bleed Corner-to-Corner 3D Blinds)
-          ========================================================================= */}
-      <FinalCtaBanner
-        fullBleed
-        heading={
-          <>
-            Small teams.<br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#7FD6FF] via-[#BFE8FF] to-[#3D8BFF] drop-shadow-[0_0_24px_rgba(127,214,255,0.45)]">
-              Enterprise-sized regulation.
-            </span>
-          </>
-        }
-        body="Growth-stage companies answer to the same regulators and investors as large enterprises, but without the IT, compliance and finance departments behind them. Matic Global Solutions fills that gap with AI-first technology, compliance know-how and financial expertise, delivered by one team."
-        gradientColors={["#60A5FA", "#2563EB", "#0F286E", "#050B1A"]}
-        actions={
-          <div className="flex flex-wrap items-center gap-3 sm:gap-4 pt-1">
-            <div className="inline-flex items-center gap-2.5 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full bg-[#0B1A3A]/90 border border-cyan-400/50 text-cyan-200 text-xs sm:text-sm font-space font-semibold shadow-[0_0_16px_rgba(34,211,238,0.25)] backdrop-blur-md">
-              <CheckCircle2 className="w-4 h-4 text-cyan-400 flex-shrink-0" />
-              <span>Integrated Tech Stack</span>
-            </div>
-            <div className="inline-flex items-center gap-2.5 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full bg-[#0B1A3A]/90 border border-cyan-400/50 text-cyan-200 text-xs sm:text-sm font-space font-semibold shadow-[0_0_16px_rgba(34,211,238,0.25)] backdrop-blur-md">
-              <CheckCircle2 className="w-4 h-4 text-cyan-400 flex-shrink-0" />
-              <span>Zero Functional Silos</span>
-            </div>
-            <a 
-              href="#services" 
-              className="inline-flex items-center gap-2 px-6 sm:px-7 py-2.5 sm:py-3 rounded-full bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white text-xs sm:text-sm font-space font-bold shadow-[0_0_24px_rgba(59,130,246,0.6)] hover:shadow-[0_0_32px_rgba(34,211,238,0.8)] transition-all hover:-translate-y-0.5"
-            >
-              <span>Explore Solutions</span>
-              <span aria-hidden="true">→</span>
-            </a>
-          </div>
-        }
-      />
-
-      {/* =========================================================================
           5. SERVICES BENTO GRID: "What We Do"
           ========================================================================= */}
-      <section id="services" className="w-full pt-10 md:pt-14 pb-20 md:pb-28 relative scroll-mt-20 overflow-visible">
+      <section id="services" className="w-full pt-10 md:pt-14 pb-8 md:pb-12 relative scroll-mt-20 overflow-visible">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
           <WhatWeDoCards />
         </div>
@@ -270,215 +127,12 @@ export default function Home() {
       {/* =========================================================================
           6. ERP PLATFORMS WE IMPLEMENT
           ========================================================================= */}
-      <section className="w-full py-20 md:py-28 border-t border-blue-500/15 bg-[#070E1D]">
-        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
-          
-          {/* Header */}
-          <div className="text-center mb-14">
-            <span className="text-xs uppercase tracking-widest text-cyan-400 font-space font-semibold block mb-2">
-              ● ECOSYSTEM AGNOSTIC
-            </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-space text-white">
-              ERP platforms we implement
-            </h2>
-            <p className="text-[#A9B8D6] text-base sm:text-lg font-inter mt-3 max-w-2xl mx-auto">
-              Independent advice across six leading platforms.
-            </p>
-          </div>
-
-          {/* 6 Equal Glass Tiles in 3x2 Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-            
-            {/* 1. Oracle NetSuite */}
-            <div className="p-7 rounded-xl bg-[#0B1630]/70 border border-blue-500/20 backdrop-blur-md hover:border-cyan-400/40 hover:bg-[#101E40] transition-all flex flex-col justify-between group">
-              <div>
-                <span className="text-xs font-space uppercase text-slate-400 block mb-2 font-medium">Platform 01</span>
-                <h3 className="text-xl font-bold text-white font-space mb-4 group-hover:text-cyan-300 transition-colors">
-                  Oracle NetSuite
-                </h3>
-                <p className="text-xs text-[#A9B8D6] font-inter mb-4">
-                  Cloud ERP built for rapid scaling and global multi-entity consolidation.
-                </p>
-              </div>
-              <Link href="/erp" className="inline-flex items-center gap-1.5 text-xs font-semibold text-cyan-400 font-space group-hover:translate-x-1 transition-transform">
-                Explore &rarr;
-              </Link>
-            </div>
-
-            {/* 2. Infor (with M3 & SyteLine chips) */}
-            <div className="p-7 rounded-xl bg-[#0B1630]/70 border border-blue-500/20 backdrop-blur-md hover:border-cyan-400/40 hover:bg-[#101E40] transition-all flex flex-col justify-between group">
-              <div>
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-xs font-space uppercase text-slate-400 font-medium">Platform 02</span>
-                  <div className="flex gap-1.5">
-                    <span className="text-[10px] font-space font-bold px-2 py-0.5 rounded bg-cyan-400/15 text-cyan-300 border border-cyan-400/30">M3</span>
-                    <span className="text-[10px] font-space font-bold px-2 py-0.5 rounded bg-blue-400/15 text-blue-300 border border-blue-400/30">SyteLine</span>
-                  </div>
-                </div>
-                <h3 className="text-xl font-bold text-white font-space mb-4 group-hover:text-cyan-300 transition-colors">
-                  Infor
-                </h3>
-                <p className="text-xs text-[#A9B8D6] font-inter mb-4">
-                  Deep industry manufacturing and complex process distribution functionality.
-                </p>
-              </div>
-              <Link href="/erp" className="inline-flex items-center gap-1.5 text-xs font-semibold text-cyan-400 font-space group-hover:translate-x-1 transition-transform">
-                Explore &rarr;
-              </Link>
-            </div>
-
-            {/* 3. Odoo */}
-            <div className="p-7 rounded-xl bg-[#0B1630]/70 border border-blue-500/20 backdrop-blur-md hover:border-cyan-400/40 hover:bg-[#101E40] transition-all flex flex-col justify-between group">
-              <div>
-                <span className="text-xs font-space uppercase text-slate-400 block mb-2 font-medium">Platform 03</span>
-                <h3 className="text-xl font-bold text-white font-space mb-4 group-hover:text-cyan-300 transition-colors">
-                  Odoo
-                </h3>
-                <p className="text-xs text-[#A9B8D6] font-inter mb-4">
-                  Modular open suite ideal for high-agility growth companies.
-                </p>
-              </div>
-              <Link href="/erp" className="inline-flex items-center gap-1.5 text-xs font-semibold text-cyan-400 font-space group-hover:translate-x-1 transition-transform">
-                Explore &rarr;
-              </Link>
-            </div>
-
-            {/* 4. SAP */}
-            <div className="p-7 rounded-xl bg-[#0B1630]/70 border border-blue-500/20 backdrop-blur-md hover:border-cyan-400/40 hover:bg-[#101E40] transition-all flex flex-col justify-between group">
-              <div>
-                <span className="text-xs font-space uppercase text-slate-400 block mb-2 font-medium">Platform 04</span>
-                <h3 className="text-xl font-bold text-white font-space mb-4 group-hover:text-cyan-300 transition-colors">
-                  SAP
-                </h3>
-                <p className="text-xs text-[#A9B8D6] font-inter mb-4">
-                  World-standard enterprise architecture for heavily governed operations.
-                </p>
-              </div>
-              <Link href="/erp" className="inline-flex items-center gap-1.5 text-xs font-semibold text-cyan-400 font-space group-hover:translate-x-1 transition-transform">
-                Explore &rarr;
-              </Link>
-            </div>
-
-            {/* 5. JD Edwards */}
-            <div className="p-7 rounded-xl bg-[#0B1630]/70 border border-blue-500/20 backdrop-blur-md hover:border-cyan-400/40 hover:bg-[#101E40] transition-all flex flex-col justify-between group">
-              <div>
-                <span className="text-xs font-space uppercase text-slate-400 block mb-2 font-medium">Platform 05</span>
-                <h3 className="text-xl font-bold text-white font-space mb-4 group-hover:text-cyan-300 transition-colors">
-                  JD Edwards
-                </h3>
-                <p className="text-xs text-[#A9B8D6] font-inter mb-4">
-                  Proven robustness for heavy equipment, capital assets, and distribution.
-                </p>
-              </div>
-              <Link href="/erp" className="inline-flex items-center gap-1.5 text-xs font-semibold text-cyan-400 font-space group-hover:translate-x-1 transition-transform">
-                Explore &rarr;
-              </Link>
-            </div>
-
-            {/* 6. Microsoft Dynamics 365 */}
-            <div className="p-7 rounded-xl bg-[#0B1630]/70 border border-blue-500/20 backdrop-blur-md hover:border-cyan-400/40 hover:bg-[#101E40] transition-all flex flex-col justify-between group">
-              <div>
-                <span className="text-xs font-space uppercase text-slate-400 block mb-2 font-medium">Platform 06</span>
-                <h3 className="text-xl font-bold text-white font-space mb-4 group-hover:text-cyan-300 transition-colors">
-                  Microsoft Dynamics 365
-                </h3>
-                <p className="text-xs text-[#A9B8D6] font-inter mb-4">
-                  Native ecosystem connectivity with Office 365, Azure, and Power Platform.
-                </p>
-              </div>
-              <Link href="/erp" className="inline-flex items-center gap-1.5 text-xs font-semibold text-cyan-400 font-space group-hover:translate-x-1 transition-transform">
-                Explore &rarr;
-              </Link>
-            </div>
-
-          </div>
-
-          {/* Action Button */}
-          <div className="flex justify-center">
-            <Link
-              href="/erp"
-              className="inline-flex items-center gap-2 px-8 py-3.5 rounded text-sm font-semibold tracking-wide bg-[#101E40]/60 border border-[rgba(125,170,255,0.3)] text-white font-space hover:border-[#7FD6FF] hover:bg-[#101E40] hover:shadow-[0_0_20px_rgba(127,214,255,0.25)] transition-all"
-            >
-              <span>Explore ERP Services</span>
-              <ArrowRight className="w-4 h-4 text-cyan-400" />
-            </Link>
-          </div>
-
-        </div>
-      </section>
+      <ERPPlatformsSection />
 
       {/* =========================================================================
           7. WHY MATIC (WHY CHOOSE US)
           ========================================================================= */}
-      <section className="relative w-full py-24 md:py-32 overflow-hidden flex items-center min-h-[70vh]">
-        {/* Background photo - clearly visible */}
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: "url('/images/why_matic.jpg')" }}
-        />
-        {/* Light gradient overlay - dark on left for text legibility, transparent on right to showcase boardroom image */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#050B1A]/90 via-[#050B1A]/65 to-[#050B1A]/35" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#050B1A] via-transparent to-[#050B1A]/70" />
-
-        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-          {/* Glass Panel with 3 Numbered Points */}
-          <div className="max-w-2xl p-8 sm:p-12 rounded-2xl bg-[#0B1630]/80 border border-cyan-400/30 backdrop-blur-md shadow-[0_12px_45px_rgba(0,0,0,0.6)]">
-            <span className="text-xs uppercase tracking-widest text-cyan-400 font-space font-semibold block mb-2">
-              ● THE UNIFIED ADVANTAGE
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-bold font-space text-white mb-8">
-              Why Matic
-            </h2>
-
-            <div className="space-y-7">
-              {/* Point 1 */}
-              <div className="flex gap-4 sm:gap-6 items-start">
-                <span className="w-9 h-9 rounded-md bg-blue-500/20 border border-cyan-400/40 flex items-center justify-center text-xs font-bold font-space text-cyan-300 flex-shrink-0 mt-0.5 shadow-[0_0_10px_rgba(127,214,255,0.2)]">
-                  01
-                </span>
-                <div>
-                  <h3 className="text-base sm:text-lg font-bold font-space text-white mb-1.5">
-                    Regulation shapes the design.
-                  </h3>
-                  <p className="text-slate-200 text-sm sm:text-base font-inter leading-relaxed">
-                    Compliance requirements guide every system we build, instead of arriving as a review at the end.
-                  </p>
-                </div>
-              </div>
-
-              {/* Point 2 */}
-              <div className="flex gap-4 sm:gap-6 items-start">
-                <span className="w-9 h-9 rounded-md bg-blue-500/20 border border-cyan-400/40 flex items-center justify-center text-xs font-bold font-space text-cyan-300 flex-shrink-0 mt-0.5 shadow-[0_0_10px_rgba(127,214,255,0.2)]">
-                  02
-                </span>
-                <div>
-                  <h3 className="text-base sm:text-lg font-bold font-space text-white mb-1.5">
-                    AI where it pays off.
-                  </h3>
-                  <p className="text-slate-200 text-sm sm:text-base font-inter leading-relaxed">
-                    We start from a business use case and governed data, not from a tool.
-                  </p>
-                </div>
-              </div>
-
-              {/* Point 3 */}
-              <div className="flex gap-4 sm:gap-6 items-start">
-                <span className="w-9 h-9 rounded-md bg-blue-500/20 border border-cyan-400/40 flex items-center justify-center text-xs font-bold font-space text-cyan-300 flex-shrink-0 mt-0.5 shadow-[0_0_10px_rgba(127,214,255,0.2)]">
-                  03
-                </span>
-                <div>
-                  <h3 className="text-base sm:text-lg font-bold font-space text-white mb-1.5">
-                    One team, not five vendors.
-                  </h3>
-                  <p className="text-slate-200 text-sm sm:text-base font-inter leading-relaxed">
-                    Technology, compliance and finance work together, so your ERP, controls and books agree.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <WhyMaticSection />
 
       {/* =========================================================================
           8. HOW WE WORK
@@ -488,9 +142,12 @@ export default function Home() {
           
           {/* Header */}
           <div className="text-center mb-16">
-            <span className="text-xs uppercase tracking-widest text-cyan-400 font-space font-semibold block mb-2">
-              ● DELIVERY FRAMEWORK
-            </span>
+            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-cyan-400/25 bg-[#0B1736]/70 backdrop-blur-md mb-4 shadow-[0_0_20px_rgba(61,139,255,0.12)]">
+              <Layers className="w-3.5 h-3.5 text-cyan-400" />
+              <span className="text-xs uppercase tracking-[0.16em] text-cyan-300 font-space font-semibold">
+                Implementation Protocol
+              </span>
+            </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-space text-white">
               How We Work
             </h2>

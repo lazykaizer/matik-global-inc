@@ -12,6 +12,7 @@ import {
   FileText,
   CheckCircle2,
   Paperclip,
+  UserPlus,
   X,
 } from 'lucide-react';
 import { CONTACT_CONSTANTS } from '@/lib/contactConstants';
@@ -352,9 +353,11 @@ export function WorkWithUsForm({
     >
       {/* Header */}
       <div className="flex flex-col gap-2 pb-2 border-b border-blue-500/15">
-        <div className="inline-flex items-center gap-2 font-mono text-[11px] text-ice-cyan uppercase tracking-widest font-semibold">
-          <span className="w-1.5 h-1.5 rounded-full bg-ice-cyan"></span>
-          TALENT APPLICATION
+        <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full border border-cyan-400/25 bg-[#0B1736]/70 backdrop-blur-md shadow-[0_0_20px_rgba(61,139,255,0.12)] w-fit mb-1">
+          <UserPlus className="w-3.5 h-3.5 text-cyan-400" />
+          <span className="text-xs uppercase tracking-[0.16em] text-cyan-300 font-space font-semibold">
+            Talent Application
+          </span>
         </div>
         <h2 className="font-display text-2xl sm:text-3xl font-bold text-surface-text tracking-tight">
           Apply or join our talent network

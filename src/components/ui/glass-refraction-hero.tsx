@@ -32,29 +32,29 @@ export function GlassRefractionHero({
   return (
     <section
       className={cn(
-        "relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-black",
+        "relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-[#050B1A]",
         className
       )}
       role="banner"
       aria-label="Hero section"
     >
-      {/* Blue Gradient Blobs Background */}
+      {/* Blue Gradient Blobs Background (Inverted: Blue at Top, Dark Blackish at Bottom) */}
       <div className="absolute inset-0" aria-hidden="true">
-        {/* Blob 1 - Top Left (Bright Blue #0367FE) - U-shaped motion */}
+        {/* Blob 1 - Top Left (Bright Blue #0367FE) */}
         <motion.div
           className="absolute rounded-full"
           style={{
-            width: "min(600px, 40vw)",
-            height: "min(600px, 40vw)",
-            left: "calc(-91px + 5vw)",
-            top: "calc(438px - 10vh)",
+            width: "min(650px, 45vw)",
+            height: "min(650px, 45vw)",
+            left: "calc(-60px + 3vw)",
+            top: "calc(-180px + 2vh)",
             background:
               "radial-gradient(circle, #0367FE 0%, #0367FE 50%, #0256CC 100%)",
             filter: "blur(150px)",
           }}
           animate={{
             x: [0, 50, 100, 50, 0],
-            y: [0, -80, 0, 80, 0],
+            y: [0, 60, 0, -60, 0],
             scale: [1, 1.2, 1.4, 1.2, 1],
             rotate: [0, 90, 180, 270, 360],
           }}
@@ -65,21 +65,21 @@ export function GlassRefractionHero({
           }}
         />
 
-        {/* Blob 2 - Center Left (Deep Blue #0A1DCB) - Inverted U-shaped motion */}
+        {/* Blob 2 - Top Center-Left (Deep Blue #0A1DCB) */}
         <motion.div
           className="absolute rounded-full"
           style={{
-            width: "min(600px, 40vw)",
-            height: "min(600px, 40vw)",
-            left: "calc(430px - 5vw)",
-            top: "calc(609px - 20vh)",
+            width: "min(650px, 45vw)",
+            height: "min(650px, 45vw)",
+            left: "calc(25vw)",
+            top: "calc(-160px)",
             background:
               "radial-gradient(circle, #0A1DCB 0%, #0A1DCB 50%, #0816A3 100%)",
             filter: "blur(150px)",
           }}
           animate={{
             x: [0, -60, -120, -60, 0],
-            y: [0, 90, 0, -90, 0],
+            y: [0, -40, 0, 40, 0],
             scale: [1, 1.3, 1.5, 1.3, 1],
             rotate: [0, -90, -180, -270, -360],
           }}
@@ -90,21 +90,21 @@ export function GlassRefractionHero({
           }}
         />
 
-        {/* Blob 3 - Center Right (Deep Blue #0A1DCB) - U-shaped motion */}
+        {/* Blob 3 - Top Center-Right (Deep Blue #0A1DCB) */}
         <motion.div
           className="absolute rounded-full"
           style={{
-            width: "min(600px, 40vw)",
-            height: "min(600px, 40vw)",
-            left: "calc(900px - 15vw)",
-            top: "calc(651px - 20vh)",
+            width: "min(650px, 45vw)",
+            height: "min(650px, 45vw)",
+            left: "calc(55vw)",
+            top: "calc(-160px)",
             background:
               "radial-gradient(circle, #0A1DCB 0%, #0A1DCB 50%, #0816A3 100%)",
             filter: "blur(150px)",
           }}
           animate={{
             x: [0, 70, 140, 70, 0],
-            y: [0, -100, 0, 100, 0],
+            y: [0, 50, 0, -50, 0],
             scale: [1, 1.25, 1.45, 1.25, 1],
             rotate: [0, 120, 240, 120, 360],
           }}
@@ -115,21 +115,21 @@ export function GlassRefractionHero({
           }}
         />
 
-        {/* Blob 4 - Top Right (Bright Blue #0367FE) - Inverted U-shaped motion */}
+        {/* Blob 4 - Top Right (Bright Blue #0367FE) */}
         <motion.div
           className="absolute rounded-full"
           style={{
-            width: "min(600px, 40vw)",
-            height: "min(600px, 40vw)",
-            right: "calc(-200px + 10vw)",
-            top: "calc(329px - 10vh)",
+            width: "min(650px, 45vw)",
+            height: "min(650px, 45vw)",
+            right: "calc(-150px + 5vw)",
+            top: "calc(-180px + 2vh)",
             background:
               "radial-gradient(circle, #0367FE 0%, #0367FE 50%, #0256CC 100%)",
             filter: "blur(150px)",
           }}
           animate={{
             x: [0, -80, -160, -80, 0],
-            y: [0, 110, 0, -110, 0],
+            y: [0, 60, 0, -60, 0],
             scale: [1, 1.35, 1.5, 1.35, 1],
             rotate: [0, -120, -240, -120, -360],
           }}
@@ -140,30 +140,46 @@ export function GlassRefractionHero({
           }}
         />
 
-        {/* Center floating blob - Pulsing U motion */}
+        {/* Center floating blob - Pulled to upper portion */}
         <motion.div
           className="absolute rounded-full"
           style={{
-            width: "min(400px, 30vw)",
-            height: "min(400px, 30vw)",
+            width: "min(450px, 35vw)",
+            height: "min(450px, 35vw)",
             left: "50%",
-            top: "50%",
+            top: "22%",
             background:
-              "radial-gradient(circle, rgba(59, 130, 246, 0.4) 0%, rgba(59, 130, 246, 0.2) 100%)",
+              "radial-gradient(circle, rgba(59, 130, 246, 0.45) 0%, rgba(59, 130, 246, 0.2) 100%)",
             filter: "blur(120px)",
             transform: "translate(-50%, -50%)",
           }}
           animate={{
             x: [0, 40, 80, 40, 0],
-            y: [0, -60, 0, 60, 0],
+            y: [0, -30, 0, 30, 0],
             scale: [1, 1.3, 1.6, 1.3, 1],
-            opacity: [0.3, 0.5, 0.7, 0.5, 0.3],
+            opacity: [0.35, 0.55, 0.75, 0.55, 0.35],
             rotate: [0, 180, 360],
           }}
           transition={{
             duration: 24,
             repeat: Infinity,
             ease: "easeInOut",
+          }}
+        />
+
+        {/* Top Vibrant Blue Radial Lighting */}
+        <div 
+          className="absolute inset-0 pointer-events-none" 
+          style={{
+            background: "radial-gradient(ellipse 110% 65% at 50% 0%, rgba(3, 103, 254, 0.5) 0%, rgba(10, 29, 203, 0.3) 45%, transparent 80%)"
+          }}
+        />
+
+        {/* Bottom Blackish Gradient Vignette (Smooth fade to dark) */}
+        <div 
+          className="absolute inset-0 pointer-events-none" 
+          style={{
+            background: "linear-gradient(to bottom, transparent 0%, transparent 35%, rgba(5, 11, 26, 0.55) 60%, rgba(5, 11, 26, 0.92) 85%, #050B1A 100%)"
           }}
         />
       </div>

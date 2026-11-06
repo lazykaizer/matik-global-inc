@@ -2,7 +2,13 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
+
+const SilkBackgroundAnimation = dynamic(
+  () => import('@/components/ui/silk-background-animation').then((mod) => mod.SilkBackgroundAnimation),
+  { ssr: false }
+);
 import { TabSwitcher, ContactTabType } from './TabSwitcher';
 import { BusinessInfoCard } from './BusinessInfoCard';
 import { CareersInfoCard } from './CareersInfoCard';
@@ -157,22 +163,23 @@ export function ContactContent({ initialTab = 'business' }: ContactContentProps)
   return (
     <div 
       id="contactus-page" 
-      className="radial-bg min-h-screen relative antialiased selection:bg-diamond-blue selection:text-white overflow-x-hidden w-full text-surface-text"
+      className="min-h-screen relative antialiased selection:bg-diamond-blue selection:text-white overflow-x-hidden w-full text-surface-text bg-[#0a0a0a]"
       style={{
-        backgroundColor: '#050B1A',
         color: '#E1E8F8',
         fontFamily: "'Inter', sans-serif"
       }}
     >
-      {/* Background Ambient Glow Accents */}
-      <div className="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
-        <div className="absolute -top-[15%] left-[25%] w-[700px] h-[700px] rounded-full bg-[#3D8BFF]/10 blur-[150px]"></div>
-        <div className="absolute top-[35%] -right-[10%] w-[650px] h-[650px] rounded-full bg-[#7FD6FF]/12 blur-[160px]"></div>
-        <div className="absolute bottom-[10%] -left-[5%] w-[600px] h-[600px] rounded-full bg-[#3D8BFF]/10 blur-[140px]"></div>
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(172,199,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(172,199,255,0.02)_1px,transparent_1px)] bg-[size:4rem_4rem]"></div>
+      {/* Background Animated Silk Texture & Ambient Accents */}
+      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <SilkBackgroundAnimation 
+          showContent={false} 
+          colorTheme="black"
+          className="absolute inset-0 w-full h-full opacity-90" 
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60 pointer-events-none" />
       </div>
 
-      <div className="w-full pt-2 sm:pt-4 max-w-[1360px] mx-auto px-6 lg:px-12 flex flex-col gap-7 lg:gap-10 pb-24">
+      <div className="relative z-10 w-full pt-2 sm:pt-4 max-w-[1360px] mx-auto px-6 lg:px-12 flex flex-col gap-7 lg:gap-10 pb-24">
         
         {/* =========================================================================
             1. COMPACT HERO

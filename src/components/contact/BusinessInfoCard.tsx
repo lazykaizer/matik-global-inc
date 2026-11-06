@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
-import { Mail, Phone, MapPin, Clock, Calendar, ArrowUpRight, CheckCircle2 } from 'lucide-react';
+import { Mail, Phone, MapPin, Clock, Calendar, ArrowUpRight, CheckCircle2, Compass } from 'lucide-react';
 import { CONTACT_CONSTANTS } from '@/lib/contactConstants';
 import { CONTACT_ANIMATION } from '@/lib/contactAnimationConstants';
 import { siteConfig } from '@/config/site';
@@ -34,9 +34,11 @@ export function BusinessInfoCard({ isMobile = false }: BusinessInfoCardProps) {
         transition={getCardTransition(0)}
         className="p-6 sm:p-7 rounded-2xl frosted-glass border border-blue-500/25 shadow-lg flex flex-col gap-5"
       >
-        <div className="inline-flex items-center gap-2 font-mono text-[11px] text-ice-cyan uppercase tracking-widest font-semibold">
-          <span className="w-1.5 h-1.5 rounded-full bg-ice-cyan"></span>
-          DIRECT CHANNELS
+        <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full border border-cyan-400/25 bg-[#0B1736]/70 backdrop-blur-md shadow-[0_0_20px_rgba(61,139,255,0.12)] w-fit mb-1">
+          <Compass className="w-3.5 h-3.5 text-cyan-400" />
+          <span className="text-xs uppercase tracking-[0.16em] text-cyan-300 font-space font-semibold">
+            Direct Channels
+          </span>
         </div>
 
         <div className="flex flex-col gap-4 text-sm">

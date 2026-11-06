@@ -197,11 +197,13 @@ export function ComplianceContent() {
               <p className="text-muted-text text-base sm:text-lg leading-relaxed">
                 Growth-stage companies face the same audits and customer security questionnaires as much larger firms, often with a compliance team of one or two. We turn legal and industry requirements into clear policies, working controls and evidence, so compliance becomes part of how you operate instead of a scramble before each review.
               </p>
-              <div className="flex items-center gap-3 pt-2">
-                <span className="w-2 h-2 rounded-full bg-ice-cyan shadow-[0_0_8px_#7ad1fa]"></span>
-                <span className="font-mono text-[12px] text-ice-cyan tracking-wider uppercase font-semibold">
-                  CONTINUOUS REGULATORY SYNCHRONIZATION
-                </span>
+              <div className="pt-2">
+                <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full border border-cyan-400/25 bg-[#0B1736]/70 backdrop-blur-md shadow-[0_0_20px_rgba(61,139,255,0.12)] w-fit">
+                  <ShieldCheck className="w-3.5 h-3.5 text-cyan-400" />
+                  <span className="text-xs uppercase tracking-[0.16em] text-cyan-300 font-space font-semibold">
+                    Continuous Regulatory Synchronization
+                  </span>
+                </div>
               </div>
             </div>
           </div>
@@ -212,10 +214,10 @@ export function ComplianceContent() {
             ========================================================================= */}
         <section className="w-full scroll-mt-24" id="coverage">
           <div className="flex flex-col gap-4 mb-10">
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-ice-cyan shadow-[0_0_8px_#7ad1fa]"></span>
-              <span className="font-mono text-[11px] uppercase tracking-widest text-ice-cyan font-bold">
-                CAPABILITIES MATRIX
+            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-cyan-400/25 bg-[#0B1736]/70 backdrop-blur-md shadow-[0_0_20px_rgba(61,139,255,0.12)] w-fit">
+              <ShieldCheck className="w-3.5 h-3.5 text-cyan-400" />
+              <span className="text-xs uppercase tracking-[0.16em] text-cyan-300 font-space font-semibold">
+                Capabilities Matrix
               </span>
             </div>
             <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl text-surface-text font-semibold tracking-tight">
@@ -361,8 +363,13 @@ export function ComplianceContent() {
           <div className="w-full rounded-3xl frosted-glass p-8 lg:p-12 shadow-[0_16px_40px_-8px_rgba(7,14,29,0.9),0_0_24px_rgba(70,143,255,0.15)] relative overflow-hidden border border-blue-500/25">
             <div className="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-ice-cyan/15 blur-[100px] pointer-events-none"></div>
             <div className="flex flex-col gap-6 relative z-10">
-              <div className="flex items-center gap-2.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-ice-cyan shadow-[0_0_10px_#7ad1fa]"></span>
+              <div className="flex flex-col items-start gap-2.5">
+                <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-cyan-400/25 bg-[#0B1736]/70 backdrop-blur-md shadow-[0_0_20px_rgba(61,139,255,0.12)]">
+                  <Activity className="w-3.5 h-3.5 text-cyan-400" />
+                  <span className="text-xs uppercase tracking-[0.16em] text-cyan-300 font-space font-semibold">
+                    Vertical Specialization
+                  </span>
+                </div>
                 <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-surface-text">
                   Built for life sciences
                 </h2>
@@ -389,13 +396,16 @@ export function ComplianceContent() {
             ========================================================================= */}
         <section className="w-full">
           <div className="flex flex-col gap-6">
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col gap-2">
+              <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-cyan-400/25 bg-[#0B1736]/70 backdrop-blur-md shadow-[0_0_20px_rgba(61,139,255,0.12)] w-fit mb-1">
+                <ShieldCheck className="w-3.5 h-3.5 text-cyan-400" />
+                <span className="text-xs uppercase tracking-[0.16em] text-cyan-300 font-space font-semibold">
+                  GRC &amp; Audit Infrastructure
+                </span>
+              </div>
               <h2 className="font-display text-2xl sm:text-3xl font-bold text-surface-text">
-                Tools
+                Tools We Deploy &amp; Configure
               </h2>
-              <span className="font-mono text-[12px] text-muted-text tracking-wider font-semibold">
-                GRC &amp; AUDIT INFRASTRUCTURE
-              </span>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
               {['OneTrust', 'ServiceNow GRC', 'RSA Archer', 'AuditBoard', 'Vanta', 'Drata'].map((tool) => (
@@ -415,10 +425,10 @@ export function ComplianceContent() {
             ========================================================================= */}
         <section className="w-full">
           <div className="flex flex-col gap-4 mb-10">
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-ice-cyan shadow-[0_0_8px_#7ad1fa]"></span>
-              <span className="font-mono text-[11px] uppercase tracking-widest text-ice-cyan font-bold">
-                METHODOLOGY
+            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-cyan-400/25 bg-[#0B1736]/70 backdrop-blur-md shadow-[0_0_20px_rgba(61,139,255,0.12)] w-fit">
+              <Layers className="w-3.5 h-3.5 text-cyan-400" />
+              <span className="text-xs uppercase tracking-[0.16em] text-cyan-300 font-space font-semibold">
+                Governance Protocol
               </span>
             </div>
             <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl text-surface-text font-semibold tracking-tight">
@@ -501,10 +511,10 @@ export function ComplianceContent() {
             ========================================================================= */}
         <section className="w-full">
           <div className="flex flex-col gap-4 mb-8">
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-ice-cyan shadow-[0_0_8px_#7ad1fa]"></span>
-              <span className="font-mono text-[11px] uppercase tracking-widest text-ice-cyan font-bold">
-                CROSS-FUNCTIONAL ALIGNMENT
+            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-cyan-400/25 bg-[#0B1736]/70 backdrop-blur-md shadow-[0_0_20px_rgba(61,139,255,0.12)] w-fit">
+              <Network className="w-3.5 h-3.5 text-cyan-400" />
+              <span className="text-xs uppercase tracking-[0.16em] text-cyan-300 font-space font-semibold">
+                Cross-Functional Alignment
               </span>
             </div>
             <h2 className="font-display text-3xl sm:text-4xl text-surface-text font-semibold tracking-tight">
@@ -515,7 +525,10 @@ export function ComplianceContent() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             
             {/* Related 1 */}
-            <div className="rounded-2xl frosted-glass hover:bg-[#101E40] p-8 flex flex-col justify-between transition-all group shadow-sm hover:shadow-[0_16px_40px_rgba(7,14,29,0.8),0_0_20px_rgba(122,209,250,0.15)] hover:-translate-y-1 border border-blue-500/20 hover:border-ice-cyan/40">
+            <Link
+              href="/aiml" 
+              className="rounded-2xl frosted-glass hover:bg-[#101E40] p-8 flex flex-col justify-between transition-all group shadow-sm hover:shadow-[0_16px_40px_rgba(7,14,29,0.8),0_0_20px_rgba(122,209,250,0.15)] hover:-translate-y-1 border border-blue-500/20 hover:border-ice-cyan/40 block"
+            >
               <div className="flex flex-col gap-4">
                 <div className="w-12 h-12 rounded-xl bg-blue-500/15 flex items-center justify-center border border-blue-500/30 text-ice-cyan group-hover:border-ice-cyan transition-colors group-hover:shadow-[0_0_16px_rgba(122,209,250,0.3)]">
                   <Brain className="w-6 h-6 text-ice-cyan" />
@@ -527,19 +540,13 @@ export function ComplianceContent() {
                   Keep autonomous AI models governed, auditable and explainable across regulations.
                 </p>
               </div>
-              <div className="pt-6 mt-6 border-t border-blue-500/15">
-                <Link 
-                  href="/aiml"
-                  className="inline-flex items-center gap-2 font-display text-sm font-semibold text-ice-cyan hover:text-white transition-colors"
-                >
-                  <span>Learn more</span>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </Link>
-              </div>
-            </div>
+            </Link>
 
             {/* Related 2 */}
-            <div className="rounded-2xl frosted-glass hover:bg-[#101E40] p-8 flex flex-col justify-between transition-all group shadow-sm hover:shadow-[0_16px_40px_rgba(7,14,29,0.8),0_0_20px_rgba(122,209,250,0.15)] hover:-translate-y-1 border border-blue-500/20 hover:border-ice-cyan/40">
+            <Link
+              href="/erp" 
+              className="rounded-2xl frosted-glass hover:bg-[#101E40] p-8 flex flex-col justify-between transition-all group shadow-sm hover:shadow-[0_16px_40px_rgba(7,14,29,0.8),0_0_20px_rgba(122,209,250,0.15)] hover:-translate-y-1 border border-blue-500/20 hover:border-ice-cyan/40 block"
+            >
               <div className="flex flex-col gap-4">
                 <div className="w-12 h-12 rounded-xl bg-blue-500/15 flex items-center justify-center border border-blue-500/30 text-ice-cyan group-hover:border-ice-cyan transition-colors group-hover:shadow-[0_0_16px_rgba(122,209,250,0.3)]">
                   <Database className="w-6 h-6 text-ice-cyan" />
@@ -551,19 +558,13 @@ export function ComplianceContent() {
                   Embed internal audit and financial controls into your NetSuite, SAP or Infor ERP.
                 </p>
               </div>
-              <div className="pt-6 mt-6 border-t border-blue-500/15">
-                <Link 
-                  href="/erp"
-                  className="inline-flex items-center gap-2 font-display text-sm font-semibold text-ice-cyan hover:text-white transition-colors"
-                >
-                  <span>Learn more</span>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </Link>
-              </div>
-            </div>
+            </Link>
 
             {/* Related 3 */}
-            <div className="rounded-2xl frosted-glass hover:bg-[#101E40] p-8 flex flex-col justify-between transition-all group shadow-sm hover:shadow-[0_16px_40px_rgba(7,14,29,0.8),0_0_20px_rgba(122,209,250,0.15)] hover:-translate-y-1 border border-blue-500/20 hover:border-ice-cyan/40">
+            <Link
+              href="/accountingtax" 
+              className="rounded-2xl frosted-glass hover:bg-[#101E40] p-8 flex flex-col justify-between transition-all group shadow-sm hover:shadow-[0_16px_40px_rgba(7,14,29,0.8),0_0_20px_rgba(122,209,250,0.15)] hover:-translate-y-1 border border-blue-500/20 hover:border-ice-cyan/40 block"
+            >
               <div className="flex flex-col gap-4">
                 <div className="w-12 h-12 rounded-xl bg-blue-500/15 flex items-center justify-center border border-blue-500/30 text-ice-cyan group-hover:border-ice-cyan transition-colors group-hover:shadow-[0_0_16px_rgba(122,209,250,0.3)]">
                   <Calculator className="w-6 h-6 text-ice-cyan" />
@@ -575,16 +576,7 @@ export function ComplianceContent() {
                   Align GAAP/IFRS fiscal reporting and tax readiness with operational compliance controls.
                 </p>
               </div>
-              <div className="pt-6 mt-6 border-t border-blue-500/15">
-                <Link 
-                  href="/accountingtax"
-                  className="inline-flex items-center gap-2 font-display text-sm font-semibold text-ice-cyan hover:text-white transition-colors"
-                >
-                  <span>Learn more</span>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </Link>
-              </div>
-            </div>
+            </Link>
 
           </div>
         </section>

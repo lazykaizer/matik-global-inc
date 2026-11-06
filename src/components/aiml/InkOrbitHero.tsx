@@ -68,7 +68,7 @@ export default function InkOrbitHero({
   sculptureSeed = 7,
   onReforge,
   sculptureLabel = 'MATIC · AI 3D',
-  sculptureHint = 'Drag to rotate · Click to reforge',
+  sculptureHint = 'Click to change shape · Drag to rotate',
   hud = false,
   crosshair = false,
   minHeight = 'min(580px, 90svh)',
@@ -203,6 +203,16 @@ export default function InkOrbitHero({
                 crosshair={crosshair}
               />
             </div>
+
+            {/* Tiny Interactive Hint Text Overlay */}
+            {sculptureHint && (
+              <div className="absolute bottom-3 left-0 right-0 flex justify-center pointer-events-none z-10 px-4">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#050B1A]/85 border border-[#7FD6FF]/30 backdrop-blur-md text-[11px] font-mono text-[#C5D2EA] shadow-[0_4px_16px_rgba(0,0,0,0.6)]">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#7FD6FF] animate-pulse flex-shrink-0" />
+                  <span>{sculptureHint}</span>
+                </div>
+              </div>
+            )}
           </div>
         </section>
       </div>
@@ -793,8 +803,8 @@ export function InkOrbitSculpture({
       ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.clearRect(0, 0, W, H);
       const cx = W / 2;
-      const cy = H / 2;
-      const scale = Math.min(W, H) * 0.34;
+      const cy = H * 0.48;
+      const scale = Math.min(W, H) * 0.31;
       const f = 3.4;
       const m = easeInOutCubic(s.morphT);
       const A = s.from && s.from.grain.length === B.grain.length ? s.from : null;
@@ -1090,9 +1100,9 @@ const IH_CSS = `
 .ih-btn .ih-arr{transition:transform .25s cubic-bezier(.2,.8,.2,1)}
 .ih-btn:hover .ih-arr{transform:translateX(3px)}
 .ih-btn[disabled]{opacity:.6;cursor:default}
-.ih-hero{display:grid;grid-template-columns:minmax(0,1fr);min-height:min(580px,calc(var(--ih-h,90svh) - 80px))}
+.ih-hero{display:grid;grid-template-columns:minmax(0,1fr);min-height:min(500px,calc(var(--ih-h,80svh) - 80px))}
 @container (min-width:860px){.ih-hero{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
-.ih-hero-copy{display:flex;flex-direction:column;justify-content:center;padding:clamp(32px,5cqw,64px) 0 clamp(28px,4cqw,48px)}
+.ih-hero-copy{display:flex;flex-direction:column;justify-content:center;padding:clamp(16px,2cqw,28px) 0 clamp(24px,3cqw,40px)}
 .ih-band{position:relative;padding:clamp(18px,2.4cqw,26px) clamp(16px,2.8cqw,32px);background:linear-gradient(90deg,var(--ih-band) 0%,var(--ih-band) 55%,transparent 100%);border-top:1px solid var(--ih-line);border-bottom:1px solid var(--ih-line)}
 .ih-h1{font-size:clamp(32px,4.8cqw,54px);line-height:1.06;letter-spacing:-.03em;font-weight:700}
 .ih-h1-top{display:block;animation:ih-blur-in 1s cubic-bezier(.2,.7,.2,1) both;color:#E1E8F8}
@@ -1111,7 +1121,7 @@ const IH_CSS = `
 .ih-proof-faces>*{margin-left:-7px;border:2px solid #050B1A;border-radius:999px;overflow:hidden}
 .ih-proof-faces>*:first-child{margin-left:0}
 .ih-art{position:relative;min-height:360px;border:none;overflow:visible;background:transparent}
-@container (min-width:860px){.ih-art{border:none;min-height:0}}
+@container (min-width:860px){.ih-art{border:none;min-height:0;margin-top:0}}
 .ih-spin{width:14px;height:14px;border-radius:99px;border:2px solid currentColor;border-right-color:transparent;animation:ih-spin .7s linear infinite}
 .ih-live{width:7px;height:7px;border-radius:99px;background:var(--ih-accent-live,#3D8BFF);box-shadow:0 0 0 0 rgba(61,139,255,.55);animation:ih-ping 2.4s ease-out infinite}
 .ih-modal{position:fixed;inset:0;z-index:2147483000;display:grid;place-items:center;padding:16px;background:rgba(5,11,26,.75);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);animation:ih-fade .25s ease both}

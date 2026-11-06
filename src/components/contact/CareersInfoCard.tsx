@@ -34,9 +34,11 @@ export function CareersInfoCard({ isMobile = false }: CareersInfoCardProps) {
         transition={getCardTransition(0)}
         className="p-6 sm:p-7 rounded-2xl frosted-glass border border-blue-500/25 shadow-lg flex flex-col gap-4"
       >
-        <div className="inline-flex items-center gap-2 font-mono text-[11px] text-ice-cyan uppercase tracking-widest font-semibold">
-          <span className="w-1.5 h-1.5 rounded-full bg-ice-cyan"></span>
-          TALENT CHANNELS
+        <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full border border-cyan-400/25 bg-[#0B1736]/70 backdrop-blur-md shadow-[0_0_20px_rgba(61,139,255,0.12)] w-fit mb-1">
+          <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+          <span className="text-xs uppercase tracking-[0.16em] text-cyan-300 font-space font-semibold">
+            Talent Channels
+          </span>
         </div>
 
         <div className="flex items-start gap-3.5 group">
@@ -68,7 +70,7 @@ export function CareersInfoCard({ isMobile = false }: CareersInfoCardProps) {
         <ul className="flex flex-col gap-3 text-xs sm:text-sm text-surface-text">
           {CONTACT_CONSTANTS.careers.whyMaticPoints.map((point, idx) => (
             <li key={idx} className="flex items-start gap-2.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-ice-cyan shrink-0 mt-2"></span>
+              <CheckCircle2 className="w-3.5 h-3.5 text-cyan-400 shrink-0 mt-0.5" />
               <span className="leading-relaxed text-surface-text/90">{point}</span>
             </li>
           ))}

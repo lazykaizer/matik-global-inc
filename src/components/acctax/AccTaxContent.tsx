@@ -232,9 +232,11 @@ export function AccTaxContent() {
             ========================================================================= */}
         <section className="w-full flex flex-col gap-10" id="what-we-cover">
           <div className="flex flex-col items-start gap-3">
-            <div className="inline-flex items-center gap-2 font-mono text-[11px] text-ice-cyan uppercase tracking-widest">
-              <span className="w-1.5 h-1.5 rounded-full bg-ice-cyan"></span>
-              SCOPE OF ENGAGEMENT
+            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-cyan-400/25 bg-[#0B1736]/70 backdrop-blur-md shadow-[0_0_20px_rgba(61,139,255,0.12)]">
+              <Calculator className="w-3.5 h-3.5 text-cyan-400" />
+              <span className="text-xs uppercase tracking-[0.16em] text-cyan-300 font-space font-semibold">
+                Scope of Engagement
+              </span>
             </div>
             <h2 className="font-display text-3xl sm:text-4xl font-bold text-surface-text tracking-tight">
               What We Cover
@@ -428,9 +430,11 @@ export function AccTaxContent() {
             ========================================================================= */}
         <section className="w-full flex flex-col gap-8">
           <div className="flex flex-col items-start gap-2.5">
-            <div className="inline-flex items-center gap-2 font-mono text-[11px] text-ice-cyan uppercase tracking-widest">
-              <span className="w-1.5 h-1.5 rounded-full bg-ice-cyan"></span>
-              PORTFOLIO ARCHITECTURE
+            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-cyan-400/25 bg-[#0B1736]/70 backdrop-blur-md shadow-[0_0_20px_rgba(61,139,255,0.12)]">
+              <Building2 className="w-3.5 h-3.5 text-cyan-400" />
+              <span className="text-xs uppercase tracking-[0.16em] text-cyan-300 font-space font-semibold">
+                Portfolio Architecture
+              </span>
             </div>
             <h2 className="font-display text-3xl sm:text-4xl font-bold text-surface-text tracking-tight">
               Who We Support
@@ -484,9 +488,11 @@ export function AccTaxContent() {
             ========================================================================= */}
         <section className="w-full flex flex-col gap-8">
           <div className="flex flex-col items-start gap-2.5">
-            <div className="inline-flex items-center gap-2 font-mono text-[11px] text-ice-cyan uppercase tracking-widest">
-              <span className="w-1.5 h-1.5 rounded-full bg-ice-cyan"></span>
-              DELIVERY PROTOCOL
+            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-cyan-400/25 bg-[#0B1736]/70 backdrop-blur-md shadow-[0_0_20px_rgba(61,139,255,0.12)]">
+              <Scale className="w-3.5 h-3.5 text-cyan-400" />
+              <span className="text-xs uppercase tracking-[0.16em] text-cyan-300 font-space font-semibold">
+                Delivery Protocol
+              </span>
             </div>
             <h2 className="font-display text-3xl sm:text-4xl font-bold text-surface-text tracking-tight">
               How We Work
@@ -527,9 +533,11 @@ export function AccTaxContent() {
         <section className="w-full">
           <div className="w-full p-8 lg:p-12 rounded-3xl frosted-glass border border-ice-cyan/25 shadow-xl flex flex-col gap-8 relative overflow-hidden">
             <div className="flex items-center justify-between">
-              <div className="inline-flex items-center gap-2 font-mono text-[11px] text-ice-cyan uppercase tracking-widest">
-                <span className="w-1.5 h-1.5 rounded-full bg-ice-cyan"></span>
-                MEASURED IMPACT
+              <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-cyan-400/25 bg-[#0B1736]/70 backdrop-blur-md shadow-[0_0_20px_rgba(61,139,255,0.12)]">
+                <TrendingUp className="w-3.5 h-3.5 text-cyan-400" />
+                <span className="text-xs uppercase tracking-[0.16em] text-cyan-300 font-space font-semibold">
+                  Measured Impact
+                </span>
               </div>
               <span className="font-mono text-[11px] text-muted-text px-2.5 py-1 rounded bg-blue-950/60 border border-ice-cyan/15">
                 VERIFIED PERFORMANCE
@@ -570,9 +578,11 @@ export function AccTaxContent() {
             ========================================================================= */}
         <section className="w-full flex flex-col gap-8">
           <div className="flex flex-col items-start gap-2.5">
-            <div className="inline-flex items-center gap-2 font-mono text-[11px] text-ice-cyan uppercase tracking-widest">
-              <span className="w-1.5 h-1.5 rounded-full bg-ice-cyan"></span>
-              ECOSYSTEM SYNERGIES
+            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-cyan-400/25 bg-[#0B1736]/70 backdrop-blur-md shadow-[0_0_20px_rgba(61,139,255,0.12)]">
+              <Briefcase className="w-3.5 h-3.5 text-cyan-400" />
+              <span className="text-xs uppercase tracking-[0.16em] text-cyan-300 font-space font-semibold">
+                Ecosystem Synergies
+              </span>
             </div>
             <h2 className="font-display text-2xl sm:text-3xl font-bold text-surface-text tracking-tight">
               Related Services

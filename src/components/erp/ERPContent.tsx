@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { 
   ArrowRight, 
   Workflow, 
@@ -17,7 +18,17 @@ import {
   Brain, 
   RefreshCw, 
   Receipt, 
-  Calendar 
+  Calendar,
+  Layers,
+  Database,
+  Building2,
+  Compass,
+  Award,
+  Scale,
+  Cpu,
+  Users,
+  Globe,
+  Rocket
 } from 'lucide-react';
 import { GlassFold } from '@/components/ui/glass-fold';
 import { MetallicButton } from '@/components/ui/metallic-button';
@@ -166,7 +177,12 @@ export function ERPContent() {
               
               {/* Left statement verbatim */}
               <div className="lg:col-span-5">
-                <span className="font-mono text-xs tracking-widest text-ice-cyan uppercase block mb-3 font-semibold">Executive Context</span>
+                <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-cyan-400/25 bg-[#0B1736]/70 backdrop-blur-md shadow-[0_0_20px_rgba(61,139,255,0.12)] w-fit mb-4">
+                  <Workflow className="w-3.5 h-3.5 text-cyan-400" />
+                  <span className="text-xs uppercase tracking-[0.16em] text-cyan-300 font-space font-semibold">
+                    Executive Context
+                  </span>
+                </div>
                 <h2 className="font-display text-3xl sm:text-4xl lg:text-[40px] lg:leading-[48px] font-bold text-surface-text">
                   Disconnected systems slow growth.
                 </h2>
@@ -193,7 +209,12 @@ export function ERPContent() {
             ========================================================================= */}
         <section className="w-full flex flex-col gap-8">
           <div className="flex flex-col gap-2">
-            <span className="font-mono text-xs tracking-widest text-ice-cyan uppercase font-semibold">End-To-End Capabilities</span>
+            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-cyan-400/25 bg-[#0B1736]/70 backdrop-blur-md shadow-[0_0_20px_rgba(61,139,255,0.12)] w-fit mb-1">
+              <Layers className="w-3.5 h-3.5 text-cyan-400" />
+              <span className="text-xs uppercase tracking-[0.16em] text-cyan-300 font-space font-semibold">
+                End-To-End Capabilities
+              </span>
+            </div>
             <h2 className="font-display text-3xl sm:text-4xl font-bold text-surface-text">What We Do</h2>
           </div>
 
@@ -311,7 +332,12 @@ export function ERPContent() {
             ========================================================================= */}
         <section className="w-full flex flex-col gap-8 scroll-mt-28" id="platforms">
           <div className="flex flex-col gap-2">
-            <span className="font-mono text-xs tracking-widest text-ice-cyan uppercase font-semibold">Tier-1 Ecosystem</span>
+            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-cyan-400/25 bg-[#0B1736]/70 backdrop-blur-md shadow-[0_0_20px_rgba(61,139,255,0.12)] w-fit mb-1">
+              <Database className="w-3.5 h-3.5 text-cyan-400" />
+              <span className="text-xs uppercase tracking-[0.16em] text-cyan-300 font-space font-semibold">
+                Tier-1 Ecosystem
+              </span>
+            </div>
             <h2 className="font-display text-3xl sm:text-4xl font-bold text-surface-text">Platforms We Support</h2>
           </div>
 
@@ -413,7 +439,12 @@ export function ERPContent() {
             
             {/* Header */}
             <div className="flex flex-col gap-4 max-w-3xl mb-12">
-              <span className="font-mono text-xs tracking-widest text-ice-cyan uppercase font-semibold">Comparative Advisory Engine</span>
+              <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-cyan-400/25 bg-[#0B1736]/70 backdrop-blur-md shadow-[0_0_20px_rgba(61,139,255,0.12)] w-fit mb-1">
+                <SlidersHorizontal className="w-3.5 h-3.5 text-cyan-400" />
+                <span className="text-xs uppercase tracking-[0.16em] text-cyan-300 font-space font-semibold">
+                  Comparative Advisory Engine
+                </span>
+              </div>
               <h2 className="font-display text-3xl sm:text-4xl lg:text-[42px] font-bold text-surface-text">
                 Which ERP fits your business?
               </h2>
@@ -508,101 +539,236 @@ export function ERPContent() {
         </section>
 
         {/* =========================================================================
-            6. WHY MATIC FOR ERP (6 Numbered Points & Side Crystal Artwork)
+            6. WHY MATIC FOR ERP (Home-Page-Aligned 3-Column Grid with Custom Image)
             ========================================================================= */}
-        <section className="w-full">
-          <div className="frosted-glass rounded-3xl p-8 lg:p-14 shadow-frosted relative overflow-hidden">
-            <div className="flex flex-col gap-3 mb-10">
-              <span className="font-mono text-xs tracking-widest text-ice-cyan uppercase font-semibold">Institutional Advantage</span>
-              <h2 className="font-display text-3xl sm:text-4xl font-bold text-surface-text">Why Matic for ERP</h2>
+        <section className="w-full relative py-8 sm:py-12" id="why-matic-erp">
+          {/* Decorative Background Accents */}
+          <div aria-hidden="true" className="absolute -top-20 -left-20 w-72 h-72 bg-[#3D8BFF]/10 rounded-full blur-3xl pointer-events-none" />
+          <div aria-hidden="true" className="absolute -bottom-20 -right-20 w-72 h-72 bg-[#7FD6FF]/10 rounded-full blur-3xl pointer-events-none" />
+
+          {/* 1. Centered Header Block with Shine Accent Lines */}
+          <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-18 md:mb-20">
+            {/* Top Shine Line (~110px) */}
+            <div className="w-28 sm:w-32 h-[1.5px] bg-gradient-to-r from-transparent via-cyan-400/80 to-transparent mx-auto mb-5 sm:mb-6 shadow-[0_0_12px_rgba(34,211,238,0.6)]" />
+
+            {/* Pill Badge */}
+            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-cyan-400/25 bg-[#0B1736]/70 backdrop-blur-md shadow-[0_0_20px_rgba(61,139,255,0.12)] w-fit mb-3">
+              <Award className="w-3.5 h-3.5 text-cyan-400" />
+              <span className="text-xs uppercase tracking-[0.16em] text-cyan-300 font-space font-semibold">
+                Institutional Advantage
+              </span>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+            {/* Heading */}
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-space text-white tracking-tight">
+              Why Matic for <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#7FD6FF] to-[#3D8BFF]">ERP</span>
+            </h2>
+
+            {/* Subtitle */}
+            <p className="text-base sm:text-lg font-inter text-[#C5D2EA] mt-4 max-w-[672px] mx-auto leading-relaxed font-light">
+              Vendor-neutral advisory, certified platform architects, and pre-built enterprise accelerators designed to de-risk mission-critical ERP rollouts.
+            </p>
+
+            {/* Bottom Shine Line (~110px) */}
+            <div className="w-28 sm:w-32 h-[1.5px] bg-gradient-to-r from-transparent via-cyan-400/80 to-transparent mx-auto mt-6 shadow-[0_0_12px_rgba(34,211,238,0.6)]" />
+          </div>
+
+          {/* 2. Desktop Three-Column Grid */}
+          <div className="hidden lg:grid lg:grid-cols-3 gap-8 items-center">
+            
+            {/* Left Column: Items 01, 02, 03 */}
+            <div className="space-y-10 xl:space-y-12">
               
-              {/* 6 Numbered Points */}
-              <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-8">
-                
-                {/* 01 verbatim */}
-                <div className="flex flex-col gap-2">
-                  <div className="font-mono text-ice-cyan text-sm font-bold tracking-wider">01</div>
-                  <h3 className="font-display text-lg font-semibold text-surface-text">Independent advice</h3>
-                  <p className="text-muted-text text-sm leading-relaxed">
+              {/* Item 01 */}
+              <div className="group relative flex gap-4 sm:gap-5 items-start text-left">
+                <div className="relative flex-shrink-0">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-b from-[#0F2042] to-[#071126] border border-[#7FD6FF]/35 flex items-center justify-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.15),0_8px_20px_rgba(0,0,0,0.45)] transition-all duration-300 group-hover:border-[#7FD6FF]/80 group-hover:shadow-[inset_0_1px_1px_rgba(255,255,255,0.25),0_0_24px_rgba(127,214,255,0.35)] group-hover:-translate-y-1">
+                    <Scale strokeWidth={1.65} className="w-6 h-6 sm:w-7 sm:h-7 text-[#7FD6FF] transition-all duration-300 group-hover:scale-110 group-hover:text-white" />
+                  </div>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <span className="font-mono text-xs font-bold text-[#3D8BFF] tracking-wider block mb-1">01</span>
+                  <h3 className="text-lg sm:text-xl font-bold font-space text-white mb-2 leading-snug group-hover:text-[#7FD6FF] transition-colors">
+                    Independent advice
+                  </h3>
+                  <p className="text-sm sm:text-base font-inter text-[#C5D2EA] leading-relaxed font-light">
                     We are not married to a single software vendor. We evaluate your true operational needs and recommend the exact architecture that aligns with your 5-year enterprise trajectory.
                   </p>
                 </div>
+              </div>
 
-                {/* 02 verbatim */}
-                <div className="flex flex-col gap-2">
-                  <div className="font-mono text-diamond-blue text-sm font-bold tracking-wider">02</div>
-                  <h3 className="font-display text-lg font-semibold text-surface-text">Platform-specific depth</h3>
-                  <p className="text-muted-text text-sm leading-relaxed">
+              {/* Item 02 */}
+              <div className="group relative flex gap-4 sm:gap-5 items-start text-left">
+                <div className="relative flex-shrink-0">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-b from-[#0F2042] to-[#071126] border border-[#7FD6FF]/35 flex items-center justify-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.15),0_8px_20px_rgba(0,0,0,0.45)] transition-all duration-300 group-hover:border-[#7FD6FF]/80 group-hover:shadow-[inset_0_1px_1px_rgba(255,255,255,0.25),0_0_24px_rgba(127,214,255,0.35)] group-hover:-translate-y-1">
+                    <Cpu strokeWidth={1.65} className="w-6 h-6 sm:w-7 sm:h-7 text-[#7FD6FF] transition-all duration-300 group-hover:scale-110 group-hover:text-white" />
+                  </div>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <span className="font-mono text-xs font-bold text-[#3D8BFF] tracking-wider block mb-1">02</span>
+                  <h3 className="text-lg sm:text-xl font-bold font-space text-white mb-2 leading-snug group-hover:text-[#7FD6FF] transition-colors">
+                    Platform-specific depth
+                  </h3>
+                  <p className="text-sm sm:text-base font-inter text-[#C5D2EA] leading-relaxed font-light">
                     Certified senior architects across NetSuite, SAP S/4HANA, Infor, Maximo, JDE, and Dynamics 365 with battle-tested experience in enterprise configurations.
                   </p>
                 </div>
+              </div>
 
-                {/* 03 verbatim */}
-                <div className="flex flex-col gap-2">
-                  <div className="font-mono text-ice-cyan text-sm font-bold tracking-wider">03</div>
-                  <h3 className="font-display text-lg font-semibold text-surface-text">One accountable team</h3>
-                  <p className="text-muted-text text-sm leading-relaxed">
+              {/* Item 03 */}
+              <div className="group relative flex gap-4 sm:gap-5 items-start text-left">
+                <div className="relative flex-shrink-0">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-b from-[#0F2042] to-[#071126] border border-[#7FD6FF]/35 flex items-center justify-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.15),0_8px_20px_rgba(0,0,0,0.45)] transition-all duration-300 group-hover:border-[#7FD6FF]/80 group-hover:shadow-[inset_0_1px_1px_rgba(255,255,255,0.25),0_0_24px_rgba(127,214,255,0.35)] group-hover:-translate-y-1">
+                    <Users strokeWidth={1.65} className="w-6 h-6 sm:w-7 sm:h-7 text-[#7FD6FF] transition-all duration-300 group-hover:scale-110 group-hover:text-white" />
+                  </div>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <span className="font-mono text-xs font-bold text-[#3D8BFF] tracking-wider block mb-1">03</span>
+                  <h3 className="text-lg sm:text-xl font-bold font-space text-white mb-2 leading-snug group-hover:text-[#7FD6FF] transition-colors">
+                    One accountable team
+                  </h3>
+                  <p className="text-sm sm:text-base font-inter text-[#C5D2EA] leading-relaxed font-light">
                     Eliminate the handoff gap between strategic advisory consultants and offshore implementation vendors. The architects who design your solution lead your rollout to go-live.
                   </p>
                 </div>
+              </div>
 
-                {/* 04 verbatim */}
-                <div className="flex flex-col gap-2">
-                  <div className="font-mono text-diamond-blue text-sm font-bold tracking-wider">04</div>
-                  <h3 className="font-display text-lg font-semibold text-surface-text">Industry context</h3>
-                  <p className="text-muted-text text-sm leading-relaxed">
+            </div>
+
+            {/* Center Column: Featured Image with Pill Button */}
+            <div className="relative px-2 xl:px-4">
+              <div className="relative w-full h-[470px] xl:h-[510px] rounded-2xl overflow-hidden border border-[#7FD6FF]/35 shadow-[0_0_30px_rgba(61,139,255,0.25)] group isolate">
+                <Image
+                  src="/images/why_matic_erp.jpg"
+                  alt="Matic Global Solutions Enterprise ERP Architecture and Advisory Team"
+                  fill
+                  priority={false}
+                  sizes="(max-width: 1024px) 100vw, 33vw"
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+
+                {/* Dark bottom gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#050B1A]/90 via-[#050B1A]/20 to-transparent pointer-events-none" />
+
+                {/* Pill Button Overlay on Bottom */}
+                <div className="absolute bottom-6 left-0 right-0 flex justify-center px-4">
+                  <button
+                    onClick={() => setIsAssessmentOpen(true)}
+                    className="min-h-[44px] px-6 py-2.5 inline-flex items-center gap-2 rounded-full bg-[#050B1A]/90 border border-[#7FD6FF]/50 text-[#7FD6FF] hover:bg-gradient-to-r hover:from-[#3D8BFF] hover:to-[#7FD6FF] hover:text-[#050B1A] font-space text-xs sm:text-sm font-semibold backdrop-blur-md shadow-[0_4px_20px_rgba(0,0,0,0.5)] transition-all duration-300 hover:shadow-[0_0_24px_rgba(127,214,255,0.5)] hover:-translate-y-0.5 cursor-pointer"
+                  >
+                    <span>Talk to an ERP Architect</span>
+                    <ArrowRight className="w-4 h-4 flex-shrink-0" />
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column: Items 04, 05, 06 */}
+            <div className="space-y-10 xl:space-y-12">
+              
+              {/* Item 04 */}
+              <div className="group relative flex gap-4 sm:gap-5 items-start text-left">
+                <div className="relative flex-shrink-0">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-b from-[#0F2042] to-[#071126] border border-[#7FD6FF]/35 flex items-center justify-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.15),0_8px_20px_rgba(0,0,0,0.45)] transition-all duration-300 group-hover:border-[#7FD6FF]/80 group-hover:shadow-[inset_0_1px_1px_rgba(255,255,255,0.25),0_0_24px_rgba(127,214,255,0.35)] group-hover:-translate-y-1">
+                    <Layers strokeWidth={1.65} className="w-6 h-6 sm:w-7 sm:h-7 text-[#7FD6FF] transition-all duration-300 group-hover:scale-110 group-hover:text-white" />
+                  </div>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <span className="font-mono text-xs font-bold text-[#3D8BFF] tracking-wider block mb-1">04</span>
+                  <h3 className="text-lg sm:text-xl font-bold font-space text-white mb-2 leading-snug group-hover:text-[#7FD6FF] transition-colors">
+                    Industry context
+                  </h3>
+                  <p className="text-sm sm:text-base font-inter text-[#C5D2EA] leading-relaxed font-light">
                     Deep vertical domain mastery across manufacturing, global trade, retail, life sciences, energy, and supply chain logistics with pre-built regulatory templates.
                   </p>
                 </div>
+              </div>
 
-                {/* 05 verbatim */}
-                <div className="flex flex-col gap-2">
-                  <div className="font-mono text-ice-cyan text-sm font-bold tracking-wider">05</div>
-                  <h3 className="font-display text-lg font-semibold text-surface-text">Global delivery</h3>
-                  <p className="text-muted-text text-sm leading-relaxed">
+              {/* Item 05 */}
+              <div className="group relative flex gap-4 sm:gap-5 items-start text-left">
+                <div className="relative flex-shrink-0">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-b from-[#0F2042] to-[#071126] border border-[#7FD6FF]/35 flex items-center justify-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.15),0_8px_20px_rgba(0,0,0,0.45)] transition-all duration-300 group-hover:border-[#7FD6FF]/80 group-hover:shadow-[inset_0_1px_1px_rgba(255,255,255,0.25),0_0_24px_rgba(127,214,255,0.35)] group-hover:-translate-y-1">
+                    <Globe strokeWidth={1.65} className="w-6 h-6 sm:w-7 sm:h-7 text-[#7FD6FF] transition-all duration-300 group-hover:scale-110 group-hover:text-white" />
+                  </div>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <span className="font-mono text-xs font-bold text-[#3D8BFF] tracking-wider block mb-1">05</span>
+                  <h3 className="text-lg sm:text-xl font-bold font-space text-white mb-2 leading-snug group-hover:text-[#7FD6FF] transition-colors">
+                    Global delivery
+                  </h3>
+                  <p className="text-sm sm:text-base font-inter text-[#C5D2EA] leading-relaxed font-light">
                     24/7 follow-the-sun delivery capability, blending on-shore executive leadership with highly skilled technical delivery centers across multiple geographic zones.
                   </p>
                 </div>
+              </div>
 
-                {/* 06 verbatim */}
-                <div className="flex flex-col gap-2">
-                  <div className="font-mono text-diamond-blue text-sm font-bold tracking-wider">06</div>
-                  <h3 className="font-display text-lg font-semibold text-surface-text">Reusable accelerators</h3>
-                  <p className="text-muted-text text-sm leading-relaxed">
+              {/* Item 06 */}
+              <div className="group relative flex gap-4 sm:gap-5 items-start text-left">
+                <div className="relative flex-shrink-0">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-b from-[#0F2042] to-[#071126] border border-[#7FD6FF]/35 flex items-center justify-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.15),0_8px_20px_rgba(0,0,0,0.45)] transition-all duration-300 group-hover:border-[#7FD6FF]/80 group-hover:shadow-[inset_0_1px_1px_rgba(255,255,255,0.25),0_0_24px_rgba(127,214,255,0.35)] group-hover:-translate-y-1">
+                    <Rocket strokeWidth={1.65} className="w-6 h-6 sm:w-7 sm:h-7 text-[#7FD6FF] transition-all duration-300 group-hover:scale-110 group-hover:text-white" />
+                  </div>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <span className="font-mono text-xs font-bold text-[#3D8BFF] tracking-wider block mb-1">06</span>
+                  <h3 className="text-lg sm:text-xl font-bold font-space text-white mb-2 leading-snug group-hover:text-[#7FD6FF] transition-colors">
+                    Reusable accelerators
+                  </h3>
+                  <p className="text-sm sm:text-base font-inter text-[#C5D2EA] leading-relaxed font-light">
                     Proprietary pre-built data migration scripts, API connectors, automated test suites, and compliance mapping libraries that shorten time-to-value by up to 40%.
                   </p>
                 </div>
-
               </div>
 
-              {/* Side Decorative Faceted Crystal Artwork */}
-              <div className="lg:col-span-4 flex items-center justify-center">
-                <div className="relative w-full max-w-[320px] aspect-square rounded-2xl frosted-glass border border-ice-cyan/30 p-6 flex flex-col justify-between shadow-glow-blue">
-                  <div className="flex items-center justify-between">
-                    <span className="font-mono text-[11px] text-ice-cyan uppercase font-semibold">MATIC COGNITIVE CORE</span>
-                    <ShieldCheck className="w-5 h-5 text-ice-cyan" />
-                  </div>
+            </div>
 
-                  {/* Geometric Crystal graphic */}
-                  <div className="w-full flex items-center justify-center py-6">
-                    <div className="relative w-28 h-28 flex items-center justify-center">
-                      <div className="absolute inset-0 rounded-xl border border-ice-cyan/40 rotate-45 animate-pulse"></div>
-                      <div className="absolute inset-2 rounded-xl border border-diamond-blue/50 -rotate-12"></div>
-                      <div className="w-12 h-12 rounded-lg bg-gradient-to-tr from-diamond-blue to-ice-cyan flex items-center justify-center shadow-glow-cyan">
-                        <CheckCircle2 className="w-6 h-6 text-midnight" />
-                      </div>
-                    </div>
-                  </div>
+          </div>
 
-                  <div className="font-mono text-center text-xs text-muted-text">
-                    0% Handoff Risk · 100% Accountable
+          {/* 3. Mobile & Tablet Stacked Layout */}
+          <div className="lg:hidden flex flex-col gap-10">
+            {/* Center Image First on Mobile/Tablet */}
+            <div className="relative w-full h-[360px] sm:h-[420px] rounded-2xl overflow-hidden border border-[#7FD6FF]/35 shadow-[0_0_30px_rgba(61,139,255,0.25)] group isolate">
+              <Image
+                src="/images/why_matic_erp.jpg"
+                alt="Matic Global Solutions Enterprise ERP Architecture and Advisory Team"
+                fill
+                priority={false}
+                sizes="100vw"
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#050B1A]/90 via-[#050B1A]/20 to-transparent pointer-events-none" />
+              <div className="absolute bottom-5 left-0 right-0 flex justify-center px-4">
+                <button
+                  onClick={() => setIsAssessmentOpen(true)}
+                  className="min-h-[44px] px-6 py-2.5 inline-flex items-center gap-2 rounded-full bg-[#050B1A]/90 border border-[#7FD6FF]/50 text-[#7FD6FF] font-space text-xs sm:text-sm font-semibold backdrop-blur-md shadow-[0_4px_20px_rgba(0,0,0,0.5)] cursor-pointer"
+                >
+                  <span>Talk to an ERP Architect</span>
+                  <ArrowRight className="w-4 h-4 flex-shrink-0" />
+                </button>
+              </div>
+            </div>
+
+            {/* 6 Items in Orderly Stack */}
+            <div className="space-y-8">
+              {[
+                { number: '01', title: 'Independent advice', desc: 'We are not married to a single software vendor. We evaluate your true operational needs and recommend the exact architecture that aligns with your 5-year enterprise trajectory.', Icon: Scale },
+                { number: '02', title: 'Platform-specific depth', desc: 'Certified senior architects across NetSuite, SAP S/4HANA, Infor, Maximo, JDE, and Dynamics 365 with battle-tested experience in enterprise configurations.', Icon: Cpu },
+                { number: '03', title: 'One accountable team', desc: 'Eliminate the handoff gap between strategic advisory consultants and offshore implementation vendors. The architects who design your solution lead your rollout to go-live.', Icon: Users },
+                { number: '04', title: 'Industry context', desc: 'Deep vertical domain mastery across manufacturing, global trade, retail, life sciences, energy, and supply chain logistics with pre-built regulatory templates.', Icon: Layers },
+                { number: '05', title: 'Global delivery', desc: '24/7 follow-the-sun delivery capability, blending on-shore executive leadership with highly skilled technical delivery centers across multiple geographic zones.', Icon: Globe },
+                { number: '06', title: 'Reusable accelerators', desc: 'Proprietary pre-built data migration scripts, API connectors, automated test suites, and compliance mapping libraries that shorten time-to-value by up to 40%.', Icon: Rocket },
+              ].map(({ number, title, desc, Icon }) => (
+                <div key={number} className="flex gap-4 items-start text-left">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-b from-[#0F2042] to-[#071126] border border-[#7FD6FF]/35 flex items-center justify-center shadow-[inset_0_1px_1px_rgba(255,255,255,0.15),0_8px_20px_rgba(0,0,0,0.45)] shrink-0">
+                    <Icon strokeWidth={1.65} className="w-6 h-6 text-[#7FD6FF]" />
+                  </div>
+                  <div>
+                    <span className="font-mono text-xs font-bold text-[#3D8BFF] tracking-wider block mb-0.5">{number}</span>
+                    <h3 className="text-lg font-bold font-space text-white mb-1.5">{title}</h3>
+                    <p className="text-sm font-inter text-[#C5D2EA] leading-relaxed font-light">{desc}</p>
                   </div>
                 </div>
-              </div>
-
+              ))}
             </div>
           </div>
         </section>
@@ -612,7 +778,12 @@ export function ERPContent() {
             ========================================================================= */}
         <section className="w-full flex flex-col gap-8">
           <div className="flex flex-col gap-2">
-            <span className="font-mono text-xs tracking-widest text-ice-cyan uppercase font-semibold">Delivery Protocol</span>
+            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-cyan-400/25 bg-[#0B1736]/70 backdrop-blur-md shadow-[0_0_20px_rgba(61,139,255,0.12)] w-fit mb-1">
+              <Layers className="w-3.5 h-3.5 text-cyan-400" />
+              <span className="text-xs uppercase tracking-[0.16em] text-cyan-300 font-space font-semibold">
+                Delivery Protocol
+              </span>
+            </div>
             <h2 className="font-display text-3xl sm:text-4xl font-bold text-surface-text">How We Work</h2>
           </div>
 
@@ -650,59 +821,64 @@ export function ERPContent() {
             ========================================================================= */}
         <section className="w-full flex flex-col gap-8">
           <div className="flex flex-col gap-2">
-            <span className="font-mono text-xs tracking-widest text-ice-cyan uppercase font-semibold">Adjacent Capabilities</span>
+            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-cyan-400/25 bg-[#0B1736]/70 backdrop-blur-md shadow-[0_0_20px_rgba(61,139,255,0.12)] w-fit mb-1">
+              <Compass className="w-3.5 h-3.5 text-cyan-400" />
+              <span className="text-xs uppercase tracking-[0.16em] text-cyan-300 font-space font-semibold">
+                Adjacent Capabilities
+              </span>
+            </div>
             <h2 className="font-display text-3xl sm:text-4xl font-bold text-surface-text">Related Services</h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             
             {/* Service 1 verbatim */}
-            <div className="frosted-glass frosted-glass-hover rounded-2xl p-7 transition-all duration-300 flex flex-col justify-between group">
+            <Link 
+              href="/aiml"
+              className="frosted-glass frosted-glass-hover rounded-2xl p-7 transition-all duration-300 flex flex-col justify-between group shadow-frosted hover:-translate-y-1 block"
+            >
               <div className="flex flex-col gap-4">
-                <div className="w-10 h-10 rounded-xl bg-diamond-blue/15 border border-ice-cyan/30 flex items-center justify-center text-ice-cyan">
+                <div className="w-10 h-10 rounded-xl bg-diamond-blue/15 border border-ice-cyan/30 flex items-center justify-center text-ice-cyan group-hover:scale-105 transition-transform">
                   <Brain className="w-5 h-5 text-ice-cyan" />
                 </div>
-                <h3 className="font-display text-xl font-semibold text-surface-text">AI and ML</h3>
+                <h3 className="font-display text-xl font-semibold text-surface-text group-hover:text-ice-cyan transition-colors">AI and ML</h3>
                 <p className="text-muted-text text-sm leading-relaxed">
                   Forecasting and automation on top of your ERP data.
                 </p>
               </div>
-              <Link className="mt-8 font-display text-sm font-semibold text-ice-cyan flex items-center gap-1 group-hover:translate-x-1 transition-transform" href="/aiml">
-                Learn more →
-              </Link>
-            </div>
+            </Link>
 
             {/* Service 2 verbatim */}
-            <div className="frosted-glass frosted-glass-hover rounded-2xl p-7 transition-all duration-300 flex flex-col justify-between group">
+            <Link 
+              href="/compliances"
+              className="frosted-glass frosted-glass-hover rounded-2xl p-7 transition-all duration-300 flex flex-col justify-between group shadow-frosted hover:-translate-y-1 block"
+            >
               <div className="flex flex-col gap-4">
-                <div className="w-10 h-10 rounded-xl bg-diamond-blue/15 border border-ice-cyan/30 flex items-center justify-center text-diamond-blue">
+                <div className="w-10 h-10 rounded-xl bg-diamond-blue/15 border border-ice-cyan/30 flex items-center justify-center text-diamond-blue group-hover:scale-105 transition-transform">
                   <ShieldCheck className="w-5 h-5 text-diamond-blue" />
                 </div>
-                <h3 className="font-display text-xl font-semibold text-surface-text">Compliances</h3>
+                <h3 className="font-display text-xl font-semibold text-surface-text group-hover:text-ice-cyan transition-colors">Compliances</h3>
                 <p className="text-muted-text text-sm leading-relaxed">
                   Turn regulatory frameworks into controls your ERP can enforce.
                 </p>
               </div>
-              <Link className="mt-8 font-display text-sm font-semibold text-diamond-blue flex items-center gap-1 group-hover:translate-x-1 transition-transform" href="/compliances">
-                Learn more →
-              </Link>
-            </div>
+            </Link>
 
             {/* Service 3 verbatim */}
-            <div className="frosted-glass frosted-glass-hover rounded-2xl p-7 transition-all duration-300 flex flex-col justify-between group">
+            <Link 
+              href="/accountingtax"
+              className="frosted-glass frosted-glass-hover rounded-2xl p-7 transition-all duration-300 flex flex-col justify-between group shadow-frosted hover:-translate-y-1 block"
+            >
               <div className="flex flex-col gap-4">
-                <div className="w-10 h-10 rounded-xl bg-diamond-blue/15 border border-ice-cyan/30 flex items-center justify-center text-ice-cyan">
+                <div className="w-10 h-10 rounded-xl bg-diamond-blue/15 border border-ice-cyan/30 flex items-center justify-center text-ice-cyan group-hover:scale-105 transition-transform">
                   <Receipt className="w-5 h-5 text-ice-cyan" />
                 </div>
-                <h3 className="font-display text-xl font-semibold text-surface-text">Accounting and Taxation</h3>
+                <h3 className="font-display text-xl font-semibold text-surface-text group-hover:text-ice-cyan transition-colors">Accounting and Taxation</h3>
                 <p className="text-muted-text text-sm leading-relaxed">
                   Align reporting and close with your ERP.
                 </p>
               </div>
-              <Link className="mt-8 font-display text-sm font-semibold text-ice-cyan flex items-center gap-1 group-hover:translate-x-1 transition-transform" href="/accountingtax">
-                Learn more →
-              </Link>
-            </div>
+            </Link>
 
           </div>
         </section>

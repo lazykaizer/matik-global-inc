@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
-import { Send, Loader2, AlertCircle, FileCheck2 } from 'lucide-react';
+import { Send, Loader2, AlertCircle, FileCheck2, Briefcase } from 'lucide-react';
 import { CONTACT_CONSTANTS } from '@/lib/contactConstants';
 import {
   businessEnquirySchema,
@@ -175,9 +175,11 @@ export function BusinessEnquiryForm({
     <div className="w-full p-6 sm:p-10 rounded-3xl frosted-glass border border-blue-500/25 shadow-[0_20px_50px_rgba(7,14,29,0.95)] flex flex-col gap-8">
       {/* Form Header */}
       <div className="flex flex-col gap-2 pb-2 border-b border-blue-500/15">
-        <div className="inline-flex items-center gap-2 font-mono text-[11px] text-ice-cyan uppercase tracking-widest font-semibold">
-          <span className="w-1.5 h-1.5 rounded-full bg-ice-cyan"></span>
-          PROJECT ENQUIRY
+        <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full border border-cyan-400/25 bg-[#0B1736]/70 backdrop-blur-md shadow-[0_0_20px_rgba(61,139,255,0.12)] w-fit mb-1">
+          <Briefcase className="w-3.5 h-3.5 text-cyan-400" />
+          <span className="text-xs uppercase tracking-[0.16em] text-cyan-300 font-space font-semibold">
+            Project Enquiry
+          </span>
         </div>
         <h2 className="font-display text-2xl sm:text-3xl font-bold text-surface-text tracking-tight">
           Tell us about your project
