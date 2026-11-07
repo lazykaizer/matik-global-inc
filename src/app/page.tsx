@@ -67,7 +67,10 @@ export default function Home() {
       {/* =========================================================================
           4. INTRO / THE STRATEGIC DILEMMA (Clean Premium Enterprise Section)
           ========================================================================= */}
-      <section className="w-full min-h-[85vh] lg:min-h-screen flex items-center justify-center py-20 lg:py-0 border-y border-blue-500/15 bg-gradient-to-b from-[#070E1D] via-[#091329] to-[#070E1D] relative overflow-hidden">
+      {/* =========================================================================
+          4. THE GAP WE CLOSE: SMALL TEAMS. ENTERPRISE-SIZED REGULATION.
+          ========================================================================= */}
+      <section className="w-full py-16 sm:py-20 lg:py-28 border-y border-blue-500/15 bg-gradient-to-b from-[#070E1D] via-[#091329] to-[#070E1D] relative overflow-hidden">
         {/* Soft Ambient Radial Accents (Clean lighting, NO diagonal animation) */}
         <div className="absolute top-1/2 -left-24 -translate-y-1/2 w-96 h-96 rounded-full bg-blue-600/15 blur-[120px] pointer-events-none" />
         <div className="absolute top-1/2 right-0 -translate-y-1/2 w-80 h-80 rounded-full bg-cyan-500/10 blur-[100px] pointer-events-none" />
@@ -82,34 +85,50 @@ export default function Home() {
         />
 
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-          <div className="max-w-3xl flex flex-col gap-5 sm:gap-6">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-space text-white leading-[1.12] tracking-tight m-0">
-              Small teams.<br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#7FD6FF] via-[#BFE8FF] to-[#3D8BFF] drop-shadow-[0_0_24px_rgba(127,214,255,0.45)]">
-                Enterprise-sized regulation.
-              </span>
-            </h2>
+          {/* Eyebrow (Clean typography, no AI bullet dot) */}
+          <p className="text-xs sm:text-sm font-mono uppercase tracking-[0.2em] text-[#7FD6FF] font-semibold mb-3 sm:mb-4">
+            THE GAP WE CLOSE
+          </p>
 
-            <p className="text-base sm:text-lg md:text-xl text-[#A9B8D6] font-inter leading-relaxed max-w-2xl font-light m-0">
-              Growth-stage companies answer to the same regulators and investors as large enterprises, but without the IT, compliance and finance departments behind them. Matic Global Solutions fills that gap with AI-first technology, compliance know-how and financial expertise, delivered by one team.
-            </p>
+          {/* Heading */}
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-space text-white leading-[1.12] tracking-tight m-0 max-w-4xl">
+            Small teams.<br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#7FD6FF] via-[#BFE8FF] to-[#3D8BFF] drop-shadow-[0_0_24px_rgba(127,214,255,0.45)]">
+              Enterprise-sized regulation.
+            </span>
+          </h2>
 
-            <div className="flex flex-wrap items-center gap-3 sm:gap-4 pt-1">
-              <div className="inline-flex items-center gap-2.5 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full bg-[#0B1A3A]/90 border border-cyan-400/50 text-cyan-200 text-xs sm:text-sm font-space font-semibold shadow-[0_0_16px_rgba(34,211,238,0.2)] backdrop-blur-md">
-                <CheckCircle2 className="w-4 h-4 text-cyan-400 flex-shrink-0" />
-                <span>Integrated Tech Stack</span>
+          {/* Divider line matching reference */}
+          <div className="w-full h-px bg-blue-500/20 my-6 sm:my-8 lg:my-10" />
+
+          {/* Two-column layout below divider */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-14 items-center">
+            {/* Left: Paragraph with bold highlights */}
+            <div className="lg:col-span-7">
+              <p className="text-base sm:text-lg md:text-xl text-[#A9B8D6] font-inter leading-relaxed font-light m-0">
+                Growth-stage companies answer to <strong className="text-white font-semibold">the same regulators and investors</strong> as large enterprises, but without the IT, compliance and finance departments behind them. Matic Global Solutions fills that gap with <strong className="text-transparent bg-clip-text bg-gradient-to-r from-ice-cyan via-[#7FD6FF] to-diamond-blue font-semibold">AI-first technology, compliance know-how and financial expertise</strong>, delivered by one team.
+              </p>
+            </div>
+
+            {/* Right: Feature cards (Stacked, Explore Solutions button removed) */}
+            <div className="lg:col-span-5 flex flex-col gap-3.5 sm:gap-4 w-full max-w-md">
+              <div className="w-full p-3.5 sm:p-4 rounded-2xl bg-[#09152E]/80 border border-blue-500/25 flex items-center gap-3.5 sm:gap-4 shadow-[0_4px_20px_rgba(7,14,29,0.5)] backdrop-blur-md">
+                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-blue-500/15 border border-cyan-400/35 flex items-center justify-center text-cyan-400 shrink-0 shadow-[0_0_12px_rgba(34,211,238,0.2)]">
+                  <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5 text-cyan-400" />
+                </div>
+                <span className="text-sm sm:text-base font-space font-semibold text-white tracking-wide">
+                  Integrated Tech Stack
+                </span>
               </div>
-              <div className="inline-flex items-center gap-2.5 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full bg-[#0B1A3A]/90 border border-cyan-400/50 text-cyan-200 text-xs sm:text-sm font-space font-semibold shadow-[0_0_16px_rgba(34,211,238,0.2)] backdrop-blur-md">
-                <CheckCircle2 className="w-4 h-4 text-cyan-400 flex-shrink-0" />
-                <span>Zero Functional Silos</span>
+
+              <div className="w-full p-3.5 sm:p-4 rounded-2xl bg-[#09152E]/80 border border-blue-500/25 flex items-center gap-3.5 sm:gap-4 shadow-[0_4px_20px_rgba(7,14,29,0.5)] backdrop-blur-md">
+                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-blue-500/15 border border-cyan-400/35 flex items-center justify-center text-cyan-400 shrink-0 shadow-[0_0_12px_rgba(34,211,238,0.2)]">
+                  <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5 text-cyan-400" />
+                </div>
+                <span className="text-sm sm:text-base font-space font-semibold text-white tracking-wide">
+                  Zero Functional Silos
+                </span>
               </div>
-              <a 
-                href="#services" 
-                className="inline-flex items-center gap-2 px-6 sm:px-7 py-2.5 sm:py-3 rounded-full bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white text-xs sm:text-sm font-space font-bold shadow-[0_0_24px_rgba(59,130,246,0.6)] hover:shadow-[0_0_32px_rgba(34,211,238,0.8)] transition-all hover:-translate-y-0.5"
-              >
-                <span>Explore Solutions</span>
-                <span aria-hidden="true">→</span>
-              </a>
             </div>
           </div>
         </div>
@@ -193,7 +212,7 @@ export default function Home() {
       <section className="w-full pb-8 sm:pb-12 relative">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
           
-          <div className="relative rounded-3xl p-8 sm:p-10 lg:py-10 lg:px-14 overflow-hidden bg-gradient-to-r from-[#0B1630] via-[#101E40] to-[#0B1630] border-2 border-ice-cyan/50 shadow-glow-cyan flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-10">
+          <div className="relative rounded-2xl sm:rounded-3xl p-6 sm:p-10 lg:py-10 lg:px-14 overflow-hidden bg-gradient-to-r from-[#0B1630] via-[#101E40] to-[#0B1630] border-2 border-ice-cyan/50 shadow-glow-cyan flex flex-col lg:flex-row items-center justify-between gap-5 sm:gap-8 lg:gap-10">
             
             {/* Animated WebGL Glass Fold Background */}
             <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-40">
@@ -204,11 +223,11 @@ export default function Home() {
             <div className="absolute -top-32 -left-32 w-80 h-80 rounded-full bg-diamond-blue/25 blur-[90px] pointer-events-none"></div>
             <div className="absolute -bottom-32 -right-32 w-80 h-80 rounded-full bg-ice-cyan/25 blur-[90px] pointer-events-none"></div>
 
-            <div className="flex flex-col gap-3 max-w-2xl text-center lg:text-left z-10">
-              <h2 className="font-display text-2xl sm:text-3xl lg:text-[34px] font-bold text-surface-text leading-tight">
+            <div className="flex flex-col gap-2.5 sm:gap-3 max-w-2xl text-center lg:text-left z-10">
+              <h2 className="font-display text-xl sm:text-3xl lg:text-[34px] font-bold text-surface-text leading-tight">
                 Planning your next stage of growth? Talk to us first.
               </h2>
-              <p className="text-muted-text text-sm sm:text-base leading-relaxed font-light">
+              <p className="text-muted-text text-xs sm:text-base leading-relaxed font-light">
                 Direct access to senior partners in technology, compliance, and finance. No sales pitch, just practical architectural clarity.
               </p>
             </div>

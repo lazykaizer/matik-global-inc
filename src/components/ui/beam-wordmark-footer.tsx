@@ -277,7 +277,7 @@ const CSS =
   ".bwf-word{position:relative;z-index:1;overflow:hidden;margin-top:clamp(24px,5cqw,72px);width:100%}" +
   ".bwf-word-box{padding:0 clamp(16px,4cqw,64px);max-width:1280px;margin:0 auto;box-sizing:border-box;width:100%;display:flex;justify-content:center}" +
   ".bwf-word-box.is-full{max-width:none;padding:0 clamp(12px,2cqw,32px)}" +
-  ".bwf-word-in{display:inline-flex;white-space:nowrap;font-weight:var(--bwf-ww);line-height:1;letter-spacing:-.035em;user-select:none;-webkit-user-select:none;max-width:100%}" +
+  ".bwf-word-in{display:inline-flex;white-space:nowrap;font-weight:var(--bwf-ww);line-height:1;letter-spacing:-.035em;user-select:none;-webkit-user-select:none}" +
   ".bwf-lw{display:inline-block;translate:0 0;transition:translate 1.25s cubic-bezier(.16,.84,.2,1) var(--bwf-d,0ms)}" +
   ".bwf[data-in='false'] .bwf-lw{translate:0 85%}" +
   ".bwf-l{display:inline-block;cursor:pointer;color:transparent;-webkit-background-clip:text;background-clip:text;background-repeat:no-repeat;background-size:var(--bwf-rw) var(--bwf-rh);background-position:calc(var(--bwf-x) * -1) calc(var(--bwf-y) * -1);" +
@@ -292,9 +292,22 @@ const CSS =
   ".bwf-foot{position:absolute;left:0;right:0;bottom:0;height:28%;z-index:2;pointer-events:none;background:linear-gradient(180deg,transparent,rgba(var(--bwf-bg-rgb),.6) 60%,var(--bwf-bg))}" +
   // Bottom bar
   ".bwf-bottom-bar{position:relative;z-index:3;border-top:1px solid rgba(var(--bwf-acc),.12);padding:18px 0;width:100%;margin-top:12px;background:rgba(0,0,0,.25)}" +
+  // Mobile enhancements: compact sleek spacing, side-by-side columns
+  "@media (max-width: 640px){" +
+  ".bwf-inner{padding:24px 16px 0!important;row-gap:22px!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important}" +
+  ".bwf-col:nth-child(1){grid-column:1 / -1!important;max-width:none!important}" +
+  ".bwf-desc{margin-top:8px!important;font-size:13px!important;line-height:1.5!important;color:#94A3B8!important}" +
+  ".bwf-socials{margin-top:12px!important;gap:8px!important}" +
+  ".bwf-soc{width:32px!important;height:32px!important;border-radius:6px!important}" +
+  ".bwf-label{padding-bottom:6px!important;font-size:11px!important;letter-spacing:.06em!important}" +
+  ".bwf-links{margin-top:8px!important;gap:0!important}" +
+  ".bwf-link{padding:3px 0!important;font-size:13px!important;line-height:19px!important}" +
+  ".bwf-word{margin-top:20px!important}" +
+  ".bwf-word-box{padding:0 14px!important}" +
+  "}" +
   // Container queries for responsive design
   "@container (max-width: 760px){.bwf-inner{grid-template-columns:minmax(0,1fr) minmax(0,1fr);row-gap:36px}.bwf-col:nth-child(1){grid-column:1 / -1;max-width:none}}" +
-  "@container (max-width: 440px){.bwf-inner{grid-template-columns:1fr;row-gap:28px}}" +
+  "@container (max-width: 440px){.bwf-inner{grid-template-columns:minmax(0,1fr) minmax(0,1fr);row-gap:22px}}" +
   "@media (prefers-reduced-motion: reduce){.bwf .bwf-lw,.bwf .bwf-fade,.bwf .bwf-label::after,.bwf .bwf-l,.bwf .bwf-soc,.bwf .bwf-link-t,.bwf .bwf-link svg{transition:none!important;animation:none!important}.bwf[data-in='false'] .bwf-lw,.bwf[data-in='false'] .bwf-fade{translate:none;opacity:1}.bwf[data-in='false'] .bwf-label::after{--bwf-line:1}}"
 
 const Arrow = () => (
@@ -359,8 +372,20 @@ export default function BeamWordmarkFooter({
       const target = Math.max(0, wb.clientWidth - pl - pr - 2)
       if (target <= 0) return
 
+      const prevPos = inner.style.position
+      const prevWidth = inner.style.width
+      const prevMaxWidth = inner.style.maxWidth
+      inner.style.position = 'absolute'
+      inner.style.maxWidth = 'none'
+      inner.style.width = 'max-content'
       inner.style.fontSize = "100px"
-      const measured = inner.offsetWidth
+
+      const measured = inner.scrollWidth || inner.offsetWidth
+
+      inner.style.position = prevPos
+      inner.style.maxWidth = prevMaxWidth
+      inner.style.width = prevWidth
+
       if (measured <= 0) return
 
       setBase(measureBaseline(getComputedStyle(inner).fontFamily, wordWeight, word))

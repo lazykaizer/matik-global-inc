@@ -29,6 +29,8 @@ import { ChipGroup } from './ChipGroup';
 import { TagInput } from './TagInput';
 import { FileDropzone } from './FileDropzone';
 import { Stepper, CareerStep } from './Stepper';
+import { CountryCodeSelect } from './CountryCodeSelect';
+import { getCountryPhoneRule } from '@/lib/countriesData';
 
 interface WorkWithUsFormProps {
   onSuccess: (referenceId: string, firstName: string) => void;
@@ -47,8 +49,8 @@ export function WorkWithUsForm({
   // In-memory form state
   const [formData, setFormData] = useState<CareersFormValues>({
     type: 'careers',
-    applyingAs: (savedState?.applyingAs as any) || 'Full-time',
-    areasOfInterest: savedState?.areasOfInterest || ['AI and ML'],
+    applyingAs: (savedState?.applyingAs as any) || '',
+    areasOfInterest: savedState?.areasOfInterest || [],
     roleInterest: savedState?.roleInterest || '',
     fullName: savedState?.fullName || '',
     email: savedState?.email || '',
@@ -89,6 +91,61 @@ export function WorkWithUsForm({
   const [errorSummary, setErrorSummary] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const mountTimeRef = useRef<number>(0);
+
+  // Dynamic "Other" Education and How Heard states
+  const [isOtherEducation, setIsOtherEducation] = useState<boolean>(() => {
+    return !!savedState?.highestEducation && savedState.highestEducation.startsWith('Other');
+  });
+  const [customEducation, setCustomEducation] = useState<string>(() => {
+    if (savedState?.highestEducation && savedState.highestEducation.startsWith('Other: ')) {
+      return savedState.highestEducation.replace('Other: ', '');
+    }
+    return '';
+  });
+
+  const [isOtherHowHeard, setIsOtherHowHeard] = useState<boolean>(() => {
+    return !!savedState?.howHeard && savedState.howHeard.startsWith('Other');
+  });
+  const [customHowHeard, setCustomHowHeard] = useState<string>(() => {
+    if (savedState?.howHeard && savedState.howHeard.startsWith('Other: ')) {
+      return savedState.howHeard.replace('Other: ', '');
+    }
+    return '';
+  });
+
+  const handleEducationSelect = (val: string) => {
+    if (val === 'Other') {
+      setIsOtherEducation(true);
+      const combined = customEducation.trim() ? `Other: ${customEducation.trim()}` : 'Other';
+      handleChange('highestEducation', combined);
+    } else {
+      setIsOtherEducation(false);
+      handleChange('highestEducation', val);
+    }
+  };
+
+  const handleCustomEducationChange = (val: string) => {
+    setCustomEducation(val);
+    const combined = val.trim() ? `Other: ${val.trim()}` : 'Other';
+    handleChange('highestEducation', combined);
+  };
+
+  const handleHowHeardSelect = (val: string) => {
+    if (val === 'Other') {
+      setIsOtherHowHeard(true);
+      const combined = customHowHeard.trim() ? `Other: ${customHowHeard.trim()}` : 'Other';
+      handleChange('howHeard', combined);
+    } else {
+      setIsOtherHowHeard(false);
+      handleChange('howHeard', val);
+    }
+  };
+
+  const handleCustomHowHeardChange = (val: string) => {
+    setCustomHowHeard(val);
+    const combined = val.trim() ? `Other: ${val.trim()}` : 'Other';
+    handleChange('howHeard', combined);
+  };
 
   useEffect(() => {
     mountTimeRef.current = Date.now();
@@ -145,6 +202,12 @@ export function WorkWithUsForm({
       }
       setErrors(errMap);
       setErrorSummary('Please complete all required fields in Step 1.');
+      return false;
+    }
+
+    if (formData.areasOfInterest.includes('Other') && (!formData.roleInterest || !formData.roleInterest.trim())) {
+      setErrors({ roleInterest: 'Please specify your area of interest or role' });
+      setErrorSummary('Please specify your area of interest or role when choosing Other.');
       return false;
     }
     setErrors({});
@@ -346,6 +409,8 @@ export function WorkWithUsForm({
     }
   };
 
+  const phoneRule = getCountryPhoneRule(formData.phoneCountryCode);
+
   return (
     <div
       ref={containerRef}
@@ -353,12 +418,6 @@ export function WorkWithUsForm({
     >
       {/* Header */}
       <div className="flex flex-col gap-2 pb-2 border-b border-blue-500/15">
-        <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full border border-cyan-400/25 bg-[#0B1736]/70 backdrop-blur-md shadow-[0_0_20px_rgba(61,139,255,0.12)] w-fit mb-1">
-          <UserPlus className="w-3.5 h-3.5 text-cyan-400" />
-          <span className="text-xs uppercase tracking-[0.16em] text-cyan-300 font-space font-semibold">
-            Talent Application
-          </span>
-        </div>
         <h2 className="font-display text-2xl sm:text-3xl font-bold text-surface-text tracking-tight">
           Apply or join our talent network
         </h2>
@@ -413,13 +472,12 @@ export function WorkWithUsForm({
             error={errors.applyingAs}
           />
 
-          {/* Areas of interest */}
+          {/* Area of interest - Single select only */}
           <ChipGroup
-            label="Areas of interest"
+            label="Area of interest"
             options={CONTACT_CONSTANTS.careers.areasOfInterest}
-            selected={formData.areasOfInterest}
-            onChange={(vals) => handleChange('areasOfInterest', vals)}
-            multiple
+            selected={formData.areasOfInterest[0] || ''}
+            onChange={(val) => handleChange('areasOfInterest', val ? [val] : [])}
             required
             error={errors.areasOfInterest}
           />
@@ -427,13 +485,19 @@ export function WorkWithUsForm({
           {/* Role you're interested in */}
           <FormField
             id="roleInterest"
-            label="Role you're interested in"
-            hint="Optional"
+            label={formData.areasOfInterest[0] === 'Other' ? "Specify your area of interest / role" : "Role you're interested in"}
+            required={formData.areasOfInterest[0] === 'Other'}
+            error={errors.roleInterest}
           >
             <input
               id="roleInterest"
               type="text"
-              placeholder="e.g. ERP Consultant, ML Engineer, Tax Analyst"
+              autoFocus={formData.areasOfInterest[0] === 'Other'}
+              placeholder={
+                formData.areasOfInterest[0] === 'Other'
+                  ? 'e.g. DevOps Engineer, Cybersecurity Architect, Product Manager'
+                  : 'e.g. ERP Consultant, ML Engineer, Tax Analyst'
+              }
               value={formData.roleInterest}
               onChange={(e) => handleChange('roleInterest', e.target.value)}
               className="w-full min-h-[44px] px-4 py-2.5 rounded-xl bg-[#050B1A]/80 border border-blue-500/30 hover:border-blue-500/50 focus:border-ice-cyan focus:ring-2 focus:ring-ice-cyan/40 text-sm text-surface-text placeholder:text-muted-text/50 outline-none transition-all"
@@ -478,27 +542,31 @@ export function WorkWithUsForm({
           {/* Row: Phone & Current Location */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             <FormField id="phone" label="Phone" required error={errors.phone}>
-              <div className="flex items-center gap-2">
-                <select
+              <div className="flex items-center gap-2.5 w-full">
+                <CountryCodeSelect
                   id="phoneCountryCode"
                   value={formData.phoneCountryCode}
-                  onChange={(e) => handleChange('phoneCountryCode', e.target.value)}
-                  className="min-h-[44px] px-2.5 py-2.5 rounded-xl bg-[#050B1A]/80 border border-blue-500/30 text-surface-text text-xs sm:text-sm font-mono outline-none hover:border-blue-500/50 focus:border-ice-cyan shrink-0"
-                >
-                  {CONTACT_CONSTANTS.countryCodes.map((c) => (
-                    <option key={c.code} value={c.code} className="bg-[#050B1A] text-surface-text">
-                      {c.code}
-                    </option>
-                  ))}
-                </select>
+                  onChange={(code) => {
+                    handleChange('phoneCountryCode', code);
+                    const newRule = getCountryPhoneRule(code);
+                    if (formData.phone) {
+                      const cleaned = formData.phone.replace(/\D/g, '').slice(0, newRule.maxDigits);
+                      handleChange('phone', cleaned);
+                    }
+                  }}
+                />
                 <input
                   id="phone"
                   type="tel"
                   autoComplete="tel"
-                  placeholder="(555) 000-0000"
+                  placeholder={phoneRule.placeholder}
+                  maxLength={phoneRule.maxDigits}
                   value={formData.phone}
-                  onChange={(e) => handleChange('phone', e.target.value)}
-                  className={`w-full min-h-[44px] px-4 py-2.5 rounded-xl bg-[#050B1A]/80 border text-sm text-surface-text outline-none transition-all ${
+                  onChange={(e) => {
+                    const cleaned = e.target.value.replace(/\D/g, '').slice(0, phoneRule.maxDigits);
+                    handleChange('phone', cleaned);
+                  }}
+                  className={`flex-1 w-full min-w-0 min-h-[44px] px-4 py-2.5 rounded-xl bg-[#050B1A]/80 border text-sm text-surface-text outline-none transition-all ${
                     errors.phone
                       ? 'border-rose-500/80 focus:ring-2 focus:ring-rose-500'
                       : 'border-blue-500/30 hover:border-blue-500/50 focus:border-ice-cyan'
@@ -531,7 +599,7 @@ export function WorkWithUsForm({
 
           {/* Row: LinkedIn & Portfolio URLs */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            <FormField id="linkedInUrl" label="LinkedIn URL" hint="Optional" error={errors.linkedInUrl}>
+            <FormField id="linkedInUrl" label="LinkedIn URL" error={errors.linkedInUrl}>
               <input
                 id="linkedInUrl"
                 type="url"
@@ -545,7 +613,6 @@ export function WorkWithUsForm({
             <FormField
               id="portfolioUrl"
               label="Portfolio / GitHub / website URL"
-              hint="Optional"
               error={errors.portfolioUrl}
             >
               <input
@@ -619,7 +686,6 @@ export function WorkWithUsForm({
             <FormField
               id="currentRoleCompany"
               label="Current or most recent role and company"
-              hint="Optional"
             >
               <input
                 id="currentRoleCompany"
@@ -646,8 +712,8 @@ export function WorkWithUsForm({
           />
 
           {/* Row: Certifications & Highest Education */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            <FormField id="certifications" label="Certifications" hint="Optional">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 items-start">
+            <FormField id="certifications" label="Certifications">
               <input
                 id="certifications"
                 type="text"
@@ -658,22 +724,59 @@ export function WorkWithUsForm({
               />
             </FormField>
 
-            <FormField id="highestEducation" label="Highest education" hint="Optional">
-              <select
-                id="highestEducation"
-                value={formData.highestEducation}
-                onChange={(e) => handleChange('highestEducation', e.target.value)}
-                className="w-full min-h-[44px] px-4 py-2.5 rounded-xl bg-[#050B1A]/80 border border-blue-500/30 hover:border-blue-500/50 focus:border-ice-cyan text-sm text-surface-text outline-none transition-all"
-              >
-                <option value="" className="bg-[#050B1A] text-muted-text">
-                  Select highest level...
-                </option>
-                {CONTACT_CONSTANTS.careers.highestEducation.map((edu) => (
-                  <option key={edu} value={edu} className="bg-[#050B1A] text-surface-text">
-                    {edu}
+            <FormField id="highestEducation" label="Highest education">
+              <div className="flex flex-col gap-2">
+                <select
+                  id="highestEducation"
+                  value={
+                    formData.highestEducation === 'Other' || (formData.highestEducation || '').startsWith('Other: ')
+                      ? 'Other'
+                      : formData.highestEducation || ''
+                  }
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    if (val === 'Other') {
+                      handleChange('highestEducation', 'Other');
+                    } else {
+                      handleChange('highestEducation', val);
+                    }
+                  }}
+                  className="w-full min-h-[44px] px-4 py-2.5 rounded-xl bg-[#050B1A]/80 border border-blue-500/30 hover:border-blue-500/50 focus:border-ice-cyan text-sm text-surface-text outline-none transition-all"
+                >
+                  <option value="" className="bg-[#050B1A] text-muted-text">
+                    Select highest level...
                   </option>
-                ))}
-              </select>
+                  {CONTACT_CONSTANTS.careers.highestEducation.map((edu) => (
+                    <option key={edu} value={edu} className="bg-[#050B1A] text-surface-text">
+                      {edu}
+                    </option>
+                  ))}
+                </select>
+
+                {(formData.highestEducation === 'Other' || (formData.highestEducation || '').startsWith('Other: ')) && (
+                  <div className="animate-in fade-in slide-in-from-top-1 duration-200">
+                    <input
+                      type="text"
+                      id="otherEducation"
+                      autoFocus
+                      placeholder="Please specify your degree or qualification..."
+                      value={
+                        (formData.highestEducation || '').startsWith('Other: ')
+                          ? (formData.highestEducation || '').slice(7)
+                          : ''
+                      }
+                      onChange={(e) => {
+                        const text = e.target.value;
+                        handleChange(
+                          'highestEducation',
+                          text ? `Other: ${text}` : 'Other'
+                        );
+                      }}
+                      className="w-full min-h-[44px] px-4 py-2.5 rounded-xl bg-[#050B1A]/80 border border-cyan-400/50 focus:border-ice-cyan focus:ring-2 focus:ring-ice-cyan/40 text-sm text-surface-text placeholder:text-muted-text/50 outline-none transition-all shadow-[0_0_15px_rgba(34,211,238,0.1)]"
+                    />
+                  </div>
+                )}
+              </div>
             </FormField>
           </div>
 
@@ -732,7 +835,6 @@ export function WorkWithUsForm({
             <div className="flex items-center justify-between">
               <label className="text-xs font-mono uppercase tracking-wider text-muted-text font-semibold flex items-center gap-2">
                 <span>Cover letter</span>
-                <span className="text-[11px] font-normal text-muted-text/70">(Optional)</span>
               </label>
               <div className="flex items-center gap-1 text-xs font-mono">
                 <button
@@ -792,7 +894,7 @@ export function WorkWithUsForm({
           <div className="flex flex-col gap-2">
             <div className="flex items-center justify-between">
               <label className="text-xs font-mono uppercase tracking-wider text-muted-text font-semibold">
-                Additional documents (optional)
+                Additional documents
               </label>
               <span className="text-[11px] font-mono text-muted-text">
                 {additionalFiles.length} / 2 files (max 5 MB each)
@@ -832,7 +934,7 @@ export function WorkWithUsForm({
 
           {/* Row: Earliest Start Date & Notice Period */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            <FormField id="earliestStartDate" label="Earliest start date" hint="Optional">
+            <FormField id="earliestStartDate" label="Earliest start date">
               <input
                 id="earliestStartDate"
                 type="date"
@@ -844,7 +946,7 @@ export function WorkWithUsForm({
 
             {/* If Full-time or Internship: Notice Period */}
             {(formData.applyingAs === 'Full-time' || formData.applyingAs === 'Internship') && (
-              <FormField id="noticePeriod" label="Notice period" hint="Optional">
+              <FormField id="noticePeriod" label="Notice period">
                 <select
                   id="noticePeriod"
                   value={formData.noticePeriod}
@@ -880,7 +982,7 @@ export function WorkWithUsForm({
               />
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <FormField id="hoursPerWeek" label="Hours per week available" hint="Optional">
+                <FormField id="hoursPerWeek" label="Hours per week available">
                   <select
                     id="hoursPerWeek"
                     value={formData.hoursPerWeek}
@@ -898,7 +1000,7 @@ export function WorkWithUsForm({
                   </select>
                 </FormField>
 
-                <FormField id="expectedRate" label="Expected rate" hint="Optional">
+                <FormField id="expectedRate" label="Expected rate">
                   <div className="flex items-center gap-1.5">
                     <select
                       value={formData.rateCurrency}
@@ -937,8 +1039,8 @@ export function WorkWithUsForm({
           )}
 
           {/* Row: Work Authorization & How Did You Hear */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            <FormField id="workAuthorization" label="Work authorization / location" hint="Optional">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 items-start">
+            <FormField id="workAuthorization" label="Work authorization / location">
               <select
                 id="workAuthorization"
                 value={formData.workAuthorization}
@@ -956,22 +1058,59 @@ export function WorkWithUsForm({
               </select>
             </FormField>
 
-            <FormField id="howHeard" label="How did you hear about us?" hint="Optional">
-              <select
-                id="howHeard"
-                value={formData.howHeard}
-                onChange={(e) => handleChange('howHeard', e.target.value)}
-                className="w-full min-h-[44px] px-4 py-2.5 rounded-xl bg-[#050B1A]/80 border border-blue-500/30 text-sm text-surface-text outline-none"
-              >
-                <option value="" className="bg-[#050B1A] text-muted-text">
-                  Select referral source...
-                </option>
-                {CONTACT_CONSTANTS.careers.howHeard.map((src) => (
-                  <option key={src} value={src} className="bg-[#050B1A] text-surface-text">
-                    {src}
+            <FormField id="howHeard" label="How did you hear about us?">
+              <div className="flex flex-col gap-2">
+                <select
+                  id="howHeard"
+                  value={
+                    formData.howHeard === 'Other' || (formData.howHeard || '').startsWith('Other: ')
+                      ? 'Other'
+                      : formData.howHeard || ''
+                  }
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    if (val === 'Other') {
+                      handleChange('howHeard', 'Other');
+                    } else {
+                      handleChange('howHeard', val);
+                    }
+                  }}
+                  className="w-full min-h-[44px] px-4 py-2.5 rounded-xl bg-[#050B1A]/80 border border-blue-500/30 text-sm text-surface-text outline-none"
+                >
+                  <option value="" className="bg-[#050B1A] text-muted-text">
+                    Select referral source...
                   </option>
-                ))}
-              </select>
+                  {CONTACT_CONSTANTS.careers.howHeard.map((src) => (
+                    <option key={src} value={src} className="bg-[#050B1A] text-surface-text">
+                      {src}
+                    </option>
+                  ))}
+                </select>
+
+                {(formData.howHeard === 'Other' || (formData.howHeard || '').startsWith('Other: ')) && (
+                  <div className="animate-in fade-in slide-in-from-top-1 duration-200">
+                    <input
+                      type="text"
+                      id="otherHowHeard"
+                      autoFocus
+                      placeholder="Please specify where you heard about us..."
+                      value={
+                        (formData.howHeard || '').startsWith('Other: ')
+                          ? (formData.howHeard || '').slice(7)
+                          : ''
+                      }
+                      onChange={(e) => {
+                        const text = e.target.value;
+                        handleChange(
+                          'howHeard',
+                          text ? `Other: ${text}` : 'Other'
+                        );
+                      }}
+                      className="w-full min-h-[44px] px-4 py-2.5 rounded-xl bg-[#050B1A]/80 border border-cyan-400/50 focus:border-ice-cyan focus:ring-2 focus:ring-ice-cyan/40 text-sm text-surface-text placeholder:text-muted-text/50 outline-none transition-all shadow-[0_0_15px_rgba(34,211,238,0.1)]"
+                    />
+                  </div>
+                )}
+              </div>
             </FormField>
           </div>
 
@@ -979,7 +1118,7 @@ export function WorkWithUsForm({
           <FormField
             id="whyMatic"
             label="Why do you want to work with us?"
-            hint={`${formData.whyMatic?.length || 0} / 1000 chars (optional)`}
+            hint={`${formData.whyMatic?.length || 0} / 1000 chars`}
           >
             <textarea
               id="whyMatic"

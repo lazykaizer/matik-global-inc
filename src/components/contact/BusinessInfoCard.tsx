@@ -49,9 +49,18 @@ export function BusinessInfoCard({ isMobile = false }: BusinessInfoCardProps) {
             </div>
             <div className="flex flex-col">
               <span className="text-[11px] font-mono uppercase text-muted-text">Email</span>
-              <span className="font-mono text-muted-text select-all">
-                {CONTACT_CONSTANTS.placeholders.email}
-              </span>
+              {CONTACT_CONSTANTS.placeholders.email.startsWith('[') ? (
+                <span className="font-mono text-muted-text select-all">
+                  {CONTACT_CONSTANTS.placeholders.email}
+                </span>
+              ) : (
+                <a
+                  href={`mailto:${CONTACT_CONSTANTS.placeholders.email}`}
+                  className="font-mono text-muted-text hover:text-ice-cyan transition-colors select-all"
+                >
+                  {CONTACT_CONSTANTS.placeholders.email}
+                </a>
+              )}
             </div>
           </div>
 
@@ -62,9 +71,18 @@ export function BusinessInfoCard({ isMobile = false }: BusinessInfoCardProps) {
             </div>
             <div className="flex flex-col">
               <span className="text-[11px] font-mono uppercase text-muted-text">Phone</span>
-              <span className="font-mono text-muted-text select-all">
-                {CONTACT_CONSTANTS.placeholders.phone}
-              </span>
+              {CONTACT_CONSTANTS.placeholders.phone.startsWith('[') ? (
+                <span className="font-mono text-muted-text select-all">
+                  {CONTACT_CONSTANTS.placeholders.phone}
+                </span>
+              ) : (
+                <a
+                  href={`tel:${CONTACT_CONSTANTS.placeholders.phone.replace(/[^0-9+]/g, '')}`}
+                  className="font-mono text-muted-text hover:text-ice-cyan transition-colors select-all"
+                >
+                  {CONTACT_CONSTANTS.placeholders.phone}
+                </a>
+              )}
             </div>
           </div>
 

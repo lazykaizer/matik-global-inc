@@ -1,3 +1,5 @@
+import { WORLD_COUNTRIES } from './countriesData';
+
 /**
  * Contact Page Copy and Configuration Constants
  * Matic Global Solutions Inc
@@ -152,19 +154,7 @@ export const CONTACT_CONSTANTS = {
     ],
     dataRetentionNote: 'We keep your details only as long as needed to consider you for roles. See our Privacy Policy.',
   },
-  countryCodes: [
-    { code: '+1', country: 'US / Canada' },
-    { code: '+44', country: 'United Kingdom' },
-    { code: '+91', country: 'India' },
-    { code: '+49', country: 'Germany' },
-    { code: '+61', country: 'Australia' },
-    { code: '+33', country: 'France' },
-    { code: '+65', country: 'Singapore' },
-    { code: '+81', country: 'Japan' },
-    { code: '+971', country: 'UAE' },
-    { code: '+41', country: 'Switzerland' },
-    { code: '+31', country: 'Netherlands' },
-  ],
+  countryCodes: WORLD_COUNTRIES,
   freeMailDomains: [
     'gmail.com',
     'yahoo.com',

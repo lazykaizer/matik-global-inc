@@ -125,7 +125,10 @@ export async function POST(request: NextRequest) {
         industry: (formData.get('industry') as string) || undefined,
         companySize: (formData.get('companySize') as string) || undefined,
         serviceOfInterest: formData.get('serviceOfInterest') as string,
-        erpPlatforms: formData.getAll('erpPlatforms') as string[],
+        erpPlatforms:
+          formData.get('serviceOfInterest') === 'ERP'
+            ? (formData.getAll('erpPlatforms') as string[])
+            : [],
         timeline: (formData.get('timeline') as string) || undefined,
         message: formData.get('message') as string,
         consent: formData.get('consent') === 'true',

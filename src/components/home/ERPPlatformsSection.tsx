@@ -170,28 +170,28 @@ export const ERPPlatformsSection: React.FC = () => {
         </div>
 
         {/* Bottom Assessment Band */}
-        <div className="erp-band">
-          <div className="flex-1 min-w-0">
+        <div className="erp-band flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+          <div className="w-full sm:flex-1">
             <div
               style={{
                 fontFamily: 'Sora, sans-serif',
                 fontWeight: 600,
-                fontSize: '22px',
                 color: '#fff',
                 marginBottom: '6px'
               }}
+              className="text-xl sm:text-[22px]"
             >
               Not sure which platform fits?
             </div>
             <div
-              style={{ fontSize: '15px', lineHeight: 1.6, color: '#C5D2EA' }}
-              className="whitespace-normal lg:whitespace-nowrap"
+              style={{ lineHeight: 1.6, color: '#C5D2EA' }}
+              className="text-sm sm:text-[15px] whitespace-normal"
             >
               We compare all six against your requirements and give you one clear, independent recommendation.
             </div>
           </div>
 
-          <Link href="/contactus?type=business" className="erp-cta">
+          <Link href="/contactus?type=business" className="erp-cta w-full sm:w-auto justify-center text-center">
             Book a Free ERP Assessment{' '}
             <svg
               width="16"

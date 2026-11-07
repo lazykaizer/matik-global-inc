@@ -13,6 +13,8 @@ import {
 import { FormField } from './FormField';
 import { ChipGroup } from './ChipGroup';
 import { FileDropzone } from './FileDropzone';
+import { CountryCodeSelect } from './CountryCodeSelect';
+import { getCountryPhoneRule } from '@/lib/countriesData';
 
 interface BusinessEnquiryFormProps {
   onSuccess: (referenceId: string, firstName: string) => void;
@@ -50,6 +52,50 @@ export function BusinessEnquiryForm({
   const [errorSummary, setErrorSummary] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const mountTimeRef = useRef<number>(0);
+
+  // Dynamic "Other" industry input state
+  const [isOtherIndustry, setIsOtherIndustry] = useState<boolean>(() => {
+    return !!savedState?.industry && savedState.industry.startsWith('Other');
+  });
+  const [customIndustry, setCustomIndustry] = useState<string>(() => {
+    if (savedState?.industry && savedState.industry.startsWith('Other: ')) {
+      return savedState.industry.replace('Other: ', '');
+    }
+    return '';
+  });
+
+  const handleIndustrySelect = (val: string) => {
+    if (val === 'Other') {
+      setIsOtherIndustry(true);
+      const combined = customIndustry.trim() ? `Other: ${customIndustry.trim()}` : 'Other';
+      handleChange('industry', combined);
+    } else {
+      setIsOtherIndustry(false);
+      handleChange('industry', val);
+    }
+  };
+
+  const handleCustomIndustryChange = (val: string) => {
+    setCustomIndustry(val);
+    const combined = val.trim() ? `Other: ${val.trim()}` : 'Other';
+    handleChange('industry', combined);
+  };
+
+  const handleServiceChange = (val: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      serviceOfInterest: val,
+      // If service is not ERP, clear any selected ERP platforms
+      erpPlatforms: val === 'ERP' ? prev.erpPlatforms : [],
+    }));
+    if (errors.serviceOfInterest) {
+      setErrors((prev) => {
+        const copy = { ...prev };
+        delete copy.serviceOfInterest;
+        return copy;
+      });
+    }
+  };
 
   useEffect(() => {
     mountTimeRef.current = Date.now();
@@ -134,7 +180,7 @@ export function BusinessEnquiryForm({
       if (formData.industry) payload.append('industry', formData.industry);
       if (formData.companySize) payload.append('companySize', formData.companySize);
       payload.append('serviceOfInterest', formData.serviceOfInterest);
-      if (formData.erpPlatforms) {
+      if (formData.serviceOfInterest === 'ERP' && formData.erpPlatforms) {
         formData.erpPlatforms.forEach((p) => payload.append('erpPlatforms', p));
       }
       if (formData.timeline) payload.append('timeline', formData.timeline);
@@ -171,16 +217,12 @@ export function BusinessEnquiryForm({
     }
   };
 
+  const phoneRule = getCountryPhoneRule(formData.phoneCountryCode);
+
   return (
     <div className="w-full p-6 sm:p-10 rounded-3xl frosted-glass border border-blue-500/25 shadow-[0_20px_50px_rgba(7,14,29,0.95)] flex flex-col gap-8">
       {/* Form Header */}
       <div className="flex flex-col gap-2 pb-2 border-b border-blue-500/15">
-        <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full border border-cyan-400/25 bg-[#0B1736]/70 backdrop-blur-md shadow-[0_0_20px_rgba(61,139,255,0.12)] w-fit mb-1">
-          <Briefcase className="w-3.5 h-3.5 text-cyan-400" />
-          <span className="text-xs uppercase tracking-[0.16em] text-cyan-300 font-space font-semibold">
-            Project Enquiry
-          </span>
-        </div>
         <h2 className="font-display text-2xl sm:text-3xl font-bold text-surface-text tracking-tight">
           Tell us about your project
         </h2>
@@ -267,29 +309,36 @@ export function BusinessEnquiryForm({
 
         {/* Row 2: Phone with Country Code & Company */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-          <FormField id="phone" label="Phone" hint="Optional">
-            <div className="flex items-center gap-2">
-              <select
+          <FormField id="phone" label="Phone" error={errors.phone}>
+            <div className="flex items-center gap-2.5 w-full">
+              <CountryCodeSelect
                 id="phoneCountryCode"
                 value={formData.phoneCountryCode}
-                onChange={(e) => handleChange('phoneCountryCode', e.target.value)}
-                className="min-h-[44px] px-2.5 py-2.5 rounded-xl bg-[#050B1A]/80 border border-blue-500/30 text-surface-text text-xs sm:text-sm font-mono outline-none hover:border-blue-500/50 focus:border-ice-cyan focus:ring-2 focus:ring-ice-cyan/40 shrink-0"
-                aria-label="Country Calling Code"
-              >
-                {CONTACT_CONSTANTS.countryCodes.map((c) => (
-                  <option key={c.code} value={c.code} className="bg-[#050B1A] text-surface-text">
-                    {c.code} ({c.country})
-                  </option>
-                ))}
-              </select>
+                onChange={(code) => {
+                  handleChange('phoneCountryCode', code);
+                  const newRule = getCountryPhoneRule(code);
+                  if (formData.phone) {
+                    const cleaned = formData.phone.replace(/\D/g, '').slice(0, newRule.maxDigits);
+                    handleChange('phone', cleaned);
+                  }
+                }}
+              />
               <input
                 id="phone"
                 type="tel"
                 autoComplete="tel"
-                placeholder="(555) 000-0000"
+                placeholder={phoneRule.placeholder}
+                maxLength={phoneRule.maxDigits}
                 value={formData.phone}
-                onChange={(e) => handleChange('phone', e.target.value)}
-                className="w-full min-h-[44px] px-4 py-2.5 rounded-xl bg-[#050B1A]/80 border border-blue-500/30 hover:border-blue-500/50 focus:border-ice-cyan focus:ring-2 focus:ring-ice-cyan/40 text-sm text-surface-text placeholder:text-muted-text/50 outline-none transition-all"
+                onChange={(e) => {
+                  const cleaned = e.target.value.replace(/\D/g, '').slice(0, phoneRule.maxDigits);
+                  handleChange('phone', cleaned);
+                }}
+                className={`flex-1 w-full min-w-0 min-h-[44px] px-4 py-2.5 rounded-xl bg-[#050B1A]/80 border text-sm text-surface-text placeholder:text-muted-text/50 outline-none transition-all ${
+                  errors.phone
+                    ? 'border-rose-500/80 focus:ring-2 focus:ring-rose-500'
+                    : 'border-blue-500/30 hover:border-blue-500/50 focus:border-ice-cyan focus:ring-2 focus:ring-ice-cyan/40'
+                }`}
               />
             </div>
           </FormField>
@@ -313,8 +362,8 @@ export function BusinessEnquiryForm({
         </div>
 
         {/* Row 3: Job Title & Industry */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-          <FormField id="jobTitle" label="Job title" hint="Optional">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 items-start">
+          <FormField id="jobTitle" label="Job title">
             <input
               id="jobTitle"
               type="text"
@@ -326,28 +375,65 @@ export function BusinessEnquiryForm({
             />
           </FormField>
 
-          <FormField id="industry" label="Industry" hint="Optional">
-            <select
-              id="industry"
-              value={formData.industry}
-              onChange={(e) => handleChange('industry', e.target.value)}
-              className="w-full min-h-[44px] px-4 py-2.5 rounded-xl bg-[#050B1A]/80 border border-blue-500/30 hover:border-blue-500/50 focus:border-ice-cyan focus:ring-2 focus:ring-ice-cyan/40 text-sm text-surface-text outline-none transition-all"
-            >
-              <option value="" className="bg-[#050B1A] text-muted-text">
-                Select your industry...
-              </option>
-              {CONTACT_CONSTANTS.business.industries.map((ind) => (
-                <option key={ind} value={ind} className="bg-[#050B1A] text-surface-text">
-                  {ind}
+          <FormField id="industry" label="Industry">
+            <div className="flex flex-col gap-2">
+              <select
+                id="industry"
+                value={
+                  formData.industry === 'Other' || (formData.industry || '').startsWith('Other: ')
+                    ? 'Other'
+                    : formData.industry || ''
+                }
+                onChange={(e) => {
+                  const val = e.target.value;
+                  if (val === 'Other') {
+                    handleChange('industry', 'Other');
+                  } else {
+                    handleChange('industry', val);
+                  }
+                }}
+                className="w-full min-h-[44px] px-4 py-2.5 rounded-xl bg-[#050B1A]/80 border border-blue-500/30 hover:border-blue-500/50 focus:border-ice-cyan focus:ring-2 focus:ring-ice-cyan/40 text-sm text-surface-text outline-none transition-all"
+              >
+                <option value="" className="bg-[#050B1A] text-muted-text">
+                  Select your industry...
                 </option>
-              ))}
-            </select>
+                {CONTACT_CONSTANTS.business.industries.map((ind) => (
+                  <option key={ind} value={ind} className="bg-[#050B1A] text-surface-text">
+                    {ind}
+                  </option>
+                ))}
+              </select>
+
+              {(formData.industry === 'Other' || (formData.industry || '').startsWith('Other: ')) && (
+                <div className="animate-in fade-in slide-in-from-top-1 duration-200">
+                  <input
+                    type="text"
+                    id="otherIndustry"
+                    autoFocus
+                    placeholder="Please specify your industry (e.g. EdTech, Logistics, Renewable Energy)..."
+                    value={
+                      (formData.industry || '').startsWith('Other: ')
+                        ? (formData.industry || '').slice(7)
+                        : ''
+                    }
+                    onChange={(e) => {
+                      const text = e.target.value;
+                      handleChange(
+                        'industry',
+                        text ? `Other: ${text}` : 'Other'
+                      );
+                    }}
+                    className="w-full min-h-[44px] px-4 py-2.5 rounded-xl bg-[#050B1A]/80 border border-cyan-400/50 focus:border-ice-cyan focus:ring-2 focus:ring-ice-cyan/40 text-sm text-surface-text placeholder:text-muted-text/50 outline-none transition-all shadow-[0_0_15px_rgba(34,211,238,0.1)]"
+                  />
+                </div>
+              )}
+            </div>
           </FormField>
         </div>
 
         {/* Row 4: Company Size & Service of Interest */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-          <FormField id="companySize" label="Company size" hint="Optional">
+          <FormField id="companySize" label="Company size">
             <select
               id="companySize"
               value={formData.companySize}
@@ -375,7 +461,7 @@ export function BusinessEnquiryForm({
               ref={serviceRef}
               id="serviceOfInterest"
               value={formData.serviceOfInterest}
-              onChange={(e) => handleChange('serviceOfInterest', e.target.value)}
+              onChange={(e) => handleServiceChange(e.target.value)}
               className={`w-full min-h-[44px] px-4 py-2.5 rounded-xl bg-[#050B1A]/80 border text-sm text-surface-text outline-none transition-all ${
                 errors.serviceOfInterest
                   ? 'border-rose-500/80 focus:ring-2 focus:ring-rose-500'
@@ -398,7 +484,7 @@ export function BusinessEnquiryForm({
         {formData.serviceOfInterest === 'ERP' && (
           <div className="p-4 sm:p-5 rounded-2xl bg-blue-950/30 border border-ice-cyan/30 flex flex-col gap-2 animate-in fade-in duration-200">
             <ChipGroup
-              label="ERP platform (optional)"
+              label="ERP platform"
               options={CONTACT_CONSTANTS.business.erpPlatforms}
               selected={formData.erpPlatforms || []}
               onChange={(vals) => handleChange('erpPlatforms', vals)}
@@ -408,7 +494,7 @@ export function BusinessEnquiryForm({
         )}
 
         {/* Row 5: Timeline */}
-        <FormField id="timeline" label="Timeline" hint="Optional">
+        <FormField id="timeline" label="Timeline">
           <select
             id="timeline"
             value={formData.timeline}
@@ -450,9 +536,9 @@ export function BusinessEnquiryForm({
           />
         </FormField>
 
-        {/* Row 7: Optional Attachment (RFP or Brief) */}
+        {/* Row 7: Attachment (RFP or Brief) */}
         <FileDropzone
-          label="Project brief or RFP (optional)"
+          label="Project brief or RFP"
           allowedExtensions={['.pdf', '.doc', '.docx']}
           maxSizeBytes={MAX_RFP_SIZE_BYTES}
           maxSizeLabel="10 MB"

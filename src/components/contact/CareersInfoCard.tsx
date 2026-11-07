@@ -47,9 +47,18 @@ export function CareersInfoCard({ isMobile = false }: CareersInfoCardProps) {
           </div>
           <div className="flex flex-col">
             <span className="text-[11px] font-mono uppercase text-muted-text">Careers Email</span>
-            <span className="font-mono text-muted-text select-all">
-              {CONTACT_CONSTANTS.placeholders.careersEmail}
-            </span>
+            {CONTACT_CONSTANTS.placeholders.careersEmail.startsWith('[') ? (
+              <span className="font-mono text-muted-text select-all">
+                {CONTACT_CONSTANTS.placeholders.careersEmail}
+              </span>
+            ) : (
+              <a
+                href={`mailto:${CONTACT_CONSTANTS.placeholders.careersEmail}`}
+                className="font-mono text-muted-text hover:text-ice-cyan transition-colors select-all"
+              >
+                {CONTACT_CONSTANTS.placeholders.careersEmail}
+              </a>
+            )}
           </div>
         </div>
       </motion.div>

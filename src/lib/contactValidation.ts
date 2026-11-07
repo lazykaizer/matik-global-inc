@@ -13,7 +13,20 @@ export const businessEnquirySchema = z.object({
     .trim()
     .email('Please enter a valid work email address'),
   phoneCountryCode: z.string().default('+1'),
-  phone: z.string().trim().optional().or(z.literal('')),
+  phone: z
+    .string()
+    .trim()
+    .max(15, 'Please enter a valid phone number')
+    .refine(
+      (val) => {
+        if (!val) return true;
+        const digits = val.replace(/\D/g, '');
+        return digits.length >= 7 && digits.length <= 15;
+      },
+      'Please enter a valid phone number'
+    )
+    .optional()
+    .or(z.literal('')),
   company: z
     .string()
     .trim()
@@ -65,7 +78,15 @@ export const careersStep1Schema = z.object({
   phone: z
     .string()
     .trim()
-    .min(5, 'Please enter a valid phone number'),
+    .min(1, 'Please enter your phone number')
+    .max(15, 'Please enter a valid phone number')
+    .refine(
+      (val) => {
+        const digits = val.replace(/\D/g, '');
+        return digits.length >= 7 && digits.length <= 15;
+      },
+      'Please enter a valid phone number'
+    ),
   currentLocation: z
     .string()
     .trim()

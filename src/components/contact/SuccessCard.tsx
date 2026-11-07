@@ -24,12 +24,12 @@ export function SuccessCard({ type, firstName, referenceId, onReset }: SuccessCa
 
   return (
     <div 
-      className="p-8 sm:p-12 rounded-3xl frosted-glass border-2 border-ice-cyan/40 shadow-[0_24px_60px_-12px_rgba(7,14,29,0.95),0_0_30px_rgba(122,209,250,0.2)] flex flex-col items-center text-center gap-6 animate-in fade-in zoom-in-95 duration-300"
+      className="p-6 sm:p-10 rounded-3xl frosted-glass border-2 border-ice-cyan/40 shadow-[0_24px_60px_-12px_rgba(7,14,29,0.95),0_0_30px_rgba(122,209,250,0.2)] flex flex-col items-center text-center gap-5 animate-in fade-in zoom-in-95 duration-300"
       role="region"
       aria-live="polite"
     >
-      <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-emerald-500/20 border border-emerald-400/40 text-emerald-400 flex items-center justify-center shadow-[0_0_24px_rgba(52,211,153,0.3)]">
-        <CheckCircle2 className="w-10 h-10 sm:w-12 sm:h-12" />
+      <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-emerald-500/20 border border-emerald-400/40 text-emerald-400 flex items-center justify-center shadow-[0_0_24px_rgba(52,211,153,0.3)]">
+        <CheckCircle2 className="w-8 h-8 sm:w-10 sm:h-10" />
       </div>
 
       <div className="flex flex-col gap-2 max-w-lg">

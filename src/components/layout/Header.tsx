@@ -207,7 +207,7 @@ export function Header() {
             </span>
             <div className="flex flex-col gap-1">
               {serviceLinks.map((link) => (
-                <ListItem
+                <MobileListItem
                   key={link.title}
                   {...link}
                   active={pathname === link.href}
@@ -224,7 +224,7 @@ export function Header() {
             </span>
             <div className="flex flex-col gap-1">
               {companyLinks.map((link) => (
-                <ListItem
+                <MobileListItem
                   key={link.title}
                   {...link}
                   active={pathname === link.href}
@@ -236,6 +236,52 @@ export function Header() {
         </div>
       </MobileMenu>
     </header>
+  );
+}
+
+function MobileListItem({
+  title,
+  description,
+  icon: Icon,
+  className,
+  href,
+  badge,
+  active,
+  onClick,
+}: LinkItem & { active?: boolean; onClick?: () => void; className?: string }) {
+  return (
+    <Link
+      href={href}
+      className={cn(
+        'w-full flex flex-row items-center gap-x-3 rounded-xl p-2.5 transition-all duration-200 group/item cursor-pointer text-left',
+        active
+          ? 'bg-blue-500/15 text-cyan-300 border border-blue-500/30'
+          : 'hover:bg-[#101E40]/80 hover:text-cyan-300',
+        className
+      )}
+      onClick={onClick}
+    >
+      <div className="flex aspect-square size-10 shrink-0 items-center justify-center rounded-lg bg-blue-950/70 border border-blue-500/25 text-cyan-400 group-hover/item:border-cyan-400/50 group-hover/item:scale-105 transition-all shadow-[0_0_12px_rgba(61,139,255,0.15)]">
+        <Icon className="size-5 text-cyan-400" />
+      </div>
+      <div className="flex flex-col items-start justify-center min-w-0 flex-1">
+        <div className="flex items-center gap-2 w-full">
+          <span className="font-medium text-sm text-surface-text group-hover/item:text-cyan-300 transition-colors truncate font-space">
+            {title}
+          </span>
+          {badge && (
+            <span className="px-1.5 py-0.5 text-[10px] font-mono rounded bg-blue-500/20 text-cyan-300 border border-blue-500/30">
+              {badge}
+            </span>
+          )}
+        </div>
+        {description && (
+          <span className="text-muted-text text-xs line-clamp-1 font-light group-hover/item:text-slate-300 transition-colors">
+            {description}
+          </span>
+        )}
+      </div>
+    </Link>
   );
 }
 
