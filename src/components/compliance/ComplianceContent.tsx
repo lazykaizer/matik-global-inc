@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import Link from 'next/link';
 import { 
   ShieldCheck, 
@@ -11,7 +12,6 @@ import {
   Scale, 
   ArrowRight, 
   X, 
-  Sparkles, 
   Activity, 
   SlidersHorizontal,
   Radar,
@@ -30,6 +30,11 @@ import HowItWorks from '@/components/ui/how-it-works';
 import KeycapOrb from './KeycapOrb';
 
 export function ComplianceContent() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Gap Assessment Modal State
@@ -44,6 +49,9 @@ export function ComplianceContent() {
     message: ''
   });
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [confirmedRefId, setConfirmedRefId] = useState<string>('');
 
   const toggleFramework = (item: string) => {
     if (assessmentData.frameworks.includes(item)) {
@@ -59,9 +67,46 @@ export function ComplianceContent() {
     }
   };
 
-  const handleModalSubmit = (e: React.FormEvent) => {
+  const handleModalSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    if (!assessmentData.fullName || !assessmentData.workEmail) return;
+
+    setIsSubmitting(true);
+    setSubmitError(null);
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'assessment',
+          serviceType: 'compliance',
+          serviceTitle: 'Audit Readiness & Compliance Scoping',
+          fullName: assessmentData.fullName,
+          workEmail: assessmentData.workEmail,
+          companyName: assessmentData.companyName,
+          timeline: assessmentData.timeline,
+          details: {
+            'Regulatory Frameworks': assessmentData.frameworks && assessmentData.frameworks.length > 0 ? assessmentData.frameworks : ['General Compliance Audit'],
+            'Target Audit Timeline': assessmentData.timeline || 'Not specified',
+            'Current Audit Readiness': assessmentData.currentStatus || 'Not specified',
+            'Additional Context / Requirements': assessmentData.message || 'None provided',
+          }
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || 'Submission failed. Please try again.');
+      }
+
+      setConfirmedRefId(data.referenceId || '');
+      setSubmitted(true);
+    } catch (err: any) {
+      setSubmitError(err.message || 'Unable to submit assessment request. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const resetModal = () => {
@@ -69,6 +114,7 @@ export function ComplianceContent() {
     setTimeout(() => {
       setSubmitted(false);
       setStep(1);
+      setSubmitError(null);
       setAssessmentData({
         frameworks: [],
         timeline: '',
@@ -127,7 +173,7 @@ export function ComplianceContent() {
                   onClick={() => setIsModalOpen(true)}
                   className="px-8 py-4 rounded-full font-display text-sm font-bold text-[#050B1A] bg-gradient-to-r from-diamond-blue via-ice-cyan to-[#bfe8ff] shadow-[0_0_24px_rgba(122,209,250,0.4)] hover:shadow-[0_0_36px_rgba(122,209,250,0.7)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer flex items-center gap-2"
                 >
-                  <Sparkles className="w-4 h-4 text-[#050B1A]" />
+                  <ShieldCheck className="w-4 h-4 text-[#050B1A]" />
                   <span>Book a Gap Assessment</span>
                 </button>
                 <a 
@@ -621,10 +667,13 @@ export function ComplianceContent() {
       {/* =========================================================================
           INTERACTIVE GAP ASSESSMENT MODAL
           ========================================================================= */}
-      {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#050B1A]/85 backdrop-blur-xl animate-in fade-in duration-200">
+      {isModalOpen && mounted && createPortal(
+        <div 
+          className="fixed inset-0 z-[200] overflow-y-auto p-4 sm:p-6 py-8 sm:py-12 flex items-start sm:items-center justify-center bg-[#050B1A]/90 backdrop-blur-xl animate-in fade-in duration-200"
+          onClick={resetModal}
+        >
           <div 
-            className="relative w-full max-w-2xl rounded-3xl frosted-glass border border-ice-cyan/40 p-6 sm:p-10 shadow-[0_24px_80px_rgba(0,0,0,0.9),0_0_50px_rgba(122,209,250,0.25)] text-surface-text overflow-hidden"
+            className="relative w-full max-w-2xl my-auto rounded-3xl frosted-glass border border-ice-cyan/40 p-6 sm:p-10 shadow-[0_24px_80px_rgba(0,0,0,0.9),0_0_50px_rgba(122,209,250,0.25)] text-surface-text max-h-[calc(100vh-4rem)] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Modal Ambient Corner Light */}
@@ -807,20 +856,37 @@ export function ComplianceContent() {
                       />
                     </div>
 
+                    {submitError && (
+                      <div className="p-3 rounded-xl bg-red-500/15 border border-red-500/30 text-red-300 text-xs text-center">
+                        {submitError}
+                      </div>
+                    )}
+
                     <div className="flex items-center gap-3 pt-3">
                       <button
                         type="button"
                         onClick={() => setStep(1)}
-                        className="py-3 px-5 rounded-full frosted-glass text-xs font-semibold text-surface-text hover:bg-blue-950/60 transition-colors"
+                        disabled={isSubmitting}
+                        className="py-3 px-5 rounded-full frosted-glass text-xs font-semibold text-surface-text hover:bg-blue-950/60 transition-colors disabled:opacity-50"
                       >
                         Back
                       </button>
                       <button
                         type="submit"
-                        className="flex-1 py-3.5 rounded-full font-display text-sm font-bold text-[#050B1A] bg-gradient-to-r from-diamond-blue via-ice-cyan to-[#bfe8ff] hover:shadow-[0_0_24px_rgba(122,209,250,0.6)] transition-all flex items-center justify-center gap-2"
+                        disabled={!assessmentData.fullName || !assessmentData.workEmail || isSubmitting}
+                        className="flex-1 py-3.5 rounded-full font-display text-sm font-bold text-[#050B1A] bg-gradient-to-r from-diamond-blue via-ice-cyan to-[#bfe8ff] hover:shadow-[0_0_24px_rgba(122,209,250,0.6)] transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                       >
-                        <Sparkles className="w-4 h-4 text-[#050B1A]" />
-                        <span>Submit Assessment Request</span>
+                        {isSubmitting ? (
+                          <>
+                            <div className="w-4 h-4 border-2 border-[#050B1A]/40 border-t-[#050B1A] rounded-full animate-spin" />
+                            <span>Submitting Request...</span>
+                          </>
+                        ) : (
+                          <>
+                            <ShieldCheck className="w-4 h-4 text-[#050B1A]" />
+                            <span>Submit Assessment Request</span>
+                          </>
+                        )}
                       </button>
                     </div>
                   </div>
@@ -835,6 +901,11 @@ export function ComplianceContent() {
                 <h3 className="font-display text-2xl font-bold text-surface-text">
                   Assessment Request Received
                 </h3>
+                {confirmedRefId && (
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-ice-cyan/10 border border-ice-cyan/30 text-xs font-mono text-ice-cyan">
+                    Ref ID: <span className="font-bold text-white tracking-wider">{confirmedRefId}</span>
+                  </div>
+                )}
                 <p className="text-muted-text text-sm max-w-md">
                   Thank you, <span className="text-ice-cyan font-semibold">{assessmentData.fullName}</span>. Our regulatory audit specialists will review your frameworks ({assessmentData.frameworks.join(', ')}) and contact you within 1 business day.
                 </p>
@@ -848,7 +919,8 @@ export function ComplianceContent() {
             )}
 
           </div>
-        </div>
+        </div>,
+        document.body
       )}
 
     </div>

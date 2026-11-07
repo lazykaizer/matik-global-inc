@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import Link from 'next/link';
 import { 
   ArrowRight, 
@@ -14,7 +15,6 @@ import {
   Cloud, 
   Scale, 
   Calendar, 
-  Sparkles,
   Layers,
   Network,
   X
@@ -118,6 +118,11 @@ const cloudDockItems: ToolDockItem[] = [
 ];
 
 export function AIMLContent() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const [isAssessmentOpen, setIsAssessmentOpen] = useState(false);
 
   // Assessment Form State
@@ -132,6 +137,49 @@ export function AIMLContent() {
     companyName: ''
   });
   const [assessmentSubmitted, setAssessmentSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [confirmedRefId, setConfirmedRefId] = useState<string>('');
+
+  const handleAssessmentSubmit = async () => {
+    if (!assessmentData.fullName || !assessmentData.workEmail) return;
+    setIsSubmitting(true);
+    setSubmitError(null);
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'assessment',
+          serviceType: 'aiml',
+          serviceTitle: 'AI Readiness Assessment',
+          fullName: assessmentData.fullName,
+          workEmail: assessmentData.workEmail,
+          companyName: assessmentData.companyName,
+          timeline: assessmentData.timeline,
+          details: {
+            'Target Industry': assessmentData.industry || 'Not specified',
+            'AI Maturity Level': assessmentData.aiMaturity || 'Not specified',
+            'Primary Objective': assessmentData.primaryObjective || 'Not specified',
+            'Implementation Timeline': assessmentData.timeline || 'Not specified',
+          }
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || 'Submission failed. Please try again.');
+      }
+
+      setConfirmedRefId(data.referenceId || '');
+      setAssessmentSubmitted(true);
+    } catch (err: any) {
+      setSubmitError(err.message || 'Unable to submit assessment. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div 
@@ -166,7 +214,7 @@ export function AIMLContent() {
             description="We help life sciences and other regulated companies take AI from idea to production, with clean data, validated models and governance built in."
             primaryCta="Book Your Free Assessment"
             onPrimary={() => setIsAssessmentOpen(true)}
-            secondaryCta="Watch AI Workflow"
+            secondaryCta=""
             proof={{ before: 'Trusted by', value: 'Life Sciences & Regulated', after: 'enterprises' }}
             sculptureLabel="MATIC · AI 3D"
             sculptureHint="Click to change shape · Drag to rotate"
@@ -542,14 +590,20 @@ export function AIMLContent() {
       {/* =========================================================================
           INTERACTIVE 3-STEP AI READINESS ASSESSMENT MODAL
           ========================================================================= */}
-      {isAssessmentOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center px-4 bg-midnight/85 backdrop-blur-xl">
-          <div className="relative w-full max-w-2xl rounded-3xl bg-[#0B1630] border border-ice-cyan/40 p-8 shadow-[0_0_60px_rgba(61,139,255,0.35)] overflow-hidden">
+      {isAssessmentOpen && mounted && createPortal(
+        <div 
+          className="fixed inset-0 z-[200] overflow-y-auto p-4 sm:p-6 py-8 sm:py-12 flex items-start sm:items-center justify-center bg-midnight/90 backdrop-blur-xl animate-in fade-in duration-200"
+          onClick={() => setIsAssessmentOpen(false)}
+        >
+          <div 
+            className="relative w-full max-w-2xl my-auto rounded-3xl bg-[#0B1630] border border-ice-cyan/40 p-6 sm:p-8 shadow-[0_0_60px_rgba(61,139,255,0.35)] max-h-[calc(100vh-4rem)] overflow-y-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
             
             {/* Close Button */}
             <button 
               onClick={() => setIsAssessmentOpen(false)}
-              className="absolute top-6 right-6 w-9 h-9 rounded-full bg-midnight/80 border border-glass-border flex items-center justify-center text-muted-text hover:text-white transition-colors cursor-pointer"
+              className="absolute top-4 right-4 sm:top-6 sm:right-6 w-9 h-9 rounded-full bg-midnight/80 border border-glass-border flex items-center justify-center text-muted-text hover:text-white transition-colors cursor-pointer z-10"
             >
               <X className="w-5 h-5" />
             </button>
@@ -560,7 +614,7 @@ export function AIMLContent() {
                 {/* Header & Steps */}
                 <div>
                   <div className="flex items-center gap-2 mb-1">
-                    <Sparkles className="w-4 h-4 text-ice-cyan" />
+                    <Layers className="w-4 h-4 text-ice-cyan" />
                     <span className="font-mono text-xs uppercase text-ice-cyan tracking-wider font-semibold">
                       STEP {assessmentStep} OF 3
                     </span>
@@ -758,21 +812,35 @@ export function AIMLContent() {
                       />
                     </div>
 
-                    <div className="flex justify-between pt-4">
+                    {submitError && (
+                      <div className="p-3 rounded-xl bg-red-500/15 border border-red-500/30 text-red-300 text-xs text-center">
+                        {submitError}
+                      </div>
+                    )}
+
+                    <div className="flex justify-between items-center pt-4">
                       <button
                         type="button"
                         onClick={() => setAssessmentStep(2)}
-                        className="px-5 py-2 rounded-full font-display text-sm text-muted-text hover:text-white"
+                        disabled={isSubmitting}
+                        className="px-5 py-2 rounded-full font-display text-sm text-muted-text hover:text-white disabled:opacity-50"
                       >
                         ← Back
                       </button>
                       <button
                         type="button"
-                        onClick={() => setAssessmentSubmitted(true)}
-                        disabled={!assessmentData.fullName || !assessmentData.workEmail}
-                        className="px-7 py-3 rounded-full font-display text-sm font-semibold text-white bg-gradient-to-r from-diamond-blue to-[#1D4ED8] shadow-glow-blue hover:shadow-glow-cyan transition-all cursor-pointer"
+                        onClick={handleAssessmentSubmit}
+                        disabled={!assessmentData.fullName || !assessmentData.workEmail || isSubmitting}
+                        className="px-7 py-3 rounded-full font-display text-sm font-semibold text-white bg-gradient-to-r from-diamond-blue to-[#1D4ED8] shadow-glow-blue hover:shadow-glow-cyan transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
                       >
-                        Generate Assessment Report →
+                        {isSubmitting ? (
+                          <>
+                            <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                            <span>Dispatching Assessment...</span>
+                          </>
+                        ) : (
+                          <span>Generate Assessment Report →</span>
+                        )}
                       </button>
                     </div>
                   </div>
@@ -786,6 +854,11 @@ export function AIMLContent() {
                 <h4 className="font-display text-2xl font-bold text-surface-text">
                   Assessment Dispatched!
                 </h4>
+                {confirmedRefId && (
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-ice-cyan/10 border border-ice-cyan/30 text-xs font-mono text-ice-cyan">
+                    Ref ID: <span className="font-bold text-white tracking-wider">{confirmedRefId}</span>
+                  </div>
+                )}
                 <p className="text-sm text-muted-text max-w-md">
                   Thank you, <span className="text-ice-cyan font-semibold">{assessmentData.fullName}</span>. Based on your profile ({assessmentData.industry}), our Principal AI Architect is preparing a production readiness roadmap for <span className="text-white font-medium">{assessmentData.companyName || 'your organization'}</span>.
                 </p>
@@ -794,6 +867,7 @@ export function AIMLContent() {
                     setIsAssessmentOpen(false);
                     setAssessmentSubmitted(false);
                     setAssessmentStep(1);
+                    setSubmitError(null);
                   }}
                   className="mt-4 px-6 py-2.5 rounded-full font-display text-xs font-semibold text-white bg-midnight border border-glass-border hover:border-ice-cyan cursor-pointer"
                 >
@@ -803,7 +877,8 @@ export function AIMLContent() {
             )}
 
           </div>
-        </div>
+        </div>,
+        document.body
       )}
 
     </div>

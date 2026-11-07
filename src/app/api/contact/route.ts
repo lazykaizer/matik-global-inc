@@ -83,9 +83,88 @@ export async function POST(request: NextRequest) {
 
   try {
     const contentType = request.headers.get('content-type') || '';
+
+    // =========================================================================
+    // CASE JSON: SERVICE READINESS ASSESSMENTS & SCOPING
+    // =========================================================================
+    if (contentType.includes('application/json')) {
+      const body = await request.json();
+      const { type } = body;
+
+      if (type === 'assessment') {
+        const {
+          serviceType,
+          serviceTitle,
+          fullName,
+          workEmail,
+          phone,
+          companyName,
+          timeline,
+          details
+        } = body;
+
+        // 1. Validation
+        if (!fullName || typeof fullName !== 'string' || fullName.trim().length < 2) {
+          return NextResponse.json(
+            { error: 'Please provide your full name.' },
+            { status: 400 }
+          );
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!workEmail || typeof workEmail !== 'string' || !emailRegex.test(workEmail.trim())) {
+          return NextResponse.json(
+            { error: 'Please provide a valid work email address.' },
+            { status: 400 }
+          );
+        }
+
+        const referenceId = generateReferenceId(serviceType || 'assessment');
+
+        const assessmentPayload = {
+          type: 'assessment' as const,
+          referenceId,
+          serviceType: serviceType || 'assessment',
+          serviceTitle: serviceTitle || 'Enterprise Readiness Assessment',
+          fullName: fullName.trim(),
+          workEmail: workEmail.trim().toLowerCase(),
+          phone: phone ? String(phone).trim() : undefined,
+          companyName: companyName ? String(companyName).trim() : undefined,
+          timeline: timeline ? String(timeline).trim() : undefined,
+          details: details && typeof details === 'object' ? details : {},
+        };
+
+        // 2. Deliver email to leadership team
+        const notifResult = await sendNotificationEmail(assessmentPayload);
+        if (!notifResult.success) {
+          console.error('[API Contact] Failed to send assessment notification:', notifResult.error);
+        }
+
+        // 3. Auto-reply confirmation to client
+        await sendAutoReplyEmail(
+          assessmentPayload.workEmail,
+          assessmentPayload.fullName,
+          'assessment',
+          referenceId,
+          assessmentPayload.serviceTitle
+        );
+
+        return NextResponse.json({
+          success: true,
+          referenceId,
+          message: 'Your assessment request has been successfully received by our enterprise team.'
+        });
+      }
+
+      return NextResponse.json(
+        { error: `Unsupported JSON submission type: ${type}` },
+        { status: 400 }
+      );
+    }
+
     if (!contentType.includes('multipart/form-data')) {
       return NextResponse.json(
-        { error: 'Invalid content type. Expected multipart/form-data.' },
+        { error: 'Invalid content type. Expected application/json or multipart/form-data.' },
         { status: 400 }
       );
     }

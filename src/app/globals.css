@@ -44,8 +44,8 @@
     --bg: #F0F0F0;
     --surface: #FFFFFF;
     --hero-overlay: rgba(10,10,10,0.55);
-    --text: #111111;
-    --text-muted: #444444;
+    --text: #E1E8F8;
+    --text-muted: #91A3C4;
     --on-primary: #FFFFFF;
     --widget-blue: #0B4FA8;
     --chat-blue: #1F6FE5;
@@ -72,7 +72,7 @@
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
-    color: var(--text);
+    color: var(--color-surface-text, #E1E8F8);
     font-weight: 600;
   }
 }

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { NavigationScrollRestoration } from "@/components/layout/NavigationScrollRestoration";
 import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
@@ -56,12 +57,13 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body className="antialiased min-h-screen flex flex-col pt-20 relative bg-[#050B1A] text-slate-100">
+        <NavigationScrollRestoration />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <Header />
-        <main className="flex-1 flex flex-col relative z-0">
+        <main className="flex-1 flex flex-col relative">
           {children}
         </main>
         <Footer />

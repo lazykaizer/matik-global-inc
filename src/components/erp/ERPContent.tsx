@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import Link from 'next/link';
 import Image from 'next/image';
 import { 
@@ -35,6 +36,11 @@ import { MetallicButton } from '@/components/ui/metallic-button';
 import HowItWorks from '@/components/ui/how-it-works';
 
 export function ERPContent() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const [isAssessmentOpen, setIsAssessmentOpen] = useState(false);
 
   // Assessment Form State
@@ -49,6 +55,49 @@ export function ERPContent() {
     companyName: ''
   });
   const [assessmentSubmitted, setAssessmentSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [confirmedRefId, setConfirmedRefId] = useState<string>('');
+
+  const handleERPAssessmentSubmit = async () => {
+    if (!assessmentData.fullName || !assessmentData.workEmail) return;
+    setIsSubmitting(true);
+    setSubmitError(null);
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'assessment',
+          serviceType: 'erp',
+          serviceTitle: 'ERP Readiness Assessment',
+          fullName: assessmentData.fullName,
+          workEmail: assessmentData.workEmail,
+          companyName: assessmentData.companyName,
+          timeline: assessmentData.timeline,
+          details: {
+            'Industry': assessmentData.industry || 'Not specified',
+            'Company Size': assessmentData.companySize || 'Not specified',
+            'Current ERP Platform': assessmentData.currentPlatform || 'Not specified',
+            'Target Timeline': assessmentData.timeline || 'Not specified',
+          }
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || 'Submission failed. Please try again.');
+      }
+
+      setConfirmedRefId(data.referenceId || '');
+      setAssessmentSubmitted(true);
+    } catch (err: any) {
+      setSubmitError(err.message || 'Unable to submit assessment. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div 
@@ -918,9 +967,18 @@ export function ERPContent() {
       {/* =========================================================================
           FREE ERP READINESS ASSESSMENT DIAGNOSTIC MODAL
           ========================================================================= */}
-      {isAssessmentOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-midnight/85 backdrop-blur-md">
-          <div className="relative w-full max-w-xl rounded-3xl frosted-glass border-2 border-ice-cyan/50 shadow-frosted-lg p-6 sm:p-8 overflow-hidden bg-[#0B1630]">
+      {isAssessmentOpen && mounted && createPortal(
+        <div 
+          className="fixed inset-0 z-[200] overflow-y-auto p-4 sm:p-6 py-8 sm:py-12 flex items-start sm:items-center justify-center bg-midnight/90 backdrop-blur-md animate-in fade-in duration-200"
+          onClick={() => {
+            setIsAssessmentOpen(false);
+            setAssessmentSubmitted(false);
+          }}
+        >
+          <div 
+            className="relative w-full max-w-xl my-auto rounded-3xl frosted-glass border-2 border-ice-cyan/50 shadow-frosted-lg p-6 sm:p-8 bg-[#0B1630] max-h-[calc(100vh-4rem)] overflow-y-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
             <div className="flex items-center justify-between pb-4 border-b border-glass-border">
               <div>
                 <span className="font-mono text-xs text-ice-cyan uppercase tracking-wider font-semibold">
@@ -1084,21 +1142,35 @@ export function ERPContent() {
                       />
                     </div>
 
-                    <div className="flex justify-between pt-4">
+                    {submitError && (
+                      <div className="p-3 rounded-xl bg-red-500/15 border border-red-500/30 text-red-300 text-xs text-center">
+                        {submitError}
+                      </div>
+                    )}
+
+                    <div className="flex justify-between items-center pt-4">
                       <button
                         type="button"
                         onClick={() => setAssessmentStep(2)}
-                        className="px-5 py-2 rounded-full font-display text-sm text-muted-text hover:text-white"
+                        disabled={isSubmitting}
+                        className="px-5 py-2 rounded-full font-display text-sm text-muted-text hover:text-white disabled:opacity-50"
                       >
                         ← Back
                       </button>
                       <button
                         type="button"
-                        onClick={() => setAssessmentSubmitted(true)}
-                        disabled={!assessmentData.fullName || !assessmentData.workEmail}
-                        className="px-7 py-3 rounded-full font-display text-sm font-semibold text-white bg-gradient-to-r from-diamond-blue to-[#1D4ED8] shadow-glow-blue hover:shadow-glow-cyan transition-all cursor-pointer"
+                        onClick={handleERPAssessmentSubmit}
+                        disabled={!assessmentData.fullName || !assessmentData.workEmail || isSubmitting}
+                        className="px-7 py-3 rounded-full font-display text-sm font-semibold text-white bg-gradient-to-r from-diamond-blue to-[#1D4ED8] shadow-glow-blue hover:shadow-glow-cyan transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
                       >
-                        Generate Assessment Report →
+                        {isSubmitting ? (
+                          <>
+                            <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                            <span>Dispatching Assessment...</span>
+                          </>
+                        ) : (
+                          <span>Generate Assessment Report →</span>
+                        )}
                       </button>
                     </div>
                   </div>
@@ -1112,6 +1184,11 @@ export function ERPContent() {
                 <h4 className="font-display text-2xl font-bold text-surface-text">
                   Assessment Dispatched!
                 </h4>
+                {confirmedRefId && (
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-ice-cyan/10 border border-ice-cyan/30 text-xs font-mono text-ice-cyan">
+                    Ref ID: <span className="font-bold text-white tracking-wider">{confirmedRefId}</span>
+                  </div>
+                )}
                 <p className="text-sm text-muted-text max-w-md">
                   Thank you, <span className="text-ice-cyan font-semibold">{assessmentData.fullName}</span>. Based on your profile ({assessmentData.industry}), our Senior Enterprise Architect is preparing an unbiased zero-handoff evaluation for <span className="text-white font-medium">{assessmentData.companyName || 'your organization'}</span>.
                 </p>
@@ -1120,6 +1197,7 @@ export function ERPContent() {
                     setIsAssessmentOpen(false);
                     setAssessmentSubmitted(false);
                     setAssessmentStep(1);
+                    setSubmitError(null);
                   }}
                   className="mt-4 px-6 py-2.5 rounded-full font-display text-xs font-semibold text-white bg-midnight border border-glass-border hover:border-ice-cyan cursor-pointer"
                 >
@@ -1128,7 +1206,8 @@ export function ERPContent() {
               </div>
             )}
           </div>
-        </div>
+        </div>,
+        document.body
       )}
 
     </div>

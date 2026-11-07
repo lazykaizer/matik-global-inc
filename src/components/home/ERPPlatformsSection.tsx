@@ -132,7 +132,9 @@ export const ERPPlatformsSection: React.FC = () => {
                   margin: '8px 0 0'
                 }}
               >
-                {platform.name}
+                <Link href={platform.href} className="hover:text-cyan-300 transition-colors">
+                  {platform.name}
+                </Link>
               </h3>
 
               <p style={{ margin: 0, fontSize: '15px', lineHeight: 1.65, color: '#C5D2EA' }}>
@@ -146,25 +148,6 @@ export const ERPPlatformsSection: React.FC = () => {
                   </li>
                 ))}
               </ul>
-
-              <Link href={platform.href} className="erp-explore">
-                Explore{' '}
-                <span className="dot">
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    aria-hidden="true"
-                  >
-                    <path d="M5 12h14M13 6l6 6-6 6" />
-                  </svg>
-                </span>
-              </Link>
             </article>
           ))}
         </div>

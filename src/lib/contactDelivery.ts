@@ -63,8 +63,30 @@ export interface CareersSubmissionPayload {
   additionalFiles?: AttachmentMeta[];
 }
 
-export function generateReferenceId(type: 'business' | 'careers'): string {
-  const prefix = type === 'business' ? 'MGS-BIZ' : 'MGS-CAR';
+export interface AssessmentSubmissionPayload {
+  type: 'assessment';
+  referenceId: string;
+  serviceType: string;
+  serviceTitle: string;
+  fullName: string;
+  workEmail: string;
+  phone?: string;
+  companyName?: string;
+  timeline?: string;
+  details: Record<string, string | string[]>;
+}
+
+export function generateReferenceId(type: string): string {
+  let prefix = 'MGS-LEAD';
+  if (type === 'business') prefix = 'MGS-BIZ';
+  else if (type === 'careers') prefix = 'MGS-CAR';
+  else if (type === 'aiml') prefix = 'MGS-AIML';
+  else if (type === 'erp') prefix = 'MGS-ERP';
+  else if (type === 'applications' || type === 'appdev') prefix = 'MGS-APP';
+  else if (type === 'compliance') prefix = 'MGS-CMP';
+  else if (type === 'accountingtax' || type === 'acctax') prefix = 'MGS-FIN';
+  else if (type === 'assessment') prefix = 'MGS-ASSESS';
+
   const random = Math.random().toString(36).substring(2, 8).toUpperCase();
   const timestamp = Date.now().toString(36).substring(3, 7).toUpperCase();
   return `${prefix}-${timestamp}${random}`;
@@ -117,17 +139,25 @@ function getResendClient(): Resend | null {
  * Mail Delivery Adapter Interface & Implementation via Resend
  */
 export async function sendNotificationEmail(
-  payload: BusinessSubmissionPayload | CareersSubmissionPayload
+  payload: BusinessSubmissionPayload | CareersSubmissionPayload | AssessmentSubmissionPayload
 ): Promise<{ success: boolean; error?: string }> {
   const contactToEmail = process.env.CONTACT_TO_EMAIL || 'kaizer400051@gmail.com';
   const careersToEmail = process.env.CAREERS_TO_EMAIL || 'kaizer400051@gmail.com';
   const fromEmail = process.env.FROM_EMAIL || 'Matic Global <onboarding@resend.dev>';
 
-  const isBusiness = payload.type === 'business';
-  const targetInbox = isBusiness ? contactToEmail : careersToEmail;
-  const subject = isBusiness
-    ? `[New Lead] ${payload.company} — ${payload.serviceOfInterest} (${payload.referenceId})`
-    : `[New Applicant] ${payload.fullName} — ${payload.applyingAs} (${payload.referenceId})`;
+  let targetInbox = contactToEmail;
+  let subject = '';
+
+  if (payload.type === 'business') {
+    targetInbox = contactToEmail;
+    subject = `[New Lead] ${payload.company} — ${payload.serviceOfInterest} (${payload.referenceId})`;
+  } else if (payload.type === 'careers') {
+    targetInbox = careersToEmail;
+    subject = `[New Applicant] ${payload.fullName} — ${payload.applyingAs} (${payload.referenceId})`;
+  } else if (payload.type === 'assessment') {
+    targetInbox = contactToEmail;
+    subject = `[Assessment Booked] ${payload.fullName} (${payload.companyName || 'New Lead'}) — ${payload.serviceTitle} (${payload.referenceId})`;
+  }
 
   console.log(`[Contact Delivery] Sending email to ${targetInbox} | Subject: "${subject}" | Ref: ${payload.referenceId}`);
 
@@ -205,7 +235,7 @@ export async function sendNotificationEmail(
   </div>
 </body>
 </html>`;
-    } else {
+    } else if (payload.type === 'careers') {
       replyTo = payload.email;
 
       if (payload.resumeFile?.buffer) {
@@ -294,6 +324,58 @@ export async function sendNotificationEmail(
   </div>
 </body>
 </html>`;
+    } else if (payload.type === 'assessment') {
+      replyTo = payload.workEmail;
+
+      const detailRows = Object.entries(payload.details || {})
+        .map(([k, v]) => `<tr><th>${k}</th><td>${Array.isArray(v) ? v.join(', ') : (v || 'Not specified')}</td></tr>`)
+        .join('');
+
+      htmlContent = `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f4f6fa; margin: 0; padding: 24px; color: #1e293b; }
+    .container { max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.06); border: 1px solid #e2e8f0; }
+    .header { background: #070e1d; padding: 24px 32px; color: #ffffff; border-bottom: 2px solid #3d8bff; }
+    .header h1 { margin: 0 0 6px 0; font-size: 20px; font-weight: 700; color: #7FD6FF; }
+    .header p { margin: 0; font-size: 13px; color: #91A3C4; }
+    .body { padding: 32px; }
+    .badge { display: inline-block; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600; text-transform: uppercase; background: #e0f2fe; color: #0284c7; margin-bottom: 20px; }
+    .ref-box { background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 8px; padding: 12px 16px; margin-bottom: 24px; font-size: 13px; color: #64748b; }
+    .ref-id { font-family: monospace; font-weight: 700; color: #0f172a; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 24px; }
+    th { text-align: left; padding: 10px 12px; font-size: 12px; text-transform: uppercase; color: #64748b; border-bottom: 1px solid #e2e8f0; width: 40%; }
+    td { padding: 10px 12px; font-size: 14px; color: #1e293b; border-bottom: 1px solid #e2e8f0; font-weight: 500; }
+    .footer { background: #f8fafc; padding: 16px 32px; font-size: 12px; color: #94a3b8; text-align: center; border-top: 1px solid #e2e8f0; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Matic Global Solutions</h1>
+      <p>Assessment Booking & Diagnostic Submission</p>
+    </div>
+    <div class="body">
+      <span class="badge">${payload.serviceTitle}</span>
+      <div class="ref-box">Reference ID: <span class="ref-id">${payload.referenceId}</span></div>
+      <table>
+        <tr><th>Client Name</th><td><strong>${payload.fullName}</strong></td></tr>
+        <tr><th>Work Email</th><td><a href="mailto:${payload.workEmail}" style="color: #2563eb;">${payload.workEmail}</a></td></tr>
+        <tr><th>Company</th><td><strong>${payload.companyName || 'Not provided'}</strong></td></tr>
+        <tr><th>Service Stream</th><td><strong style="color: #0284c7;">${payload.serviceTitle}</strong></td></tr>
+        ${payload.timeline ? `<tr><th>Target Timeline</th><td>${payload.timeline}</td></tr>` : ''}
+        ${detailRows}
+      </table>
+    </div>
+    <div class="footer">
+      Sent from Matic Global Solutions Assessment Diagnostic Engine • Reply to reach the lead.
+    </div>
+  </div>
+</body>
+</html>`;
     }
 
     const { data, error } = await resend.emails.send({
@@ -324,8 +406,9 @@ export async function sendNotificationEmail(
 export async function sendAutoReplyEmail(
   email: string,
   fullName: string,
-  type: 'business' | 'careers',
-  referenceId: string
+  type: 'business' | 'careers' | 'assessment',
+  referenceId: string,
+  serviceTitle?: string
 ): Promise<{ success: boolean }> {
   const resend = getResendClient();
   if (!resend) return { success: true };
@@ -334,9 +417,12 @@ export async function sendAutoReplyEmail(
   const fromEmail = process.env.FROM_EMAIL || 'Matic Global <onboarding@resend.dev>';
   const subject = type === 'business'
     ? `We've received your inquiry — Matic Global Solutions [Ref: ${referenceId}]`
-    : `Application received — Matic Global Solutions [Ref: ${referenceId}]`;
+    : type === 'careers'
+    ? `Application received — Matic Global Solutions [Ref: ${referenceId}]`
+    : `Assessment request received: ${serviceTitle || 'Diagnostic'} — Matic Global Solutions [Ref: ${referenceId}]`;
 
   const isBusiness = type === 'business';
+  const isAssessment = type === 'assessment';
 
   const html = `
 <!DOCTYPE html>
@@ -373,7 +459,9 @@ export async function sendAutoReplyEmail(
 
               <p style="font-size: 15px; line-height: 1.6; color: #475569; margin: 0 0 24px 0;">
                 ${
-                  isBusiness
+                  isAssessment
+                    ? `Thank you for booking an assessment for <strong>${serviceTitle || 'our service stream'}</strong> with <strong>Matic Global Solutions</strong>. We have received your diagnostic submission and our senior practice architects are reviewing your requirements.`
+                    : isBusiness
                     ? 'Thank you for contacting <strong>Matic Global Solutions</strong>. We have successfully received your project inquiry and requirements.'
                     : 'Thank you for your interest in joining <strong>Matic Global Solutions</strong>. We have received your application materials and resume.'
                 }
@@ -402,7 +490,19 @@ export async function sendAutoReplyEmail(
                     </div>
 
                     ${
-                      isBusiness
+                      isAssessment
+                        ? `
+                        <div style="margin-bottom: 12px; font-size: 13px; line-height: 1.5; color: #475569;">
+                          <strong style="color: #0f172a;">1. Diagnostic Evaluation:</strong> Our principal practice lead evaluates your technology stack and scope criteria.
+                        </div>
+                        <div style="margin-bottom: 12px; font-size: 13px; line-height: 1.5; color: #475569;">
+                          <strong style="color: #0f172a;">2. Production Roadmap:</strong> We will reach out within <strong>1 business day</strong> with an initial feasibility roadmap and schedule your discovery session.
+                        </div>
+                        <div style="font-size: 13px; line-height: 1.5; color: #475569;">
+                          <strong style="color: #0f172a;">3. Enterprise NDA:</strong> All shared technical information and project context are protected under mutual non-disclosure.
+                        </div>
+                        `
+                        : isBusiness
                         ? `
                         <div style="margin-bottom: 12px; font-size: 13px; line-height: 1.5; color: #475569;">
                           <strong style="color: #0f172a;">1. Architecture Review:</strong> Our senior enterprise consultants review your scope and platform considerations.

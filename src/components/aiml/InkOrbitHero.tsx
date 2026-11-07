@@ -61,7 +61,7 @@ export default function InkOrbitHero({
   description = 'We help life sciences and other regulated companies take AI from idea to production, with clean data, validated models and governance built in.',
   primaryCta = 'Book Your Free Assessment',
   onPrimary,
-  secondaryCta = 'Watch AI Workflow',
+  secondaryCta = '',
   onSecondary,
   demoSteps = D_STEPS,
   proof = { before: 'Trusted by', value: 'Regulated & Life Sciences', after: 'enterprises' },

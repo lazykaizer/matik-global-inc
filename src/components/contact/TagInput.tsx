@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { X, Plus, Sparkles } from 'lucide-react';
+import { X, Plus, Tag } from 'lucide-react';
 
 interface TagInputProps {
   label: string;
@@ -104,7 +104,7 @@ export function TagInput({
       {availableSuggestions.length > 0 && tags.length < maxTags && (
         <div className="flex flex-col gap-1.5 pt-1">
           <span className="text-[11px] font-mono text-muted-text/80 flex items-center gap-1">
-            <Sparkles className="w-3 h-3 text-ice-cyan" /> Suggested for your selected areas:
+            <Tag className="w-3 h-3 text-ice-cyan" /> Suggested for your selected areas:
           </span>
           <div className="flex flex-wrap gap-1.5">
             {availableSuggestions.slice(0, 8).map((suggestion) => (

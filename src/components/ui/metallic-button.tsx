@@ -1,6 +1,6 @@
 "use client";
 
-import { Sparkles } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import React, {
   useCallback,
   useEffect,
@@ -860,7 +860,7 @@ export function MetallicButton({
             className="pointer-events-none absolute inset-0 z-30 flex [transform:translateZ(18px)] items-center justify-center gap-2 px-4"
           >
             {isIcon ? (
-              <Sparkles
+              <ArrowRight
                 className={`w-4 h-4 text-white drop-shadow-[0px_1px_2px_rgba(0,0,0,0.5)] ${SETTLE}`}
               />
             ) : (

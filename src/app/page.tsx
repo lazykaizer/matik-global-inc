@@ -4,7 +4,6 @@ import {
   ArrowRight, 
   ArrowUpRight, 
   CheckCircle2, 
-  Sparkles, 
   Database, 
   Code2, 
   ShieldCheck, 

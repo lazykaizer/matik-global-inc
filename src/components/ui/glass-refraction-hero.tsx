@@ -231,7 +231,7 @@ export function GlassRefractionHero({
             className="max-w-5xl mx-auto"
           >
             {title && (
-              <h1 className="text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-bold mb-8 tracking-tight">
+              <h1 className="text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-bold mb-8 tracking-tight text-white">
                 {titleWords.map((word, wordIndex) => (
                   <motion.span
                     key={wordIndex}

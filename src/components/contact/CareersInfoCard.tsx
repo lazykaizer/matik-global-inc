@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { motion, useReducedMotion } from 'framer-motion';
-import { Mail, Sparkles, CheckCircle2, ShieldCheck } from 'lucide-react';
+import { Mail, Briefcase, Target, CheckCircle2, ShieldCheck } from 'lucide-react';
 import { CONTACT_CONSTANTS } from '@/lib/contactConstants';
 import { CONTACT_ANIMATION } from '@/lib/contactAnimationConstants';
 
@@ -35,7 +35,7 @@ export function CareersInfoCard({ isMobile = false }: CareersInfoCardProps) {
         className="p-6 sm:p-7 rounded-2xl frosted-glass border border-blue-500/25 shadow-lg flex flex-col gap-4"
       >
         <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full border border-cyan-400/25 bg-[#0B1736]/70 backdrop-blur-md shadow-[0_0_20px_rgba(61,139,255,0.12)] w-fit mb-1">
-          <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+          <Briefcase className="w-3.5 h-3.5 text-cyan-400" />
           <span className="text-xs uppercase tracking-[0.16em] text-cyan-300 font-space font-semibold">
             Talent Channels
           </span>
@@ -72,7 +72,7 @@ export function CareersInfoCard({ isMobile = false }: CareersInfoCardProps) {
       >
         <div className="absolute top-0 right-0 w-32 h-32 bg-diamond-blue/10 rounded-full blur-2xl pointer-events-none"></div>
         <div className="flex items-center gap-2 text-ice-cyan">
-          <Sparkles className="w-4 h-4" />
+          <Target className="w-4 h-4" />
           <span className="text-xs font-mono uppercase tracking-wider font-bold">Why Matic</span>
         </div>
 

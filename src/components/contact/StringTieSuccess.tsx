@@ -372,9 +372,9 @@ const CSS =
   ".stt-meta span:nth-child(2){transition-delay:.08s}.stt-meta span:nth-child(3){transition-delay:.16s}" +
   ".stt.is-in .stt-meta span{opacity:1;transform:none}" +
   ".stt-head{position:relative;display:flex;flex-direction:column;align-items:center;margin-top:clamp(20px,4cqw,56px)}" +
-  ".stt-title{font-family:var(--stt-display);font-weight:700;font-size:clamp(40px,9.5cqw,110px);line-height:.95;letter-spacing:-.04em;white-space:nowrap;text-align:center;clip-path:inset(-.25em -.4em -.02em -.4em);color:#0d1115;transition:transform .6s " + EASE + ",opacity .6s}" +
-  ".stt.is-open .stt-title{transform:scale(0.88) translateY(-6px);opacity:.7}" +
-  ".stt-title em{font-style:italic;letter-spacing:-.05em;margin-left:.08em;font-weight:400}" +
+  ".stt-title{font-family:var(--stt-display);font-weight:700;font-size:clamp(26px,6.5cqw,72px);line-height:1.05;letter-spacing:-.03em;text-align:center;color:#0d1115;transition:transform .6s " + EASE + ",opacity .6s}" +
+  ".stt.is-open .stt-title{transform:scale(0.88) translateY(-6px);opacity:.75}" +
+  ".stt-title em{font-style:italic;letter-spacing:-.03em;margin-left:.12em;font-weight:600;color:#0284c7}" +
   ".stt-ch{display:inline-block;transform:translateY(105%);transition:transform 1.1s " + EASE + ";transition-delay:calc(.15s + var(--i) * .045s)}" +
   ".stt.is-in .stt-ch{transform:none}" +
   ".stt-tapes{position:relative;display:flex;flex-direction:column;align-items:center;margin-top:clamp(10px,1.5cqw,20px);font-family:var(--stt-display);font-size:clamp(15px,2.8cqw,32px);line-height:1;letter-spacing:-.02em;transition:opacity .45s " + EASE + ",transform .55s " + EASE + "}" +
@@ -402,26 +402,19 @@ const CSS =
   ".stt-dock-b{position:relative;z-index:4;height:calc(var(--r) * 2.62);display:flex;justify-content:center;align-items:flex-start;padding-top:calc(var(--r) * .22)}" +
   ".stt-content{position:relative;z-index:3;flex:1;display:flex;flex-direction:column;align-items:center;gap:20px;padding:clamp(16px,3cqw,40px) clamp(16px,5cqw,72px) clamp(28px,4.5cqw,52px);text-align:center}" +
   // letter / note inside
-  ".stt-letter{position:absolute;z-index:1;left:50%;bottom:calc(100% - var(--tuck));--tuck:clamp(28px,3.8cqw,52px);width:min(640px,calc(100% - 32px));height:calc(var(--r) * 3.4 - var(--r) * .12 + var(--tuck));transform:translate(-50%,calc(var(--r) * 1.5));transition:transform .75s " + EASE + ";background:#ffffff;color:#070F22;border-radius:16px 16px 0 0;border-top:3px solid var(--stt-accent);box-shadow:0 -1px 0 rgba(0,0,0,.08),0 16px 40px rgba(0,0,0,.4);padding:clamp(20px,3cqw,32px) clamp(20px,4cqw,44px) var(--tuck);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:clamp(8px,1.4cqw,14px);overflow:hidden}" +
+  ".stt-letter{position:absolute;z-index:1;left:50%;bottom:calc(100% - var(--tuck));--tuck:clamp(28px,3.8cqw,52px);width:min(640px,calc(100% - 32px));height:calc(var(--r) * 3.4 - var(--r) * .12 + var(--tuck));transform:translate(-50%,calc(var(--r) * 1.5));transition:transform .75s " + EASE + ";background:#ffffff;color:#070F22;border-radius:16px 16px 0 0;border-top:3px solid var(--stt-accent);box-shadow:0 -1px 0 rgba(0,0,0,.08),0 16px 40px rgba(0,0,0,.4);padding:clamp(28px,4.5cqw,46px) clamp(20px,4cqw,48px) var(--tuck);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:clamp(16px,2.8cqw,26px);overflow:hidden}" +
   ".stt.is-open .stt-letter{transform:translate(-50%,0);transition:transform .95s .25s " + EASE + "}" +
   ".stt-letter>*{position:relative;z-index:1}" +
-  ".stt-note-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:9999px;background:rgba(34,211,238,0.12);border:1px solid rgba(34,211,238,0.35);font-size:clamp(10px,1.1cqw,12px);letter-spacing:.12em;font-weight:700;color:#0284c7;text-transform:uppercase}" +
-  ".stt-note-t{font-family:var(--stt-display);font-size:clamp(24px,4.5cqw,38px);font-weight:800;line-height:1.15;letter-spacing:-.03em;color:#070F22;margin:2px 0 0}" +
-  ".stt-note-name{background:linear-gradient(135deg,#0284c7 0%,#2563eb 50%,#4f46e5 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:inline-block}" +
-  ".stt-note-desc{font-size:clamp(13px,1.4cqw,16px);line-height:1.5;color:#475569;max-width:34em;margin:0 auto;font-weight:400}" +
-  ".stt-note-ref{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:8px;background:#f1f5f9;border:1px solid #e2e8f0;font-family:monospace;font-size:clamp(11px,1.2cqw,13px);color:#334155;margin-top:2px}" +
-  ".stt-note-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px 16px;margin-top:4px}" +
-  ".stt-ghost{font-size:12px;font-family:monospace;font-weight:600;color:#0284c7;text-decoration:underline;text-underline-offset:3px;cursor:pointer;transition:color .2s}" +
-  ".stt-ghost:hover{color:#0369a1}" +
+  ".stt-note-desc{font-size:clamp(15px,2.2cqw,19px);line-height:1.65;color:#1e293b;max-width:34em;margin:0 auto;font-weight:500}" +
+  ".stt-note-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px 16px;margin-top:clamp(8px,1.5cqw,16px)}" +
+  ".stt-ghost{font-size:13px;font-family:monospace;font-weight:600;color:#0284c7;text-decoration:underline;text-underline-offset:4px;cursor:pointer;transition:color .2s,opacity .2s}" +
+  ".stt-ghost:hover{color:#0369a1;opacity:.85}" +
   // cord
   ".stt-cord{position:absolute;left:0;top:0;z-index:5;overflow:visible;max-width:none;pointer-events:none}" +
   ".stt-cord path{fill:none;stroke-linecap:round;stroke-linejoin:round}" +
   ".stt-cord .stt-hit{stroke:transparent;stroke-width:26px;pointer-events:none;cursor:grab;touch-action:none}" +
   ".stt-cord.is-loose .stt-hit{pointer-events:stroke}" +
   ".stt-cord.is-drag .stt-hit{cursor:grabbing}" +
-  "@container (max-width: 640px){" +
-  ".stt-meta span:nth-child(2){display:none}" +
-  "}" +
   "@media (prefers-reduced-motion: reduce){" +
   ".stt *,.stt *::before{transition-duration:.01s !important;transition-delay:0s !important}" +
   ".stt-ch,.stt-meta span{transform:none}" +
@@ -442,9 +435,8 @@ export function StringTieSuccess({
   referenceId,
   onReset,
 }: StringTieSuccessProps) {
-  const meta = ["Matic Global", "2026", "Confirmation"]
-  const title = "Thank"
-  const titleAccent = "You"
+  const title = firstName ? "Thank You," : "Thank"
+  const titleAccent = firstName ? `${firstName}!` : "You"
   const tapes = ["Looking Forward to", "Connect with You!"]
   const paper = "#ffffff"
   const ink = "#070F22"
@@ -757,7 +749,7 @@ export function StringTieSuccess({
   const letters = (word: string) =>
     [...word].map((c, i) => (
       <span key={i} className="stt-ch" style={{ "--i": ci++ } as React.CSSProperties}>
-        {c === " " ? " " : c}
+        {c === " " ? "\u00A0" : c}
       </span>
     ))
 
@@ -776,13 +768,14 @@ export function StringTieSuccess({
         {/* Envelope Top Flap */}
         <div className="stt-flapwrap">
           <div ref={flapRef} className="stt-flap">
-            {meta.length > 0 && (
-              <div className="stt-meta">
-                {meta.slice(0, 3).map((m, i) => (
-                  <span key={i}>({m})</span>
-                ))}
-              </div>
-            )}
+            <div className="stt-meta">
+              <span className="font-mono text-[11px] sm:text-xs font-semibold tracking-wider text-slate-800 uppercase">
+                Matic Global Solutions Inc
+              </span>
+              <span className="font-mono text-[11px] sm:text-xs font-bold tracking-widest text-cyan-600 uppercase">
+                Confirmation
+              </span>
+            </div>
             <div className="stt-head">
               <h2 className="stt-title">
                 <span className="stt-sr">{heading}</span>
@@ -837,35 +830,9 @@ export function StringTieSuccess({
         <div className="stt-body">
           {/* Note that slides out when untied */}
           <div ref={letterRef} id={uid + "note"} className="stt-letter" role="region" aria-label="Confirmation Note">
-            <div className="stt-note-badge">
-              <span className="w-1.5 h-1.5 rounded-full bg-cyan-500 animate-pulse inline-block" />
-              <span>Submission Confirmed</span>
-            </div>
-
-            <h3 className="stt-note-t">
-              Thank you, <span className="stt-note-name">{firstName || 'there'}!</span>
-            </h3>
-
-            <p className="stt-note-desc">
-              {type === 'business'
-                ? "We've received your project enquiry and our leadership team will review and reply within one business day."
-                : "We've received your talent application. If your profile fits, our recruiting team will reach out."}
+            <p className="stt-note-desc font-medium text-slate-800 text-sm sm:text-base md:text-lg leading-relaxed max-w-lg mx-auto">
+              We&apos;ve received your {type === 'business' ? 'project enquiry' : 'application'} and our leadership team will review and reply within one business day.
             </p>
-
-            {referenceId && (
-              <div className="stt-note-ref">
-                <span className="text-slate-400 font-medium">Ref:</span>
-                <span className="font-bold text-slate-800 tracking-wider">{referenceId}</span>
-                <button
-                  type="button"
-                  onClick={copyRef}
-                  className="ml-1 text-[11px] font-semibold text-cyan-600 hover:text-cyan-700 underline cursor-pointer"
-                  title="Copy reference ID"
-                >
-                  {copied ? 'Copied!' : 'Copy'}
-                </button>
-              </div>
-            )}
 
             <div className="stt-note-row">
               <button type="button" className="stt-ghost" onClick={() => toggle(false)}>

@@ -8,7 +8,6 @@ import {
   ExternalLink, 
   ShieldCheck, 
   Cookie, 
-  Sparkles, 
   FileText,
   AlertCircle,
   CheckCircle2
@@ -313,7 +312,7 @@ export function PrivacyPolicyContent() {
             ========================================================================= */}
         <section aria-labelledby="short-version-heading" className="w-full flex flex-col gap-4">
           <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-cyan-400/25 bg-[#0B1736]/70 backdrop-blur-md shadow-[0_0_20px_rgba(61,139,255,0.12)] w-fit mb-1">
-            <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+            <ShieldCheck className="w-3.5 h-3.5 text-cyan-400" />
             <h2 id="short-version-heading" className="text-xs uppercase tracking-[0.16em] text-cyan-300 font-space font-semibold">
               The short version
             </h2>

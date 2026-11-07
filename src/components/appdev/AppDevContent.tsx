@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import Link from 'next/link';
 import {
   Terminal,
@@ -14,7 +15,6 @@ import {
   CheckCircle2,
   ArrowRight,
   X,
-  Sparkles,
   Brain,
   Cloud,
   Scale,
@@ -185,6 +185,11 @@ const TECHNOLOGY_ITEMS = [
 ];
 
 export function AppDevContent() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Scoping Modal State
@@ -198,6 +203,48 @@ export function AppDevContent() {
     companyName: ''
   });
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [confirmedRefId, setConfirmedRefId] = useState<string>('');
+
+  const handleAppDevSubmit = async () => {
+    if (!scopingData.fullName || !scopingData.workEmail) return;
+    setIsSubmitting(true);
+    setSubmitError(null);
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'assessment',
+          serviceType: 'applications',
+          serviceTitle: 'Application Scoping & Architecture Review',
+          fullName: scopingData.fullName,
+          workEmail: scopingData.workEmail,
+          companyName: scopingData.companyName,
+          timeline: scopingData.targetTimeline,
+          details: {
+            'Project Scope Type': scopingData.projectType || 'Not specified',
+            'Compliance & Security Needs': scopingData.complianceNeeds && scopingData.complianceNeeds.length > 0 ? scopingData.complianceNeeds : ['Standard Enterprise Security'],
+            'Target Timeline': scopingData.targetTimeline || 'Not specified',
+          }
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || 'Submission failed. Please try again.');
+      }
+
+      setConfirmedRefId(data.referenceId || '');
+      setSubmitted(true);
+    } catch (err: any) {
+      setSubmitError(err.message || 'Unable to submit scoping request. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   const toggleCompliance = (item: string) => {
     if (scopingData.complianceNeeds.includes(item)) {
@@ -694,14 +741,20 @@ export function AppDevContent() {
       {/* =========================================================================
           INTERACTIVE 3-STEP APPLICATION SCOPING MODAL
           ========================================================================= */}
-      {isModalOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center px-4 bg-midnight/85 backdrop-blur-xl">
-          <div className="relative w-full max-w-2xl rounded-3xl bg-[#0B1630] border border-ice-cyan/40 p-8 shadow-[0_0_60px_rgba(61,139,255,0.35)] overflow-hidden">
+      {isModalOpen && mounted && createPortal(
+        <div 
+          className="fixed inset-0 z-[200] overflow-y-auto p-4 sm:p-6 py-8 sm:py-12 flex items-start sm:items-center justify-center bg-midnight/90 backdrop-blur-xl animate-in fade-in duration-200"
+          onClick={() => setIsModalOpen(false)}
+        >
+          <div 
+            className="relative w-full max-w-2xl my-auto rounded-3xl bg-[#0B1630] border border-ice-cyan/40 p-6 sm:p-8 shadow-[0_0_60px_rgba(61,139,255,0.35)] max-h-[calc(100vh-4rem)] overflow-y-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
 
             {/* Close Button */}
             <button
               onClick={() => setIsModalOpen(false)}
-              className="absolute top-6 right-6 w-9 h-9 rounded-full bg-midnight/80 border border-glass-border flex items-center justify-center text-muted-text hover:text-white transition-colors cursor-pointer"
+              className="absolute top-4 right-4 sm:top-6 sm:right-6 w-9 h-9 rounded-full bg-midnight/80 border border-glass-border flex items-center justify-center text-muted-text hover:text-white transition-colors cursor-pointer z-10"
             >
               <X className="w-5 h-5" />
             </button>
@@ -712,7 +765,7 @@ export function AppDevContent() {
                 {/* Header & Steps */}
                 <div>
                   <div className="flex items-center gap-2 mb-1">
-                    <Sparkles className="w-4 h-4 text-ice-cyan" />
+                    <Layers className="w-4 h-4 text-ice-cyan" />
                     <span className="font-mono text-xs uppercase text-ice-cyan tracking-wider font-semibold">
                       STEP {step} OF 3
                     </span>
@@ -888,21 +941,35 @@ export function AppDevContent() {
                       />
                     </div>
 
-                    <div className="flex justify-between pt-4">
+                    {submitError && (
+                      <div className="p-3 rounded-xl bg-red-500/15 border border-red-500/30 text-red-300 text-xs text-center">
+                        {submitError}
+                      </div>
+                    )}
+
+                    <div className="flex justify-between items-center pt-4">
                       <button
                         type="button"
                         onClick={() => setStep(2)}
-                        className="px-5 py-2 rounded-full font-display text-sm text-muted-text hover:text-white"
+                        disabled={isSubmitting}
+                        className="px-5 py-2 rounded-full font-display text-sm text-muted-text hover:text-white disabled:opacity-50"
                       >
                         ← Back
                       </button>
                       <button
                         type="button"
-                        onClick={() => setSubmitted(true)}
-                        disabled={!scopingData.fullName || !scopingData.workEmail}
-                        className="px-7 py-3 rounded-full font-display text-sm font-semibold text-white bg-gradient-to-r from-diamond-blue to-[#1D4ED8] shadow-glow-blue hover:shadow-glow-cyan transition-all cursor-pointer"
+                        onClick={handleAppDevSubmit}
+                        disabled={!scopingData.fullName || !scopingData.workEmail || isSubmitting}
+                        className="px-7 py-3 rounded-full font-display text-sm font-semibold text-white bg-gradient-to-r from-diamond-blue to-[#1D4ED8] shadow-glow-blue hover:shadow-glow-cyan transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
                       >
-                        Request Architecture Scope →
+                        {isSubmitting ? (
+                          <>
+                            <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                            <span>Requesting Scope...</span>
+                          </>
+                        ) : (
+                          <span>Request Architecture Scope →</span>
+                        )}
                       </button>
                     </div>
                   </div>
@@ -916,6 +983,11 @@ export function AppDevContent() {
                 <h4 className="font-display text-2xl font-bold text-surface-text">
                   Scope Dispatched to Engineering!
                 </h4>
+                {confirmedRefId && (
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-ice-cyan/10 border border-ice-cyan/30 text-xs font-mono text-ice-cyan">
+                    Ref ID: <span className="font-bold text-white tracking-wider">{confirmedRefId}</span>
+                  </div>
+                )}
                 <p className="text-sm text-muted-text max-w-md">
                   Thank you, <span className="text-ice-cyan font-semibold">{scopingData.fullName}</span>. Based on your application specs ({scopingData.projectType}), our Principal Systems Architect is drafting a technical design document and sprint plan for <span className="text-white font-medium">{scopingData.companyName || 'your team'}</span>.
                 </p>
@@ -924,6 +996,7 @@ export function AppDevContent() {
                     setIsModalOpen(false);
                     setSubmitted(false);
                     setStep(1);
+                    setSubmitError(null);
                   }}
                   className="mt-4 px-6 py-2.5 rounded-full font-display text-xs font-semibold text-white bg-midnight border border-glass-border hover:border-ice-cyan cursor-pointer"
                 >
@@ -933,7 +1006,8 @@ export function AppDevContent() {
             )}
 
           </div>
-        </div>
+        </div>,
+        document.body
       )}
 
     </div>

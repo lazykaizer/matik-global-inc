@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import Link from 'next/link';
 import { 
   Calculator, 
@@ -12,7 +13,6 @@ import {
   CheckCircle2, 
   ArrowRight, 
   X, 
-  Sparkles, 
   Rocket, 
   FlaskConical, 
   Building2, 
@@ -27,6 +27,11 @@ import { MetallicButton } from '@/components/ui/metallic-button';
 import HowItWorks from '@/components/ui/how-it-works';
 
 export function AccTaxContent() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Consultation Modal State
@@ -41,6 +46,48 @@ export function AccTaxContent() {
     message: ''
   });
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [confirmedRefId, setConfirmedRefId] = useState<string>('');
+
+  const handleAccTaxSubmit = async () => {
+    if (!consultationData.fullName || !consultationData.workEmail) return;
+    setIsSubmitting(true);
+    setSubmitError(null);
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'assessment',
+          serviceType: 'accountingtax',
+          serviceTitle: 'Finance & Tax Advisory Consultation',
+          fullName: consultationData.fullName,
+          workEmail: consultationData.workEmail,
+          companyName: consultationData.companyName,
+          details: {
+            'Company Stage': consultationData.companyStage || 'Not specified',
+            'Primary Scope Needed': consultationData.primaryService && consultationData.primaryService.length > 0 ? consultationData.primaryService : ['Full Advisory Scope'],
+            'Current Accounting / ERP System': consultationData.accountingSystem || 'Not specified',
+            'Pain Points / Additional Notes': consultationData.message || 'None provided',
+          }
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || 'Submission failed. Please try again.');
+      }
+
+      setConfirmedRefId(data.referenceId || '');
+      setSubmitted(true);
+    } catch (err: any) {
+      setSubmitError(err.message || 'Unable to submit consultation request. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   const toggleService = (item: string) => {
     if (consultationData.primaryService.includes(item)) {
@@ -105,7 +152,7 @@ export function AccTaxContent() {
                   onClick={() => setIsModalOpen(true)}
                   className="relative group inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-display text-sm font-bold tracking-wide text-[#050B1A] bg-gradient-to-r from-[#3D8BFF] via-[#7FD6FF] to-[#A2E2FF] shadow-[0_0_30px_rgba(122,209,250,0.5)] hover:shadow-[0_0_42px_rgba(122,209,250,0.8)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 cursor-pointer"
                 >
-                  <Sparkles className="w-4 h-4 text-[#050B1A]" />
+                  <TrendingUp className="w-4 h-4 text-[#050B1A]" />
                   <span>Request Finance Advisory</span>
                 </button>
                 <a 
@@ -698,15 +745,24 @@ export function AccTaxContent() {
       {/* =========================================================================
           INTERACTIVE FINANCE CONSULTATION MODAL
           ========================================================================= */}
-      {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-          <div className="relative w-full max-w-2xl rounded-3xl frosted-glass border border-ice-cyan/35 shadow-2xl p-6 sm:p-10 flex flex-col gap-6 text-surface-text max-h-[90vh] overflow-y-auto">
+      {isModalOpen && mounted && createPortal(
+        <div 
+          className="fixed inset-0 z-[200] overflow-y-auto p-4 sm:p-6 py-8 sm:py-12 flex items-start sm:items-center justify-center bg-black/85 backdrop-blur-md animate-in fade-in duration-200"
+          onClick={() => {
+            setIsModalOpen(false);
+            setSubmitted(false);
+          }}
+        >
+          <div 
+            className="relative w-full max-w-2xl my-auto rounded-3xl frosted-glass border border-ice-cyan/35 shadow-2xl p-6 sm:p-10 flex flex-col gap-6 text-surface-text max-h-[calc(100vh-4rem)] overflow-y-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
             
             {/* Modal Header */}
             <div className="flex items-center justify-between pb-4 border-b border-white/10">
               <div className="flex items-center gap-2.5">
                 <div className="w-3 h-3 rounded-full bg-ice-cyan animate-pulse"></div>
-                <h3 className="font-display text-xl font-bold tracking-tight">Request Finance Advisory</h3>
+                <h3 className="font-display text-xl font-bold tracking-tight text-surface-text">Request Finance Advisory</h3>
               </div>
               <button 
                 onClick={() => { setIsModalOpen(false); setSubmitted(false); }}
@@ -722,12 +778,17 @@ export function AccTaxContent() {
                 <div className="w-16 h-16 rounded-full bg-emerald-500/20 border border-emerald-400 flex items-center justify-center text-emerald-400">
                   <CheckCircle2 className="w-8 h-8" />
                 </div>
-                <h4 className="font-display text-2xl font-bold">Consultation Request Received!</h4>
+                <h4 className="font-display text-2xl font-bold text-surface-text">Consultation Request Received!</h4>
+                {confirmedRefId && (
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-ice-cyan/10 border border-ice-cyan/30 text-xs font-mono text-ice-cyan">
+                    Ref ID: <span className="font-bold text-white tracking-wider">{confirmedRefId}</span>
+                  </div>
+                )}
                 <p className="text-muted-text text-sm max-w-md">
                   Thank you, <span className="text-white font-medium">{consultationData.fullName || 'there'}</span>. A Senior Finance Advisor will review your profile and reach out within 1 business day.
                 </p>
                 <button 
-                  onClick={() => { setIsModalOpen(false); setSubmitted(false); setStep(1); }}
+                  onClick={() => { setIsModalOpen(false); setSubmitted(false); setStep(1); setSubmitError(null); }}
                   className="mt-4 px-6 py-2.5 rounded-full bg-ice-cyan text-[#050B1A] font-semibold text-sm hover:opacity-90"
                 >
                   Close
@@ -904,19 +965,35 @@ export function AccTaxContent() {
                       />
                     </div>
 
-                    <div className="flex justify-between pt-3">
+                    {submitError && (
+                      <div className="p-3 rounded-xl bg-red-500/15 border border-red-500/30 text-red-300 text-xs text-center">
+                        {submitError}
+                      </div>
+                    )}
+
+                    <div className="flex justify-between items-center pt-3">
                       <button 
+                        type="button"
                         onClick={() => setStep(2)}
-                        className="px-5 py-2 rounded-full border border-white/20 text-xs font-semibold text-muted-text hover:text-white"
+                        disabled={isSubmitting}
+                        className="px-5 py-2 rounded-full border border-white/20 text-xs font-semibold text-muted-text hover:text-white disabled:opacity-50"
                       >
                         Back
                       </button>
                       <button 
-                        onClick={() => setSubmitted(true)}
-                        disabled={!consultationData.fullName || !consultationData.workEmail}
-                        className="px-7 py-2.5 rounded-full font-display text-sm font-bold bg-gradient-to-r from-diamond-blue to-ice-cyan text-[#050B1A] disabled:opacity-40 disabled:cursor-not-allowed hover:opacity-90 shadow-md"
+                        type="button"
+                        onClick={handleAccTaxSubmit}
+                        disabled={!consultationData.fullName || !consultationData.workEmail || isSubmitting}
+                        className="px-7 py-2.5 rounded-full font-display text-sm font-bold bg-gradient-to-r from-diamond-blue to-ice-cyan text-[#050B1A] disabled:opacity-40 disabled:cursor-not-allowed hover:opacity-90 shadow-md flex items-center gap-2"
                       >
-                        Submit Advisory Request
+                        {isSubmitting ? (
+                          <>
+                            <div className="w-4 h-4 border-2 border-[#050B1A]/40 border-t-[#050B1A] rounded-full animate-spin" />
+                            <span>Submitting Advisory Request...</span>
+                          </>
+                        ) : (
+                          <span>Submit Advisory Request</span>
+                        )}
                       </button>
                     </div>
                   </div>
@@ -926,7 +1003,8 @@ export function AccTaxContent() {
             )}
 
           </div>
-        </div>
+        </div>,
+        document.body
       )}
 
     </div>
